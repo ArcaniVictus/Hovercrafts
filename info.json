@@ -1,0 +1,18 @@
+{
+    "name": "Hovercrafts",
+    "version": "0.17.09",
+    "title": "Hovercrafts",
+    "author": "Arcani_Victus",
+    "factorio_version": "0.17",
+    "dependencies": [
+		"base >= 0.17.35",
+		"? electric-vehicles-lib-reborn >= 0.1.2",
+		"? CanalBuilder17 >= 0.0.1",
+		"? laser_tanks >= 0.17.11",
+		"? aai-programmable-vehicles >= 0.0.1",
+		"? bobenemies >= 0.17",
+		"? Rampant >= 0.17",
+		"? Natural_Evolution_Enemies >= 0.0"
+	],
+    "description": "Speed across land and water in your own personal hovercraft, missile armed hovercraft, or electric powered hovercraft (Mod dependent)."
+}

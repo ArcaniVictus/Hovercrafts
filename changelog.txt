@@ -1,0 +1,92 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.17.09
+Date: 14. 05. 2019
+  Changes:
+    - Corrected a spelling error in the extra high voltage transformer's item description
+---------------------------------------------------------------------------------------------------
+Version: 0.17.08
+Date: 08. 05. 2019
+  Changes:
+    - Added support for Vortik's mod, Armor Plating
+    - Added startup setting to enable equipment grid to the hovercraft and missilecraft
+    - Added startup setting to change the dimensions of the hovercraft's and missilecraft's equipment grid if they are enabled
+    - Added support for PiteR's mod, Electric Vehicles Reborn
+    - Changed the entity, item,  and technology descriptions
+---------------------------------------------------------------------------------------------------
+Version: 0.17.07
+Date: 04. 05. 2019
+  Changes:
+    - Removed all dependency of Electric Vehicles: Reborn for electric hovercraft.  Now only requires Electric Vehicles Lib: Reborn
+---------------------------------------------------------------------------------------------------
+Version: 0.17.06
+Date: 02. 05. 2019
+  Changes:
+    - Updated for 0.17.35 API changes
+  Bugfixes:
+    - Resolved an issue with the electric hovercraft's water splash
+---------------------------------------------------------------------------------------------------
+Version: 0.17.05
+Date: 01. 05. 2019
+  Bugfixes:
+    - Resolved a conflict between Hovercrafts, Canelbuilder17, and Bob's character classes (Thanks Bobingabout)
+---------------------------------------------------------------------------------------------------
+Version: 0.17.04
+Date: 25. 04. 2019
+  Changes:
+    - General
+	- Merged extra high voltage transformer tech into electric hovercraft tech
+    - Hovercraft
+	- Removed tech requirement (Engine and plastics)
+	- Added tech requirement (Effectivity module, speed module, and chemical science pack)
+	- Added tech ingredient (chemical science pack)
+    - Electric hovercraft
+	- Removed tech requirement (Extra high voltage transformer tech and speed module 3)
+	- Added tech requirement (Advanced electronics 2 and low density structure)
+	- Removed tech ingredient (Miltary science pack and production science pack)
+    - Missilecraft
+	- Removed tech requirement (Miltary 3)
+	- Added tech requirement (Turrets and rocketry)
+---------------------------------------------------------------------------------------------------
+Version: 0.17.03
+Date: 19. 04. 2019
+  Changes:
+    - General
+	- Added turning while not moving
+	- Reduced turning radius
+	- Changed recipes
+    - Hovercraft
+	- Increased speed (161 to 187)
+	- Increased health (250 to 500)
+    - Electric hovercraft
+	- Reduced speed (268 to 216)
+	- Reduced health (1000 to 250)
+    - Missilecraft
+	- Reduced speed (161 to 115)
+	- Increased health (500 to 1000)
+  Bugfixes:
+    - Resolved an issue with the electric hovercraft's equipment grid losing equipment when picked up
+---------------------------------------------------------------------------------------------------
+Version: 0.17.02
+Date: 29. 03. 2019
+  Changes:
+    - Improved braking for hovercraft and missilecraft
+    - Decrease mining time for hovercraft and missilecraft
+  Bugfixes:
+    - Resolved an issue with the remote.call function causing a non-recoverable error
+---------------------------------------------------------------------------------------------------
+Version: 0.17.01
+Date: 28. 03. 2019
+  Changes:
+    - Updated electric hovercraft recipe and tech to be more balanced
+    - Improved electric hovercraft's braking
+    - Fixed changelog?
+  Features:
+    - Added Extra high voltage transformer for use with electric hovercraft due to extra high power requirements not supported by lower tier transformers
+---------------------------------------------------------------------------------------------------
+Version: 0.17.00
+Date: 27. 03. 2019
+  Changes:
+    - Updated to Factorio 0.17
+    - Added thumbnail
+    - Added an electric hovercraft for use with Electric Vehicles: Reborn
+    - Added optional dependencies for both: Electric Vehicles: Reborn and Electric Vehicles Lib: Reborn
