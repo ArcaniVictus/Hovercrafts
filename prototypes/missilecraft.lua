@@ -92,7 +92,7 @@ end
 missile_turret = {
   attack_parameters = {
 	ammo_category = "rocket",
-	cooldown = 50,
+	cooldown = 80,
 	movement_slow_down_factor = 0.8,
 	projectile_center = {
 	  -0.17000000000000002,
@@ -143,7 +143,7 @@ local missilecraft_tech = {
 	{
 		{type = "unlock-recipe", recipe = "missilecraft"},
 	},
-	prerequisites = {"hovercraft-tech", "turrets", "rocketry"}, -- "weapon-shooting-speed-3",
+	prerequisites = {"hovercraft-tech", "turrets", "rocketry"},
 	unit =
 	{
 		count = 200,
@@ -169,9 +169,9 @@ local missilecraft_recipe = {
 	ingredients =
 	{
         {"hovercraft-item", 1},
-		{"steel-plate", 75},
-        {"gun-turret", 1},
-        {"rocket-launcher", 8}
+		{"advanced-circuit", 40},
+        {"gun-turret", 2},
+        {"rocket-launcher", 16}
     },
 	result = "missilecraft",
 	result_count = 1

@@ -5,6 +5,7 @@
 local isWaterTile = {["water"]=true,["deepwater"]=true}
 local isHovercraft = {["hovercraft-entity"]=true,["ecraft-entity"]=true,["missilecraft"]=true,["lcraft-entity"]=true}
 
+
 -- check for other mods that make water effects
 -- push all into on_load?
 local makeEffects = true
@@ -60,7 +61,7 @@ script.on_event(defines.events.on_player_changed_position, function(e)
 end)
 
 
--- now and then create smoke, ripple
+-- Now and then create smoke, ripple
 local function	tickHandler(e)
 	local eTick = e.tick
 	if eTick % 7==2 then
@@ -81,25 +82,37 @@ local function	tickHandler(e)
 	end
 end
 script.on_event(defines.events.on_tick,tickHandler)
-
 script.on_load(modCheck)
 
--- register transformer with electric vehicle lib mod
-script.on_init(function()
-	if game.active_mods["electric-vehicles-lib-reborn"] then
-		remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
+
+-- Hovercraft difting
+script.on_event(defines.events.on_tick, function(event)
+if true then --check if drifting setting is active_mods
+	for unit_number, tbl in pairs(global.hovercrafts) do
+		local drift_x = tbl.entity.position.x-tbl.position.x
+		local drift_y = tbl.entity.position.y-tbl.position.y
+			drift_x = drift_x*0.1+tbl.drift.x*0.9
+			drift_y = drift_y*0.1+tbl.drift.y*0.9
+		game.players[1].print((drift_x^2+drift_y^2)^0.5)
+		if (drift_x^2+drift_y^2)^0.5 >0.003 then
+			tbl.entity.teleport{tbl.position.x+drift_x,tbl.position.y+drift_y}
+			tbl.drift = {x=drift_x,y=drift_y}
+		else
+			tbl.drift = {x=0,y=0}
+		end
+		tbl.position = tbl.entity.position
 	end
+end
 end)
 
 -------------------------------------------------------------
 ------------Laser tank script for lcraft's turret------------
--------------------------------------------------------------
-
---script.on_init(function()
-	--if game.active_mods["laser_tanks"] then
-if remote.interfaces["laser_tanks"] then
-	
+-------------------------------------------------------------	
 script.on_init(function()
+-- register transformer with electric vehicle lib mod
+	if game.active_mods["electric-vehicles-lib-reborn"] and remote.interfaces["electric-vehicles-lib"] then
+		remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
+	end
 	global.version = 10
 	global.e_vehicles = { }
 	global.braking_trains = { }
@@ -107,15 +120,6 @@ script.on_init(function()
 	global.transformers = { }
 	global.brakes = { }
 	global.vehicles={}
-	if string.sub(game.active_mods["base"],1,4) == "0.16" then
-		global.player_main = defines.inventory.player_main
-		global.player_ammo = defines.inventory.player_ammo
-		global.player_guns = defines.inventory.player_guns
-	else
-		global.player_main = defines.inventory.character_main
-		global.player_ammo = defines.inventory.character_ammo
-		global.player_guns = defines.inventory.character_guns
-	end
 end)
 
 script.on_configuration_changed(function()
@@ -126,15 +130,6 @@ script.on_configuration_changed(function()
 		global.transformers = { }
 		global.brakes = { }
 		global.version = 10
-	end
-	if string.sub(game.active_mods["base"],1,4) == "0.16" then
-		global.player_main = defines.inventory.player_main
-		global.player_ammo = defines.inventory.player_ammo
-		global.player_guns = defines.inventory.player_guns
-	else
-		global.player_main = defines.inventory.character_main
-		global.player_ammo = defines.inventory.character_ammo
-		global.player_guns = defines.inventory.character_guns
 	end
 end)
 
@@ -160,6 +155,7 @@ function table_length(tbl)
 end
 
 script.on_nth_tick(3, function(event)
+	if game.active_mods["laser_tanks"] then
 	local temp_count = table_length(game.connected_players )
 	local i
 
@@ -188,21 +184,21 @@ script.on_nth_tick(3, function(event)
 							techlevel = 3
 						end
 					end
-					local stack = game.connected_players[playerid].get_inventory(global.player_main).find_item_stack("lasertanks-ammo-"..techlevel)
+					local stack = game.connected_players[playerid].get_inventory(defines.inventory.character_main).find_item_stack("lasertanks-ammo-"..techlevel)
 					if stack then
 						stack.clear()
 					end
-					stack = game.connected_players[playerid].get_inventory(global.player_main).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
-					if stack then
-						stack.clear()
-					end
-					
-					stack = game.connected_players[playerid].get_inventory(global.player_ammo).find_item_stack("lasertanks-ammo-"..techlevel)
+					stack = game.connected_players[playerid].get_inventory(defines.inventory.character_main).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
 					if stack then
 						stack.clear()
 					end
 					
-					stack = game.connected_players[playerid].get_inventory(global.player_ammo).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
+					stack = game.connected_players[playerid].get_inventory(defines.inventory.character_ammo).find_item_stack("lasertanks-ammo-"..techlevel)
+					if stack then
+						stack.clear()
+					end
+					
+					stack = game.connected_players[playerid].get_inventory(defines.inventory.character_ammo).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
 					if stack then
 						stack.clear()
 					end
@@ -327,6 +323,5 @@ script.on_nth_tick(3, function(event)
 			i=i+1
 		end
 	end
-end)
 end
---end)
+end)

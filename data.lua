@@ -17,8 +17,8 @@ local updates = {
 	icon = "__Hovercrafts__/graphics/icons/ecraft_small.png",
 	icon_size = 32,	
 	braking_power = "1000kW",
-	consumption = "3MW",
-	effectivity = 0.21,
+	consumption = "6MW",
+	effectivity = 0.11, --0.21,
 	max_health = 250,
 	rotation_speed = 0.0075,
 	weight = 1500,
@@ -43,7 +43,7 @@ local updates = {
     },
 	burner =
     {
-      effectivity = 0.5,
+      effectivity = nil,
       fuel_inventory_size = 0,
     },
 }
@@ -77,7 +77,7 @@ local ecraft_tech = {
 		recipe = "ecraft-recipe"
 		},
 	},
-	prerequisites = {"hovercraft-tech"}, --, "extra-high-voltage-transformer-tech", "advanced-electronics-2", "low-density-structure"
+	prerequisites = {"hovercraft-tech", "extra-high-voltage-transformer-tech"}, --, "advanced-electronics-2", "low-density-structure"
 	unit =
 	{
 		count = 400,
@@ -214,8 +214,8 @@ local extra_high_voltage_transformer_equipment = {
     energy_source =
     {
       type = "electric",
-      buffer_capacity = math.ceil(300 / 60) .. "MW",
-      input_flow_limit = 300 .. "MW",
+      buffer_capacity = math.ceil(500 / 60) .. "MW",
+      input_flow_limit = 500 .. "MW",
       output_flow_limit = "0W",
       usage_priority = "primary-input"
     },
@@ -389,7 +389,7 @@ local lcraft_tech = {
 		recipe = "lcraft-recipe"
 		},
 	},
-	prerequisites = {"hovercraft-tech", "laser-turrets", "laser-rifle-2"}, --, "extra-high-voltage-transformer-tech",  "low-density-structure", "advanced-electronics-2"
+	prerequisites = {"hovercraft-tech", "laser-turrets", "laser-rifle-2", "nuclear-power", "extra-high-voltage-transformer-tech"}, --,  "low-density-structure", "advanced-electronics-2"
 	unit =
 	{
 		count = 400,
@@ -415,10 +415,10 @@ local lcraft_recipe = {
 	enabled = false,
 	ingredients =
 	{
-		{"hovercraft-item", 1},
-        {"low-density-structure", 25},
-		{"electric-engine-unit", 40},
-		{"processing-unit", 20},
+		{"ecraft-item", 1},
+        {"laser-turret", 2},
+		{"heat-pipe", 50},
+		{"heat-exchanger", 2},
     },
 	result = "lcraft-item",
 	result_count = 1
@@ -428,13 +428,13 @@ local lcraft_recipe = {
 local lcraft_equipment = {
 	type = "equipment-grid",
     name = "lcraft-equipment",
-    width = 8,
-    height = 8,
+    width = 10,
+    height = 10,
     equipment_categories = {"armor", "electric-vehicles-equipment"},
 	}
 
 --[[ Lcraft gun
-local lcraft_gun_item = table.deepcopy(data.raw.gun["vehicle-laser-gun"])
+local lcraft_gun = table.deepcopy(data.raw.gun["vehicle-laser-gun"])
 local updates = {
 	name = "lcraft-laser",
     icons = "__Hovercrafts__/graphics/icons/railgun.png",
@@ -444,8 +444,8 @@ local updates = {
       cooldown = 40,
 	  range = 24
 	  }
-	}
-]]--
+	}]]--
+
 -- Support for Vortik's Armor Plating mod
 if mods["vtk-armor-plating"] then
 	   table.insert(lcraft_equipment.equipment_categories, "vtk-armor-plating")
@@ -457,7 +457,7 @@ data:extend({
 	lcraft_tech,
 	lcraft_recipe,
 	lcraft_equipment,
-	--lcraft_gun_item,
+	--lcraft_gun,
 })
 end
 end

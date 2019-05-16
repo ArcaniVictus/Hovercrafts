@@ -3,6 +3,11 @@ Version: 0.17.09
 Date: 14. 05. 2019
   Changes:
     - Corrected a spelling error in the extra high voltage transformer's item description
+    - Added an electric power laser hovercraft for use with Laser Tanks (Thanks OwnlyMe)
+    - Missilecraft
+	- Removed recipe ingredient (Steel plate)
+	- Added recipe ingredient (Advanced circuit)
+	- Doubled recipe ingredient requirements (Gun turret and Rocket launcher)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.08
 Date: 08. 05. 2019
