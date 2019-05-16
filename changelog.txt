@@ -11,6 +11,7 @@ Date: 16. 05. 2019
     - Electric hovercraft
 	- Reduced the equipment grid (10x10 to 8x8)
     - Missilecraft
+	- Increased health (1000 to 1200)
 	- Removed recipe ingredient (Steel plate)
 	- Added recipe ingredient (Advanced circuit)
 	- Doubled recipe ingredient requirements (Gun turret and Rocket launcher)
