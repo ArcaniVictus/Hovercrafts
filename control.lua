@@ -42,8 +42,10 @@ end
 local function make_splash(player)
 	if isWaterTile[player.surface.get_tile(player.position).name] then
 		local driving = player.driving
-		if not driving or (driving and isHovercraft[player.vehicle.name]) then
-			player.surface.create_entity{name = "water-splash-smoke", position = player.position}
+		--if not driving or (driving and isHovercraft[player.vehicle.name]) then
+		if (driving and isHovercraft[player.vehicle.name]) then
+			local speed = 1+math.min(9,math.floor(math.abs(player.vehicle.speed)*9))
+			player.surface.create_entity{name = "water-splash-smoke-"..speed, position = {player.vehicle.position.x+0.2,player.vehicle.position.y+0.5}}
 		end
 	end
 end
@@ -86,61 +88,200 @@ script.on_load(modCheck)
 
 
 -- Hovercraft difting
+function distance(pos1,pos2)
+	local x=(pos1.x-pos2.x)^2
+	local y=(pos1.y-pos2.y)^2
+	return(x+y)^0.5
+end
+
 script.on_event(defines.events.on_tick, function(event)
-if true then --check if drifting setting is active_mods
+if settings.global["hovercraft-drifting"].value then --check if drifting setting is active_mods
 	for unit_number, tbl in pairs(global.hovercrafts) do
-		local drift_x = tbl.entity.position.x-tbl.position.x
-		local drift_y = tbl.entity.position.y-tbl.position.y
-			drift_x = drift_x*0.1+tbl.drift.x*0.9
-			drift_y = drift_y*0.1+tbl.drift.y*0.9
-		game.players[1].print((drift_x^2+drift_y^2)^0.5)
-		if (drift_x^2+drift_y^2)^0.5 >0.003 then
-			tbl.entity.teleport{tbl.position.x+drift_x,tbl.position.y+drift_y}
-			tbl.drift = {x=drift_x,y=drift_y}
+		if tbl.entity and tbl.entity.valid then
+			local pos = tbl.entity.position
+			local speed = tbl.entity.speed
+			if speed==0 then 
+				tbl.idle_ticks = tbl.idle_ticks + 1
+			else
+				tbl.idle_ticks = 0
+			end
+			if tbl.idle_ticks < 120 then
+				local surroundings = #tbl.entity.surface.find_entities_filtered {area = {{pos.x-1,pos.y-1},{pos.x+1,pos.y+1}}}
+			--if speed ~=0 or surroundings == 1 then
+				local drift_x = pos.x-tbl.position.x
+				local drift_y = pos.y-tbl.position.y
+				drift_x = drift_x*0.05+tbl.drift.x*0.95
+				drift_y = drift_y*0.05+tbl.drift.y*0.95
+				if (drift_x^2+drift_y^2)^0.5 >0.001 then
+					local new_pos = {x=tbl.position.x+drift_x,y=tbl.position.y+drift_y}
+					
+					
+					--local collision_masks = {}
+					--for mask in pairs(tbl.entity.prototype.collision_mask) do
+					--	table.insert(collision_masks,mask)
+	                --
+					--end
+					--local collisions = tbl.entity.surface.find_entities_filtered{position=new_pos, collision_mask= collision_masks}
+					--if #collisions ==0 or #collisions ==1 and collisions[1].unit_number ==tbl.entity.unit_number then
+					
+					tbl.entity.teleport(-5,-5)
+					local cliffs = tbl.entity.surface.find_entities_filtered { name = "cliff", area = {{new_pos.x-1.15,new_pos.y-1.15},{new_pos.x+1.15,new_pos.y+1.15}}}
+					local rocks = tbl.entity.surface.find_entities_filtered { type = "simple-entity", area = {{new_pos.x-1,new_pos.y-1},{new_pos.x+1,new_pos.y+1}}}
+					if #cliffs >0 then
+						local noncolliding = tbl.entity.surface.find_non_colliding_position("hovercraft-collision", new_pos, 0.1, 0.03)
+						if noncolliding and distance(noncolliding,new_pos)<0.04 then
+							tbl.entity.teleport(noncolliding)
+							tbl.idle_ticks = 120
+						else
+							tbl.entity.teleport(5,5)
+							tbl.drift = {x=0,y=0}
+							tbl.idle_ticks = 120
+						end
+					else
+						if #rocks == 0 or tbl.entity.surface.can_place_entity{name="hovercraft-collision",position=new_pos, direction=tbl.entity.orientation} then
+							tbl.entity.teleport(new_pos)
+						else
+							tbl.entity.teleport(5,5)
+						end
+					end
+					tbl.drift = {x=drift_x,y=drift_y}
+				else
+					tbl.drift = {x=0,y=0}
+				end
+			else
+				tbl.drift = {x=0,y=0}
+			end
+			tbl.position = tbl.entity.position
 		else
-			tbl.drift = {x=0,y=0}
+			global.hovercrafts[unit_number] = nil
 		end
-		tbl.position = tbl.entity.position
-	end
+	end	
 end
 end)
+
+
+
+-- Removes rocks if startup setting is selected
+--[[
+local function removerocks(e)
+    local entities = e.surface.find_entities_filtered({ area = e.area, type = 'simple-entity' })
+    for _, entity in pairs(entities) do
+        if entity.prototype.count_as_rock_for_filtered_deconstruction then
+            entity.destroy()
+        end
+    end
+end
+
+local function removeEntitiesOfType(e, type)
+    local entities = e.surface.find_entities_filtered({ area = e.area, type = type })
+    local count = 0
+    for _, entity in pairs(entities) do
+        count = count + 1
+        entity.destroy()
+    end
+end
+
+script.on_event(defines.events.on_chunk_generated, function(e)
+            e.surface.destroy_decoratives(e.area)
+            if settings.startup["removerocks"].value == true then removerocks(e) end
+end)
+
+
+script.on_event(defines.events.on_chunk_generated, function()
+            --e.surface.destroy_decoratives(e.area)
+            if settings.startup["removecliffs"].value == true then remove_cliffs
+			end
+
+
+function remove_cliffs()
+  local kills = 0
+  for i=1,#game.players do
+    for _, v in pairs(game.players[i].surface.find_entities_filtered{type="cliff"}) do
+      v.destroy()
+      kills = kills + 1
+    end
+  end
+  for i=1,#game.players do
+    game.players[i].print(kills.." cliffs removed")
+  end 
+end
+end)
+]]--
+
 
 -------------------------------------------------------------
 ------------Laser tank script for lcraft's turret------------
 -------------------------------------------------------------	
 script.on_init(function()
--- register transformer with electric vehicle lib mod
-	if game.active_mods["electric-vehicles-lib-reborn"] and remote.interfaces["electric-vehicles-lib"] then
+	if game.active_mods["electric-vehicles-lib-reborn"] then
 		remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
 	end
-	global.version = 10
 	global.e_vehicles = { }
 	global.braking_trains = { }
 	global.braking_vehicles = { }
 	global.transformers = { }
 	global.brakes = { }
 	global.vehicles={}
+	global.hovercrafts = {}
+	if string.sub(game.active_mods["base"],1,4) == "0.16" then
+		global.player_main = defines.inventory.player_main
+		global.player_ammo = defines.inventory.player_ammo
+		global.player_guns = defines.inventory.player_guns
+	else
+		global.player_main = defines.inventory.character_main
+		global.player_ammo = defines.inventory.character_ammo
+		global.player_guns = defines.inventory.character_guns
+	end
+	global.version = 9
 end)
 
 script.on_configuration_changed(function()
 	if not global.version then
+		if game.active_mods["electric-vehicles-lib-reborn"] then
+			remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
+		end
 		global.e_vehicles = { }
 		global.braking_trains = { }
 		global.braking_vehicles = { }
 		global.transformers = { }
 		global.brakes = { }
-		global.version = 10
+		global.vehicles={}
+		global.hovercrafts = {}
+		global.version = 9
+		for _, surface in pairs(game.surfaces) do
+			local names = {}
+			for name in pairs(isHovercraft) do
+				table.insert(names,name)
+			end
+			entities = surface.find_entities_filtered{name = names}
+			for _, entity in pairs(entities) do
+				global.hovercrafts[entity.unit_number]={entity = event.created_entity,drift={x=0,y=0}, position = entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
+			end
+		end
+	end
+	if string.sub(game.active_mods["base"],1,4) == "0.16" then
+		global.player_main = defines.inventory.player_main
+		global.player_ammo = defines.inventory.player_ammo
+		global.player_guns = defines.inventory.player_guns
+	else
+		global.player_main = defines.inventory.character_main
+		global.player_ammo = defines.inventory.character_ammo
+		global.player_guns = defines.inventory.character_guns
+	end
+end)
+
+script.on_event(defines.events.on_built_entity, function(event)
+	if event.created_entity.name == "lcraft-entity" then
+		table.insert(global.vehicles,event.created_entity)
+	end
+	if isHovercraft[event.created_entity.name] then
+		global.hovercrafts[event.created_entity.unit_number] = {entity = event.created_entity,drift={x=0,y=0}, position = event.created_entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
 	end
 end)
 
 TICKS_PER_UPDATE = 20 --*3 (per 3rd tick)
 ENERGY_PER_CHARGE = 749998 -- wtf 500k is buggy?
 
-script.on_event(defines.events.on_built_entity, function(event)
-	if event.created_entity.name == "lcraft-entity" then
-		table.insert(global.vehicles,event.created_entity)
-	end
-end)
 
 function table_length(tbl)
 	if tbl == nil then
@@ -184,21 +325,21 @@ script.on_nth_tick(3, function(event)
 							techlevel = 3
 						end
 					end
-					local stack = game.connected_players[playerid].get_inventory(defines.inventory.character_main).find_item_stack("lasertanks-ammo-"..techlevel)
+					local stack = game.connected_players[playerid].get_inventory(global.player_main).find_item_stack("lasertanks-ammo-"..techlevel)
 					if stack then
 						stack.clear()
 					end
-					stack = game.connected_players[playerid].get_inventory(defines.inventory.character_main).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
-					if stack then
-						stack.clear()
-					end
-					
-					stack = game.connected_players[playerid].get_inventory(defines.inventory.character_ammo).find_item_stack("lasertanks-ammo-"..techlevel)
+					stack = game.connected_players[playerid].get_inventory(global.player_main).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
 					if stack then
 						stack.clear()
 					end
 					
-					stack = game.connected_players[playerid].get_inventory(defines.inventory.character_ammo).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
+					stack = game.connected_players[playerid].get_inventory(global.player_ammo).find_item_stack("lasertanks-ammo-"..techlevel)
+					if stack then
+						stack.clear()
+					end
+					
+					stack = game.connected_players[playerid].get_inventory(global.player_ammo).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
 					if stack then
 						stack.clear()
 					end
@@ -323,5 +464,5 @@ script.on_nth_tick(3, function(event)
 			i=i+1
 		end
 	end
-end
+	end
 end)

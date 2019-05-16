@@ -92,7 +92,7 @@ end
 missile_turret = {
   attack_parameters = {
 	ammo_category = "rocket",
-	cooldown = 80,
+	cooldown = 300,
 	movement_slow_down_factor = 0.8,
 	projectile_center = {
 	  -0.17000000000000002,

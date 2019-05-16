@@ -12,6 +12,12 @@ local grid_dimensions = {
 }
 
 data:extend({
+	{
+    type = "bool-setting",
+    name = "hovercraft-drifting",
+    setting_type = "runtime-global",
+    default_value = true
+    },
     {
     type = "bool-setting",
     name = "hovercraft-grid",
@@ -35,4 +41,19 @@ data:extend({
     allowed_values = grid_dimensions,
     order = "c",
 	},
+--[[    {
+    type = "bool-setting",
+    name = "removerocks",
+    setting_type = "startup",
+    default_value = true,
+    order = "d"
+    },
+	]]--
+	    {
+    type = "bool-setting",
+    name = "removecliffs",
+    setting_type = "startup",
+    default_value = true,
+    order = "e"
+    },
 })

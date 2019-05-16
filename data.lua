@@ -8,6 +8,18 @@ require("prototypes.hovercraft")
 require("prototypes.swimming")
 require("prototypes.missilecraft")
 
+
+-- collision box
+local collision = table.deepcopy(data.raw.car.car)
+    collision.collision_box[1][1]=collision.collision_box[1][1]*1.2
+    collision.collision_box[1][2]=collision.collision_box[1][2]*1.2
+    collision.collision_box[2][1]=collision.collision_box[2][1]*1.2
+    collision.collision_box[2][2]=collision.collision_box[2][2]*1.2
+    collision.name="hovercraft-collision"
+    collision.order="hovercraft-collision"
+data:extend({collision})
+	
+	
 	-- Checks for mod, Electric vehicles reborn, and if true inserts electric hovercraft
 -- Ecraft entity
 if mods["electric-vehicles-lib-reborn"] then
@@ -115,8 +127,8 @@ local ecraft_recipe = {
 local ecraft_equipment = {
 	   type = "equipment-grid",
        name = "ecraft-equipment",
-       width = 10,
-       height = 10,
+       width = 8,
+       height = 8,
        equipment_categories = { "armor", "electric-vehicles-equipment" },
 	}
 

@@ -3,27 +3,29 @@
 
 
 -- only add if not already there (from CanalBuilder mod)
-if data.raw["smoke-with-trigger"]["water-splash-smoke"] == nil then
--- water splash animations
+for i=1,10 do
+
 	data:extend{{
 		type = "smoke-with-trigger",
-		name = "water-splash-smoke",
+		name = "water-splash-smoke-"..i,
 		flags = {"not-on-map", "placeable-off-grid"},
-		render_layer = "object",
+		render_layer = "decorative",
 		show_when_smoke_off = true,
 		deviation = {0, 0},
 		start_scale = 1,
 		end_scale = 1,
 		animation =
 		{
-			filename = "__base__/graphics/entity/water-splash/water-splash.png",
+			filename = "__Hovercrafts__/graphics/water-splash.png",
 			priority = "extra-high",
 			width = 92,
 			height = 66,
 			frame_count = 15,
 			line_length = 5,
 			shift = {-0.437, 0.5},
-			animation_speed = 0.35
+			--tint={r=0.6,g=0.6,b=0.6,a=0.5},
+			animation_speed = 0.28, --0.35
+			scale = 0.5+i/9,
 		},
 		slow_down_factor = 0,
 		affected_by_wind = false,

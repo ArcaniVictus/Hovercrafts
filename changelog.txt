@@ -1,13 +1,20 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.09
-Date: 14. 05. 2019
+Date: 16. 05. 2019
   Changes:
-    - Corrected a spelling error in the extra high voltage transformer's item description
-    - Added an electric power laser hovercraft for use with Laser Tanks (Thanks OwnlyMe)
+    - General
+	- Corrected a spelling error in the extra high voltage transformer's item description
+	- Added an electric hovercraft armed with a laser for use with Laser Tanks
+	- Added drifting to the hovercrafts (Credit Ownlyme)
+    	- Added a runtime global option to enable/disable hovercraft drifting (Enabled by default)
+    	- Corrected an issue with the splash animation (Credit Ownlyme)
+    - Electric hovercraft
+	- Reduced the equipment grid (10x10 to 8x8)
     - Missilecraft
 	- Removed recipe ingredient (Steel plate)
 	- Added recipe ingredient (Advanced circuit)
 	- Doubled recipe ingredient requirements (Gun turret and Rocket launcher)
+	- Reduced the missile launcher's rate of fire (50 to 300)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.08
 Date: 08. 05. 2019
