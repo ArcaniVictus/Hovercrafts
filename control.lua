@@ -84,21 +84,20 @@ script.on_event(defines.events.on_tick,tickHandler)
 
 script.on_load(modCheck)
 
--- register transformer with electric vehicle lib mod 
+-- register transformer with electric vehicle lib mod
 script.on_init(function()
-	if game.active_mods["electric-vehicles-lib"] then
-	--if remote.interfaces["electric-vehicles-lib"] then
-    remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
-end
+	if game.active_mods["electric-vehicles-lib-reborn"] then
+		remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
+	end
 end)
 
 -------------------------------------------------------------
 ------------Laser tank script for lcraft's turret------------
 -------------------------------------------------------------
 
-
---if game.active_mods["laser_tanks"] then
---if remote.interfaces["laser_tanks"] then
+--script.on_init(function()
+	--if game.active_mods["laser_tanks"] then
+if remote.interfaces["laser_tanks"] then
 	
 script.on_init(function()
 	global.version = 10
@@ -108,26 +107,6 @@ script.on_init(function()
 	global.transformers = { }
 	global.brakes = { }
 	global.vehicles={}
-	--[[for _, force in pairs(game.forces) do
-		if force.technologies["laser-rifle-1"].researched == true then
-			force.recipes["lasercar"].enabled = true
-		end
-		if force.technologies["laser-rifle-2"].researched == true then
-			force.recipes["lasertank"].enabled = true
-		end
-		if settings.startup["lasertanks-electric-engine"].value and force.technologies["laser-rifle-1"].researched == true then
-			force.recipes["electric-vehicles-lo-voltage-transformer"].enabled = true
-			force.recipes["electric-vehicles-regen-brake-controller"].enabled = true
-		end
-		if settings.startup["lasertanks-electric-engine"].value and force.technologies["laser-rifle-2"].researched == true then
-			force.recipes["electric-vehicles-hi-voltage-transformer"].enabled = true
-		end
-	end
-	if settings.startup["lasertanks-electric-engine"].value then
-	    remote.call("electric-vehicles-lib", "register-transformer", {name = "electric-vehicles-lo-voltage-transformer"})
-		remote.call("electric-vehicles-lib", "register-transformer", {name = "electric-vehicles-hi-voltage-transformer"})
-		remote.call("electric-vehicles-lib", "register-brake", {name = "electric-vehicles-regen-brake-controller", efficiency = 0.8})
-	end]]--
 	if string.sub(game.active_mods["base"],1,4) == "0.16" then
 		global.player_main = defines.inventory.player_main
 		global.player_ammo = defines.inventory.player_ammo
@@ -140,15 +119,6 @@ script.on_init(function()
 end)
 
 script.on_configuration_changed(function()
-	--[[for _, force in pairs(game.forces) do
-		if settings.startup["lasertanks-electric-engine"].value and game.active_mods["electric-vehicles-lib-reborn"] and force.technologies["laser-rifle-1"].researched == true then
-			force.recipes["electric-vehicles-lo-voltage-transformer"].enabled = true
-			force.recipes["electric-vehicles-regen-brake-controller"].enabled = true
-		end
-		if settings.startup["lasertanks-electric-engine"].value and game.active_mods["electric-vehicles-lib-reborn"] and force.technologies["laser-rifle-2"].researched == true then
-			force.recipes["electric-vehicles-hi-voltage-transformer"].enabled = true
-		end
-	end]]--
 	if not global.version then
 		global.e_vehicles = { }
 		global.braking_trains = { }
@@ -157,15 +127,6 @@ script.on_configuration_changed(function()
 		global.brakes = { }
 		global.version = 10
 	end
-	--[[if use_own_library then 
-		on_configuration_changed() 
-		rebuild_caches()
-	end
-	if settings.startup["lasertanks-electric-engine"].value then
-	    remote.call("electric-vehicles-lib", "register-transformer", {name = "electric-vehicles-lo-voltage-transformer"})
-		remote.call("electric-vehicles-lib", "register-transformer", {name = "electric-vehicles-hi-voltage-transformer"})
-		remote.call("electric-vehicles-lib", "register-brake", {name = "electric-vehicles-regen-brake-controller", efficiency = 0.8})
-	end]]--
 	if string.sub(game.active_mods["base"],1,4) == "0.16" then
 		global.player_main = defines.inventory.player_main
 		global.player_ammo = defines.inventory.player_ammo
@@ -367,3 +328,5 @@ script.on_nth_tick(3, function(event)
 		end
 	end
 end)
+end
+--end)

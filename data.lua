@@ -243,7 +243,7 @@ if mods["electric-vehicles-lib-reborn"] then
 local lcraft_entity = table.deepcopy(data.raw["car"]["ecraft-entity"])
 local updates = {
 	name = "lcraft-entity",
-	icon = "__Hovercrafts__/graphics/icons/ecraft_small.png",
+	icon = "__Hovercrafts__/graphics/icons/lcraft_small.png",
 	icon_size = 32,	
 	braking_power = "1250kW",
 	consumption = "8MW",
@@ -367,7 +367,7 @@ end
 local lcraft_item = {
 	type = "item-with-entity-data",
 	name = "lcraft-item",
-	icon = "__Hovercrafts__/graphics/icons/ecraft_small.png",
+	icon = "__Hovercrafts__/graphics/icons/lcraft_small.png",
 	icon_size = 32,
 	subgroup = "transport2",
 	order = "d[personal-transport]-d",
@@ -380,7 +380,7 @@ local lcraft_item = {
 local lcraft_tech = {
 	type = "technology",
 	name = "lcraft-tech",
-	icon = "__Hovercrafts__/graphics/icons/ecraft_large.png",
+	icon = "__Hovercrafts__/graphics/icons/lcraft_large.png",
 	icon_size = 128,
 	effects =
 	{
