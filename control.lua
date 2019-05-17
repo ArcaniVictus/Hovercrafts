@@ -255,7 +255,7 @@ script.on_configuration_changed(function()
 			end
 			entities = surface.find_entities_filtered{name = names}
 			for _, entity in pairs(entities) do
-				global.hovercrafts[entity.unit_number]={entity = event.created_entity,drift={x=0,y=0}, position = entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
+				global.hovercrafts[entity.unit_number]={entity = entity,drift={x=0,y=0}, position = entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
 			end
 		end
 	end

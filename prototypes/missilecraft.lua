@@ -177,6 +177,10 @@ local missilecraft_recipe = {
 	result_count = 1
 }
 
+-- Support for Vortik's Armor Plating mod
+if mods["vtk-armor-plating"] then
+	   table.insert(missilecraft_recipe.ingredients, {"vtk-armor-plating", 12})
+end
 
 data:extend({
 	missilecraft_tech,

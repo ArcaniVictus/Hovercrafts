@@ -1,4 +1,26 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.17.11
+Date: 17. 05. 2019
+  Changes:
+    - General
+	- Merged extra high voltage transformer tech into electric hovercraft tech
+    - Missilecraft
+	- Added support for armor plating.  Recipe now requires armor plates
+    - Lasercraft
+	- Added support for armor plating.  Recipe now requires armor plates
+    - Extra high voltage transformer
+	- Added an energy capacity of 200MJ
+	- Removed recipe ingredient (processing unit)
+	- Added recipe ingredient (Battery mk2 equipment)
+	- Doubled Recipe ingredient requirement (Lubricant)
+---------------------------------------------------------------------------------------------------
+Version: 0.17.10
+Date: 17. 05. 2019
+  Changes:
+    - Set Extra high capacity transformer as the only usuable transformer in the electric and laser hovercraft
+  Bugfixes:
+    - Resolved an issue which caused a non-recoverable error
+---------------------------------------------------------------------------------------------------
 Version: 0.17.09
 Date: 16. 05. 2019
   Changes:

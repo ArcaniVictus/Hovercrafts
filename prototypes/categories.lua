@@ -2,7 +2,7 @@ data:extend
 {
   {
     type = "equipment-category",
-    name = "electric-vehicles-equipment",
+    name = "electric-hovercraft-equipment",
   },
   
   {

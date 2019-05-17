@@ -48,12 +48,12 @@ data:extend({
     default_value = true,
     order = "d"
     },
-	]]--
-	    {
+	{
     type = "bool-setting",
     name = "removecliffs",
     setting_type = "startup",
     default_value = true,
     order = "e"
     },
+	]]--
 })

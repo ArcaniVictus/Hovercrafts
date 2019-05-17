@@ -20,9 +20,9 @@ local collision = table.deepcopy(data.raw.car.car)
 data:extend({collision})
 	
 	
-	-- Checks for mod, Electric vehicles reborn, and if true inserts electric hovercraft
--- Ecraft entity
+-- Checks for mod, Electric vehicles reborn, and if true inserts electric hovercraft
 if mods["electric-vehicles-lib-reborn"] then
+-- Ecraft entity
 local ecraft_entity = table.deepcopy(data.raw["car"]["hovercraft-entity"])
 local updates = {
 	name = "ecraft-entity",
@@ -63,8 +63,14 @@ for k,v in pairs(updates) do
 	ecraft_entity[k] = updates[k]
 end
 
+
+data:extend({
+	ecraft_entity,
+})	
+
+data:extend({
 -- Item
-local ecraft_item = {
+    {
 	type = "item-with-entity-data",
 	name = "ecraft-item",
 	icon = "__Hovercrafts__/graphics/icons/ecraft_small.png",
@@ -73,11 +79,22 @@ local ecraft_item = {
 	order = "b[personal-transport]-e[ecraft-item]",
 	stack_size = 1,
 	place_result = "ecraft-entity"	
-	}
+	},
+	{
+    type = "item",
+    name = "extra-high-voltage-transformer",
+    icon = "__Hovercrafts__/graphics/extra-high-voltage-transformer-icon.png",
+    icon_size = 32,
+    placed_as_equipment_result = "extra-high-voltage-transformer",
+    flags = {},
+    subgroup = "electric-vehicles-equipment",
+    order = "d",
+    stack_size = 10,
+	},
 	
 
 -- Tech
-local ecraft_tech = {
+    {
 	type = "technology",
 	name = "ecraft-tech",
 	icon = "__Hovercrafts__/graphics/icons/ecraft_large.png",
@@ -88,8 +105,12 @@ local ecraft_tech = {
 		type = "unlock-recipe",
 		recipe = "ecraft-recipe"
 		},
+		{
+        type = "unlock-recipe",
+        recipe = "extra-high-voltage-transformer-recipe",
+        },
 	},
-	prerequisites = {"hovercraft-tech", "extra-high-voltage-transformer-tech"}, --, "advanced-electronics-2", "low-density-structure"
+	prerequisites = {"hovercraft-tech"}, --, "electric-vehicles-high-voltage-transformer"
 	unit =
 	{
 		count = 400,
@@ -103,11 +124,11 @@ local ecraft_tech = {
 		time = 60
 	},
 	order = "a"
-	}
-	
+	},
+
 
 -- Recipe
-local ecraft_recipe = {
+    {
 	type = "recipe",
 	name = "ecraft-recipe",
 	energy_required = 10,
@@ -121,93 +142,34 @@ local ecraft_recipe = {
     },
 	result = "ecraft-item",
 	result_count = 1
-	}
-
--- Equipment
-local ecraft_equipment = {
-	   type = "equipment-grid",
-       name = "ecraft-equipment",
-       width = 8,
-       height = 8,
-       equipment_categories = { "armor", "electric-vehicles-equipment" },
-	}
-
--- Support for Vortik's Armor Plating mod
-if mods["vtk-armor-plating"] then
-	   table.insert(ecraft_equipment.equipment_categories, "vtk-armor-plating")
-end
-	
-data:extend({
-	ecraft_entity,
-	ecraft_item,
-	ecraft_tech,
-	ecraft_recipe,
-	ecraft_equipment,	
-})
-end
-
-
-if mods["electric-vehicles-lib-reborn"] then
--- Item
-local extra_high_voltage_transformer_item = {
-    type = "item",
-    name = "extra-high-voltage-transformer",
-    icon = "__Hovercrafts__/graphics/extra-high-voltage-transformer-icon.png",
-    icon_size = 32,
-    placed_as_equipment_result = "extra-high-voltage-transformer",
-    flags = {},
-    subgroup = "electric-vehicles-equipment",
-    order = "d",
-    stack_size = 10,
-	}
-	
--- Tech
-local extra_high_voltage_transformer_tech = {
-    type = "technology",
-    name = "extra-high-voltage-transformer-tech",
-    icon = "__Hovercrafts__/graphics/extra-high-voltage-transformer.png",
-    icon_size = 128,
-    effects =
-    {
-      {
-        type = "unlock-recipe",
-        recipe = "extra-high-voltage-transformer-recipe",
-      },
-    },
-    prerequisites = { "fusion-reactor-equipment", },
-    unit =
-    {
-      count = 150,
-      ingredients = 
-      {
-        {"automation-science-pack", 1},
-        {"logistic-science-pack", 1},
-        {"chemical-science-pack", 1},
-		{"utility-science-pack", 1},
-      },
-      time = 40,
-    },
-    order = "b-b-b",
-	}
-	
--- Recipe
-local extra_high_voltage_transformer_recipe = {
+	},
+	{
     type = "recipe",
     name = "extra-high-voltage-transformer-recipe",
     enabled = false,
     ingredients =
     {
       --{"electric-vehicles-hi-voltage-transformer", 4},--
-      {"processing-unit", 10},
-	  {"steel-plate", 150},
-      {type = "fluid", name = "lubricant", amount = 25},
+	  {"battery-mk2-equipment", 2},
+	  --{"steel-plate", 150},
+      {type = "fluid", name = "lubricant", amount = 50},
     },
     result = "extra-high-voltage-transformer",
     category = "crafting-with-fluid",
-	}
 	
+	},
+	
+	
+
 -- Equipment
-local extra_high_voltage_transformer_equipment = {
+    {
+	type = "equipment-grid",
+    name = "ecraft-equipment",
+    width = 8,
+    height = 8,
+    equipment_categories = { "armor", "electric-hovercraft-equipment" },
+	},
+	{
 	type = "battery-equipment",
     name = "extra-high-voltage-transformer",
     sprite =
@@ -226,27 +188,31 @@ local extra_high_voltage_transformer_equipment = {
     energy_source =
     {
       type = "electric",
-      buffer_capacity = math.ceil(500 / 60) .. "MW",
-      input_flow_limit = 500 .. "MW",
-      output_flow_limit = "0W",
+      buffer_capacity = "200MJ", --math.ceil(500 / 60) .. "MW",
+      input_flow_limit = "1GW", --500 .. "MW",
+      output_flow_limit = "1GW", --"0W",
       usage_priority = "primary-input"
     },
-    categories = {"electric-vehicles-equipment"},
-	}
+    categories = {"electric-hovercraft-equipment"},
+	},
+})
+end
+
+
+-- Support for Vortik's Armor Plating mod
+if mods["vtk-armor-plating"] then
+	   --table.insert(ecraft_equipment.equipment_categories, "vtk-armor-plating")
+	   table.insert(data.raw["equipment-grid"]["ecraft-equipment"].equipment_categories, "vtk-armor-plating")
+end
+
 
 -- Support for PiteR's Electric Vehicles Reborn mod
 if mods["electric-vehicles-reborn"] then
-	table.insert(extra_high_voltage_transformer_recipe.ingredients, {"electric-vehicles-hi-voltage-transformer", 4})
-	table.insert(extra_high_voltage_transformer_tech.prerequisites, "electric-vehicles-high-voltage-transformer" )
+	table.insert(data.raw["recipe"]["extra-high-voltage-transformer-recipe"].ingredients, {"electric-vehicles-hi-voltage-transformer", 2})
+	table.insert(data.raw["technology"]["ecraft-tech"].prerequisites, "electric-vehicles-high-voltage-transformer" )
 end
-	
-data:extend({
-	extra_high_voltage_transformer_item,
-	extra_high_voltage_transformer_tech,
-	extra_high_voltage_transformer_recipe,
-	extra_high_voltage_transformer_equipment,
-})
-end
+	--table.insert(extra_high_voltage_transformer_recipe.ingredients, {"electric-vehicles-hi-voltage-transformer", 4})
+	--table.insert(ecraft-tech.prerequisites, "electric-vehicles-high-voltage-transformer" )
 
 	-- Checks for mods, Electric vehicles reborn and laser_tanks, and if true inserts laser-craft
 -- lcraft entity
@@ -401,7 +367,7 @@ local lcraft_tech = {
 		recipe = "lcraft-recipe"
 		},
 	},
-	prerequisites = {"hovercraft-tech", "laser-turrets", "laser-rifle-2", "nuclear-power", "extra-high-voltage-transformer-tech"}, --,  "low-density-structure", "advanced-electronics-2"
+	prerequisites = {"laser-turrets", "laser-rifle-2", "nuclear-power", "ecraft-tech"}, --, "extra-high-voltage-transformer-tech",  "low-density-structure", "advanced-electronics-2"
 	unit =
 	{
 		count = 400,
@@ -429,7 +395,7 @@ local lcraft_recipe = {
 	{
 		{"ecraft-item", 1},
         {"laser-turret", 2},
-		{"heat-pipe", 50},
+		{"heat-pipe", 25},
 		{"heat-exchanger", 2},
     },
 	result = "lcraft-item",
@@ -442,7 +408,7 @@ local lcraft_equipment = {
     name = "lcraft-equipment",
     width = 10,
     height = 10,
-    equipment_categories = {"armor", "electric-vehicles-equipment"},
+    equipment_categories = {"armor", "electric-hovercraft-equipment"},
 	}
 
 --[[ Lcraft gun
@@ -461,6 +427,7 @@ local updates = {
 -- Support for Vortik's Armor Plating mod
 if mods["vtk-armor-plating"] then
 	   table.insert(lcraft_equipment.equipment_categories, "vtk-armor-plating")
+	   table.insert(lcraft_recipe.ingredients, {"vtk-armor-plating", 8})
 end
 	
 data:extend({
