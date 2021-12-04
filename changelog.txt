@@ -1,19 +1,30 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.18.21
+Date: 04. 07. 2020
+  Bugfixes:
+    - Reworked drifting so you should no longer get stuck in cliffs
+    - Fix conflict with lovely_santa's Train constuction site mod
+  Changes:
+    - General
+      - Added compatibility for Bob's vehicle equipment mod
+      - Added support for lovely_santa's Train construction site mod's transport-logistics tab
+    - Lasercraft
+      - Added unique ammo charger for laser hovercraft's laser gun
+---------------------------------------------------------------------------------------------------
 Version: 0.18.20
 Date: 03. 02. 2020
   Bugfixes:
     - Added support for "Just go!"
     - The collision box of the hovercraft won't kill you anymore when the hovercraft crashes
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.18.19
 Date: 26. 01. 2020
   Bugfixes:
     - Reworked drifting collision checks
-	- Known Issues:
-		- You can only exit the vehicle when it came to a full stop
-		- Hovercrafts won't collide with each other
-		- You might die if you go too fast without a shield and the vehicle explodes
+    - Known Issues:
+        - You can only exit the vehicle when it came to a full stop
+        - Hovercrafts won't collide with each other
+        - You might die if you go too fast without a shield and the vehicle explodes
     - Added custom remnants
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.18

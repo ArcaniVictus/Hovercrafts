@@ -3,7 +3,7 @@
 -- Support for  Schallfalke's Schall Transport Group mod
 local subgroup_hc = "transport2"
 
-if mods["SchallTransportGroup"] then
+if mods["SchallTransportGroup"] or mods["trainConstructionSite"] then
 	subgroup_hc = "hovercrafts"
 end
 

@@ -11,6 +11,7 @@ local grid_dimensions = {
   "8x4",
   "8x6",
   "8x8",
+  "10x2",
 }
 
 

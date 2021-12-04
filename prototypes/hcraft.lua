@@ -3,7 +3,7 @@
 -- Support for  Schallfalke's Schall Transport Group mod
 local subgroup_hc = "transport2"
 
-if mods["SchallTransportGroup"] then
+if mods["SchallTransportGroup"] or mods["trainConstructionSite"] then
 	subgroup_hc = "hovercrafts"
 end
 
@@ -30,7 +30,7 @@ hcraft_entity.tank_driving = true
 hcraft_entity.weight = 2500
 hcraft_entity.minable = {mining_time = 0.5, result = "hcraft-entity"}
 hcraft_entity.has_belt_immunity = true
-hcraft_entity.collision_mask = {"player-layer","train-layer","not-colliding-with-itself"}
+hcraft_entity.collision_mask = { "train-layer", "layer-14", "not-colliding-with-itself"}
 hcraft_entity.resistances =
     {
       {
@@ -45,7 +45,7 @@ hcraft_entity.resistances =
       },
       {
         type = "impact",
-        decrease = 30,
+        decrease = 40,
         percent = 65
       },
       {
@@ -283,11 +283,12 @@ hcraft_collision.name = "hcraft-collision"
 hcraft_collision.order = "zzzzqwe"
 hcraft_collision.animation = nil
 hcraft_collision.animation = {filename = "__Hovercrafts__/graphics/transparent32.png", width = 32, height = 32, animation_speed = 0.5,direction_count = 1, frame_count = 1}
-hcraft_collision. selectable_in_game = false
-hcraft_collision. selection_box = {{0,0},{0,0}}
-hcraft_collision. selection_priority = 0
-hcraft_collision. alert_icon_scale = 0
-hcraft_collision. max_health = 2500
+hcraft_collision.selectable_in_game = false
+hcraft_collision.selection_box = {{0,0},{0,0}}
+--hcraft_collision.collision_mask = {} -- "not-colliding-with-itself"
+hcraft_collision.selection_priority = 0
+hcraft_collision.alert_icon_scale = 0
+hcraft_collision.max_health = 2500
 hcraft_collision.resistances =  --higher resistances to other sources than impact
     {
       {

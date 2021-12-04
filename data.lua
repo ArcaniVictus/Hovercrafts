@@ -6,6 +6,66 @@ require("prototypes.hcraft")
 require("prototypes.mcraft")
 require("prototypes.swimming")
 
+
+data:extend({
+	--recipe
+	{
+		type = "recipe",
+		name = "lcraft-charger",
+		enabled = false,
+		energy_required = 10,
+		ingredients =
+		{
+		{"processing-unit", 25},
+		{"energy-shield-mk2-equipment", 5},
+		{"ehvt-equipment", 2}
+		},
+		result = "lcraft-charger"
+	},
+	--item
+	{
+		type = "item",
+		name = "lcraft-charger",
+		icon = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
+		icon_size = 670,
+		flags = flags_main,
+		placed_as_equipment_result = "lcraft-charger",
+		subgroup = "equipment",
+		order = "e[robotics]-a[personal-roboport-equipment]",
+		stack_size = 20
+	},
+	--equipment
+	{
+	type = "battery-equipment",
+	name = "lcraft-charger",
+	sprite =
+       {
+       filename = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
+       width = 670,
+       height = 670,
+       priority = "medium"
+       },
+	shape =
+	   {
+	   width = 1,
+	   height = 1,
+	   type = "full"
+	   },
+	energy_source =
+	   {
+		type = "electric",
+		buffer_capacity = "2250KJ",
+		input_flow_limit = "750KW",
+		drain = "0W",
+		output_flow_limit = "0W",
+		usage_priority = "primary-input"
+		},
+		categories = { "armor" },
+		order = "b-i-c"
+	}
+})
+
+	
 local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
 hcraft_remnants.name = "hovercraft-remnants"
 hcraft_remnants.animation.layers[1].filename = "__Hovercrafts__/graphics/car-remnants.png"
@@ -26,7 +86,7 @@ data:extend({
     name = "lcraft-equipment",
     width = 10,
     height = 10,
-    equipment_categories = {"armor", "electric-hovercraft-equipment"},
+    equipment_categories = {"armor", "electric-hovercraft-equipment", "lcraft-charger"},
 	}
 })
 
@@ -39,6 +99,12 @@ if mods["SchallTransportGroup"] then
 	subgroup_hc = "hovercrafts"
 	subgroup_ehvt = "vehicle-equipment"
 end
+
+-- Support for lovely_santa's Train construction site mod
+if mods["trainConstructionSite"] then
+	subgroup_hc = "hovercrafts"
+end
+
 
 -- collision box
 local collision = table.deepcopy(data.raw.car.car)
@@ -276,8 +342,8 @@ lcraft_entity.resistances =  -- why does this have different resistances?
       },
       {
         type = "impact",
-        decrease = 30,
-        percent = 65
+        decrease = 40,
+        percent = 75
       },
       {
         type = "explosion",
@@ -364,6 +430,10 @@ lcraft_tech.effects =
 		type = "unlock-recipe",
 		recipe = "lcraft-recipe"
 		},
+		{
+		type = "unlock-recipe",
+		recipe = "lcraft-charger"
+		},
 	}
 lcraft_tech.prerequisites = {"laser-turrets", "laser-rifle-2", "nuclear-power", "ecraft-tech"}
 lcraft_tech.unit =
@@ -423,6 +493,22 @@ end
 
 if mods["laser_tanks"] and settings.startup["enable-lcraft"].value then
 	make_lcraft()
+end
+
+
+-- Support for Bob Vehicle Equipment mod
+if mods["bobvehicleequipment"] then
+	if data.raw["item-with-entity-data"]["ecraft-entity"] then
+	   data.raw["equipment-grid"]["ecraft-equipment"].width = 10
+	   data.raw["equipment-grid"]["ecraft-equipment"].height = 4
+	   data.raw["equipment-grid"]["ecraft-equipment"].equipment_categories = { "car", "vehicle", "electric-hovercraft-equipment" }
+    end
+	if data.raw["item-with-entity-data"]["lcraft-entity"] then
+	   data.raw["equipment-grid"]["lcraft-equipment"].width = 10
+	   data.raw["equipment-grid"]["lcraft-equipment"].height = 6
+	   data.raw["equipment-grid"]["lcraft-equipment"].equipment_categories = { "tank", "vehicle", "armoured-vehicle", "electric-hovercraft-equipment", "lcraft-charger" }	
+	   data.raw["battery-equipment"]["lcraft-charger"].categories = { "lcraft-charger" }
+	end
 end
 
 -- Support for Vortik's Armor Plating mod

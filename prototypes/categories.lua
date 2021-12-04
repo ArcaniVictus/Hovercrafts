@@ -1,5 +1,16 @@
 -- prototypes.categories.lua
 
+if mods["trainConstructionSite"] then
+  data:extend{
+    {
+      type = "item-subgroup",
+      name = "hovercrafts",
+      group = "transport-logistics",
+      order = "c2"
+    }
+  }
+end
+
 if mods["SchallTransportGroup"] then
   data:extend{
     {
@@ -21,10 +32,14 @@ data:extend
     name = "electric-hovercraft-equipment",
 	},
 	{
-      type = "item-subgroup",
-      name = "transport2",
-      group = "logistics",
-      order = "e-a"
+    type = "equipment-category",
+    name = "lcraft-charger",
+	},
+	{
+    type = "item-subgroup",
+    name = "transport2",
+    group = "logistics",
+    order = "e-a"
 	},
 	{
     type = "item-subgroup",

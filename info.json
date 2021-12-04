@@ -1,6 +1,6 @@
 {
     "name": "Hovercrafts",
-    "version": "0.18.20",
+    "version": "0.18.21",
     "title": "Hovercrafts",
 	"description": "Speed across land and water in your own personal hovercraft, missile armed hovercraft, electric powered hovercraft (Mod dependent), or laser armed electric hovercraft (Mod dependent).",
     "author": "Arcani_Victus",
@@ -8,7 +8,6 @@
     "dependencies": [
 		"? CanalBuilder17 >= 0.0.1",
 		"? electric-vehicles-lib-reborn >= 0.1.2",
-		"? laser_tanks >= 0.17.11",
-		"? Rampant >= 0.17.0"
+		"? laser_tanks >= 0.17.11"
 		]    
 }
