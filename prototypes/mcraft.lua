@@ -78,6 +78,18 @@ mcraft_entity.turret_animation =
           direction_count = 64,
           shift = {.05,-.85},
           scale = 0.5,
+          hr_version =
+          {
+            filename = "__Hovercrafts__/graphics/hr-hovercraft-missile-turret.png",
+            line_length = 16,
+            width = 176,
+            height = 160,
+            frame_count = 1,
+            axially_symmetrical = false,
+            direction_count = 64,
+            shift = {.05,-.85},
+            scale = 0.25,
+          }
         }
       }
     }
