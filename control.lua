@@ -213,7 +213,7 @@ end)
 ------------Laser tank script for lcraft's turret------------
 -------------------------------------------------------------	
 script.on_init(function()
-	if game.active_mods["electric-vehicles-lib-reborn"] then
+	if game.active_mods["electric-vehicles-lib-reborn"] or game.active_mods["laser_tanks"] then
 		remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
 	end
 	global.e_vehicles = { }

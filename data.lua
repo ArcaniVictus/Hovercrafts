@@ -32,7 +32,7 @@ data:extend({collision})
 	
 	
 -- Checks for mod, Electric vehicles reborn, and if true inserts electric hovercraft
-if mods["electric-vehicles-lib-reborn"] then
+if mods["electric-vehicles-lib-reborn"] or mods["laser_tanks"] then
 -- Ecraft entity
 local ecraft_entity = table.deepcopy(data.raw["car"]["hovercraft-entity"])
 local updates = {
@@ -226,8 +226,7 @@ end
 
 	-- Checks for mods, Electric vehicles reborn and laser_tanks, and if true inserts laser-craft
 -- lcraft entity
-if mods["laser_tanks"] then
-if mods["electric-vehicles-lib-reborn"] then
+if mods["laser_tanks"] then -- or mods["electric-vehicles-lib-reborn"] then
 local lcraft_entity = table.deepcopy(data.raw["car"]["ecraft-entity"])
 local updates = {
 	name = "lcraft-entity",
@@ -448,5 +447,4 @@ data:extend({
 	lcraft_equipment,
 	--lcraft_gun,
 })
-end
 end

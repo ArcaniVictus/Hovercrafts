@@ -1,6 +1,19 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.17.13
+Date: 22. 05. 2019
+  Changes:
+    - General
+	- Improved mod requirements
+	- Clarified hovercraft drifting setting description warning
+    - Electric hovercraft
+	- Requires either Electric Vehicles Lib: Reborn or Laser Tanks to be enabled
+    - Lasercraft
+	- Requires only Laser Tanks to be enabled
+    - Extra high voltage transformer
+	- Requires either Electric Vehicles Lib: Reborn or Laser Tanks to be enabled
+---------------------------------------------------------------------------------------------------
 Version: 0.17.12
-Date: 20. 05. 2019
+Date: 21. 05. 2019
   Changes:
     - Added support for Schallfalke's Transport group mod
 ---------------------------------------------------------------------------------------------------
