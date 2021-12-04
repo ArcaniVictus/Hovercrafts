@@ -1,18 +1,157 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.1
+Date: 09. 01. 2021
+  Changes:
+    - Updated missile turret with highres version (Massive thanks to Kamsta99!)
+---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 29. 11. 2020
+  Changes:
+    - Updated for Factorio version 1.1.0
+  Bugfixes:
+    - Resolved an issue involving the laser hovercraft weapon charger not working as intended
+---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 14. 09. 2020
+  Changes:
+    - Resolved hovercraft not colliding with other hovercraft
+    - Resolved hovercraft colliding with landmines which also resolved a conflict with the mod Teleporters
+    - Resolved a conflict with the mod Train tunnels
+---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 25. 08. 2020
+  Changes:
+    - Actually included the changes intended for 1.0.1(My bad)
+    - Resolved some minor issues caused in mod version 0.18.19
+    - Added mod check for "justgo" support to resolve an issue with the mod "Quick Item Search"
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 25. 08. 2020
+  Changes:
+    - Added the lamp to the list of entities the hovercrafts shouldn't collide with
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 14. 08. 2020
+  Changes:
+    - Updated for Factorio version 1.0.0
+---------------------------------------------------------------------------------------------------
+Version: 0.18.25
+Date: 22. 07. 2020
+  Bugfixes:
+    - Resolved an issue involving Schallfalke's Transport group mod
+  Changes:
+    - Missilecraft
+      - Increased rocket launcher turret range (30 to 36)
+      - Reduced rocket launcher turret cooldown (300 to 120)
+---------------------------------------------------------------------------------------------------
+Version: 0.18.24
+Date: 18. 06. 2020
+  Bugfixes:
+    - Resolved an issue involving the recently added icon mipmaps
+  Locale:
+    - Updated Russian translation (Thanks Va7ya)
+---------------------------------------------------------------------------------------------------
+Version: 0.18.23
+Date: 06. 07. 2020
+  Bugfixes:
+    - Resolved an issue with logistic robots crashing into trains
+---------------------------------------------------------------------------------------------------
+Version: 0.18.22
+Date: 05. 07. 2020
+  Bugfixes:
+    - Resolved an issue regarding mod check for the lcraft weapon charger
+---------------------------------------------------------------------------------------------------
+Version: 0.18.21
+Date: 04. 07. 2020
+  Bugfixes:
+    - Reworked drifting so you should no longer get stuck in cliffs
+    - Fix conflict with lovely_santa's Train constuction site mod
+  Changes:
+    - General
+      - Added compatibility for Bob's vehicle equipment mod
+      - Added support for lovely_santa's Train construction site mod's transport-logistics tab
+    - Lasercraft
+      - Added unique ammo charger for laser hovercraft's laser gun
+---------------------------------------------------------------------------------------------------
+Version: 0.18.20
+Date: 03. 02. 2020
+  Bugfixes:
+    - Added support for "Just go!"
+    - The collision box of the hovercraft won't kill you anymore when the hovercraft crashes
+---------------------------------------------------------------------------------------------------
+Version: 0.18.19
+Date: 26. 01. 2020
+  Bugfixes:
+    - Reworked drifting collision checks
+    - Known Issues:
+        - You can only exit the vehicle when it came to a full stop
+        - Hovercrafts won't collide with each other
+        - You might die if you go too fast without a shield and the vehicle explodes
+    - Added custom remnants
+---------------------------------------------------------------------------------------------------
+Version: 0.17.18
+Date: 28. 11. 2019
+  Bugfixes:
+    - Reverted the implemented collision mask changes (Will revisit after holidays.  Happy Thanksgiving!)
+---------------------------------------------------------------------------------------------------
+Version: 0.17.17
+Date: 27. 11. 2019
+  Bugfixes:
+    - Implemented collision mask improvements (Thanks PyroFire)
+  Locale:
+    - Added Russian translation (Thanks Va7ya)
+---------------------------------------------------------------------------------------------------
+Version: 0.17.16
+Date: 18. 10. 2019
+  Bugfixes:
+    - Added compatibility with Rampant
+    - Added compatibility with Industrial Revolution
+---------------------------------------------------------------------------------------------------
+Version: 0.17.15
+Date: 21. 06. 2019
+  Bugfixes:
+    - Resolved an issue caused by entity name changes and saved games
+---------------------------------------------------------------------------------------------------
+Version: 0.17.14
+Date: 19. 06. 2019
+  Changes:
+    - General
+      - Added startup settings to disable/enable each hovercraft individually (except the standard hovercraft)
+      - Balanced resistances to be more in line with recent changes
+    - Missilecraft
+      - Added collision immuntiy to rocks
+    - Lasercraft
+      - Added support for Mod: Laser Tanks option to disable electric motors
+      - Added collision immuntiy to rocks and trees
+    - Extra high voltage transformer
+      - Decreased the dimensions (2x4 to 2x3)
+---------------------------------------------------------------------------------------------------
+Version: 0.17.13
+Date: 22. 05. 2019
+  Changes:
+    - General
+      - Improved mod requirements
+      - Clarified hovercraft drifting setting description warning
+      - Electric hovercraft and the extra high voltage transformer require either Electric Vehicles Lib: Reborn or Laser Tanks to be enabled
+    - Lasercraft
+      - Requires only Laser Tanks to be enabled
+---------------------------------------------------------------------------------------------------
+Version: 0.17.12
+Date: 21. 05. 2019
+  Changes:
+    - Added support for Schallfalke's Transport group mod
+---------------------------------------------------------------------------------------------------
 Version: 0.17.11
 Date: 17. 05. 2019
   Changes:
     - General
-	- Merged extra high voltage transformer tech into electric hovercraft tech
-    - Missilecraft
-	- Added support for armor plating.  Recipe now requires armor plates
-    - Lasercraft
-	- Added support for armor plating.  Recipe now requires armor plates
+      - Merged extra high voltage transformer tech into electric hovercraft tech
+      - Added support for armor plating.  Recipes now requires armor plates
     - Extra high voltage transformer
-	- Added an energy capacity of 200MJ
-	- Removed recipe ingredient (processing unit)
-	- Added recipe ingredient (Battery mk2 equipment)
-	- Doubled Recipe ingredient requirement (Lubricant)
+      - Added an energy capacity of 200MJ
+      - Removed recipe ingredient (processing unit)
+      - Added recipe ingredient (Battery mk2 equipment)
+      - Doubled Recipe ingredient requirement (Lubricant)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.10
 Date: 17. 05. 2019
@@ -25,19 +164,19 @@ Version: 0.17.09
 Date: 16. 05. 2019
   Changes:
     - General
-	- Corrected a spelling error in the extra high voltage transformer's item description
-	- Added an electric hovercraft armed with a laser for use with Laser Tanks
-	- Added drifting to the hovercrafts (Credit Ownlyme)
-    	- Added a runtime global option to enable/disable hovercraft drifting (Enabled by default)
-    	- Corrected an issue with the splash animation (Credit Ownlyme)
+      - Corrected a spelling error in the extra high voltage transformer's item description
+      - Added an electric hovercraft armed with a laser for use with Laser Tanks
+      - Added drifting to the hovercrafts (Credit Ownlyme)
+      - Added a runtime global option to enable/disable hovercraft drifting (Enabled by default)
+      - Corrected an issue with the splash animation (Credit Ownlyme)
     - Electric hovercraft
-	- Reduced the equipment grid (10x10 to 8x8)
+      - Reduced the equipment grid (10x10 to 8x8)
     - Missilecraft
-	- Increased health (1000 to 1200)
-	- Removed recipe ingredient (Steel plate)
-	- Added recipe ingredient (Advanced circuit)
-	- Doubled recipe ingredient requirements (Gun turret and Rocket launcher)
-	- Reduced the missile launcher's rate of fire (50 to 300)
+      - Increased health (1000 to 1200)
+      - Removed recipe ingredient (Steel plate)
+      - Added recipe ingredient (Advanced circuit)
+      - Doubled recipe ingredient requirements (Gun turret and Rocket launcher)
+      - Reduced the missile launcher's rate of fire (50 to 300)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.08
 Date: 08. 05. 2019
@@ -69,35 +208,35 @@ Version: 0.17.04
 Date: 25. 04. 2019
   Changes:
     - General
-	- Merged extra high voltage transformer tech into electric hovercraft tech
+      - Merged extra high voltage transformer tech into electric hovercraft tech
     - Hovercraft
-	- Removed tech requirement (Engine and plastics)
-	- Added tech requirement (Effectivity module, speed module, and chemical science pack)
-	- Added tech ingredient (chemical science pack)
+      - Removed tech requirement (Engine and plastics)
+      - Added tech requirement (Effectivity module, speed module, and chemical science pack)
+      - Added tech ingredient (chemical science pack)
     - Electric hovercraft
-	- Removed tech requirement (Extra high voltage transformer tech and speed module 3)
-	- Added tech requirement (Advanced electronics 2 and low density structure)
-	- Removed tech ingredient (Miltary science pack and production science pack)
+      - Removed tech requirement (Extra high voltage transformer tech and speed module 3)
+      - Added tech requirement (Advanced electronics 2 and low density structure)
+      - Removed tech ingredient (Miltary science pack and production science pack)
     - Missilecraft
-	- Removed tech requirement (Miltary 3)
-	- Added tech requirement (Turrets and rocketry)
+      - Removed tech requirement (Miltary 3)
+      - Added tech requirement (Turrets and rocketry)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.03
 Date: 19. 04. 2019
   Changes:
     - General
-	- Added turning while not moving
-	- Reduced turning radius
-	- Changed recipes
+      - Added turning while not moving
+      - Reduced turning radius
+      - Changed recipes
     - Hovercraft
-	- Increased speed (161 to 187)
-	- Increased health (250 to 500)
+      - Increased speed (161 to 187)
+      - Increased health (250 to 500)
     - Electric hovercraft
-	- Reduced speed (268 to 216)
-	- Reduced health (1000 to 250)
+      - Reduced speed (268 to 216)
+      - Reduced health (1000 to 250)
     - Missilecraft
-	- Reduced speed (161 to 115)
-	- Increased health (500 to 1000)
+      - Reduced speed (161 to 115)
+      - Increased health (500 to 1000)
   Bugfixes:
     - Resolved an issue with the electric hovercraft's equipment grid losing equipment when picked up
 ---------------------------------------------------------------------------------------------------
@@ -114,7 +253,7 @@ Date: 28. 03. 2019
   Changes:
     - Updated electric hovercraft recipe and tech to be more balanced
     - Improved electric hovercraft's braking
-    - Fixed changelog?
+    - Fixed changelog
   Features:
     - Added Extra high voltage transformer for use with electric hovercraft due to extra high power requirements not supported by lower tier transformers
 ---------------------------------------------------------------------------------------------------

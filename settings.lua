@@ -1,3 +1,5 @@
+-- settings.lua
+
 local grid_dimensions = {
   "2x2",
   "4x2",
@@ -9,7 +11,9 @@ local grid_dimensions = {
   "8x4",
   "8x6",
   "8x8",
+  "10x2",
 }
+
 
 data:extend({
 	{
@@ -18,42 +22,55 @@ data:extend({
     setting_type = "runtime-global",
     default_value = true
     },
+	{
+    type = "bool-setting",
+    name = "enable-ecraft",
+    setting_type = "startup",
+    default_value = true,
+    order = "b",
+    },
+	{
+    type = "bool-setting",
+    name = "enable-mcraft",
+    setting_type = "startup",
+    default_value = true,
+    order = "c",
+    },
+	{
+    type = "bool-setting",
+    name = "enable-lcraft",
+    setting_type = "startup",
+    default_value = true,
+    order = "d",
+    },
     {
     type = "bool-setting",
     name = "hovercraft-grid",
     setting_type = "startup",
     default_value = false,
-    order = "a",
+    order = "e",
     },
 	{
     type = "string-setting",
-    name = "grid-hovercraft",
+    name = "grid-hcraft",
     setting_type = "startup",
     default_value = "2x2",
     allowed_values = grid_dimensions,
-    order = "b",
+    order = "f",
 	},
 	{
     type = "string-setting",
-    name = "grid-missilecraft",
+    name = "grid-mcraft",
     setting_type = "startup",
     default_value = "4x2",
     allowed_values = grid_dimensions,
-    order = "c",
+    order = "g",
 	},
---[[    {
+    --[[{
     type = "bool-setting",
     name = "removerocks",
     setting_type = "startup",
-    default_value = true,
-    order = "d"
-    },
-	{
-    type = "bool-setting",
-    name = "removecliffs",
-    setting_type = "startup",
-    default_value = true,
-    order = "e"
-    },
-	]]--
+    default_value = false,
+    order = "h"
+    },]]--
 })
