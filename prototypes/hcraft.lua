@@ -30,7 +30,7 @@ hcraft_entity.tank_driving = true
 hcraft_entity.weight = 2500
 hcraft_entity.minable = {mining_time = 0.5, result = "hcraft-entity"}
 hcraft_entity.has_belt_immunity = true
-hcraft_entity.collision_mask = { "train-layer", "layer-14", "not-colliding-with-itself"}
+hcraft_entity.collision_mask = { "train-layer", "layer-14" } --{, "not-colliding-with-itself"}
 hcraft_entity.resistances =
     {
       {

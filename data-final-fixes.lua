@@ -1,3 +1,12 @@
+
+if mods["traintunnels"] then
+data.raw["train-stop"]["train-stop"].collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile", "layer-14" }
+table.insert(data.raw["train-stop"]["traintunnel"].collision_mask, "layer-14")
+table.insert(data.raw["train-stop"]["traintunnelup"].collision_mask, "layer-14")
+else
+data.raw["train-stop"]["train-stop"].collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile", "train-layer" }
+end
+
 local entity_types={
 "accumulator",
 "ammo-turret",
@@ -33,12 +42,12 @@ local entity_types={
 "item-request-proxy",
 "lab",
 --"lamp",
-"land-mine",
+--"land-mine",
 --"locomotive",
 "logistic-container",
 --"logistic-robot",
 "mining-drill",
-"offshore-pump",
+--"offshore-pump",
 "pipe",
 "pipe-to-ground",
 "character",
@@ -61,7 +70,6 @@ local entity_types={
 --"splitter",
 "storage-tank",
 --"straight-rail",
-"train-stop",
 --"transport-belt",
 "tree",
 "turret",
@@ -82,9 +90,9 @@ local collision_masks = {
 	["gate"] = {"item-layer", "object-layer", "player-layer", "water-tile", "train-layer"},
 	["loader"] = {"object-layer", "item-layer", "water-tile"},
 	["loader-1x1"] = {"object-layer", "item-layer", "water-tile"},
-    ["loader-1x2"] = {"object-layer", "item-layer", "water-tile"},
+  ["loader-1x2"] = {"object-layer", "item-layer", "water-tile"},
 	["unit"] = {"player-layer", "train-layer", "not-colliding-with-itself"},
-	["car"] = {"player-layer", "train-layer"}
+	--["car"] = {"player-layer", "train-layer"}
 }
 
 local default_collision_mask = {"item-layer", "object-layer", "player-layer", "water-tile"}

@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 14. 09. 2020
+  Changes:
+    - Resolved hovercraft not colliding with other hovercraft
+    - Resolved hovercraft colliding with landmines which also resolved a conflict with the mod Teleporters
+    - Resolved a conflict with the mod Train tunnels
+---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 25. 08. 2020
   Changes:

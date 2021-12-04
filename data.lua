@@ -458,7 +458,7 @@ if mods["laser_tanks"] and settings.startup["enable-lcraft"].value then
 		name = "lcraft-charger",
 		icon = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
 		icon_size = 670,
-		flags = flags_main,
+		flags = {},
 		placed_as_equipment_result = "lcraft-charger",
 		subgroup = "equipment",
 		order = "e[robotics]-a[personal-roboport-equipment]",
