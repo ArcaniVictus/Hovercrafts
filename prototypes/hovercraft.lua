@@ -2,6 +2,14 @@
 -- prototypes.hovercraft
 
 
+-- Support for  Schallfalke's Schall Transport Group mod
+local subgroup_hc = "transport2"
+
+if mods["SchallTransportGroup"] then
+	subgroup_hc = "hovercrafts"
+end
+
+
 -- Hovercraft
 local hovercraft_entity = table.deepcopy(data.raw["car"]["car"])
 local updates = {
@@ -200,7 +208,7 @@ end
 hover_smoke.animation.shift = {0,0}
 
 
--- Subgroup
+--[[ Subgroup
 local newSubgroup = {
       group = "logistics",
       name = "transport2",
@@ -209,7 +217,7 @@ local newSubgroup = {
 }
 data.raw["item-with-entity-data"]["car"].subgroup = "transport2"
 data.raw["item-with-entity-data"]["tank"].subgroup = "transport2"
-
+]]--
 
 -- Item
 local hovercraft_item = {
@@ -217,7 +225,7 @@ local hovercraft_item = {
 	name = "hovercraft-item",
 	icon = "__Hovercrafts__/graphics/icons/hovercraft_small.png",
 	icon_size = 32,
-	subgroup = "transport2",
+	subgroup = subgroup_hc, --"transport2",
 	order = "b[personal-transport]-c[hovercraft-item]",
 	stack_size = 1,
 	place_result = "hovercraft-entity"	

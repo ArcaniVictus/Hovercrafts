@@ -8,6 +8,17 @@ require("prototypes.hovercraft")
 require("prototypes.swimming")
 require("prototypes.missilecraft")
 
+-- Support for  Schallfalke's Schall Transport Group mod
+local subgroup_hc = "transport2"
+local subgroup_ehvt = "electric-vehicles-equipment"
+
+
+if mods["SchallTransportGroup"] then
+	subgroup_hc = "hovercrafts"
+	subgroup_ehvt = "vehicle-equipment"
+	--table.insert(data.raw["item-with-entity-data"]["ecraft-item"].subgroup, "hovercrafts")
+	--table.insert(data.raw["item"]["extra-high-voltage-transformer"].subgroup, "vehicle-equipment" )
+end
 
 -- collision box
 local collision = table.deepcopy(data.raw.car.car)
@@ -75,7 +86,7 @@ data:extend({
 	name = "ecraft-item",
 	icon = "__Hovercrafts__/graphics/icons/ecraft_small.png",
 	icon_size = 32,
-	subgroup = "transport2",
+	subgroup = subgroup_hc, --"transport2",
 	order = "b[personal-transport]-e[ecraft-item]",
 	stack_size = 1,
 	place_result = "ecraft-entity"	
@@ -87,7 +98,7 @@ data:extend({
     icon_size = 32,
     placed_as_equipment_result = "extra-high-voltage-transformer",
     flags = {},
-    subgroup = "electric-vehicles-equipment",
+    subgroup = subgroup_ehvt, --"electric-vehicles-equipment",
     order = "d",
     stack_size = 10,
 	},
@@ -191,7 +202,7 @@ data:extend({
       buffer_capacity = "200MJ", --math.ceil(500 / 60) .. "MW",
       input_flow_limit = "1GW", --500 .. "MW",
       output_flow_limit = "1GW", --"0W",
-      usage_priority = "primary-input"
+      usage_priority = "secondary-input"
     },
     categories = {"electric-hovercraft-equipment"},
 	},
@@ -211,8 +222,7 @@ if mods["electric-vehicles-reborn"] then
 	table.insert(data.raw["recipe"]["extra-high-voltage-transformer-recipe"].ingredients, {"electric-vehicles-hi-voltage-transformer", 2})
 	table.insert(data.raw["technology"]["ecraft-tech"].prerequisites, "electric-vehicles-high-voltage-transformer" )
 end
-	--table.insert(extra_high_voltage_transformer_recipe.ingredients, {"electric-vehicles-hi-voltage-transformer", 4})
-	--table.insert(ecraft-tech.prerequisites, "electric-vehicles-high-voltage-transformer" )
+
 
 	-- Checks for mods, Electric vehicles reborn and laser_tanks, and if true inserts laser-craft
 -- lcraft entity
@@ -347,7 +357,7 @@ local lcraft_item = {
 	name = "lcraft-item",
 	icon = "__Hovercrafts__/graphics/icons/lcraft_small.png",
 	icon_size = 32,
-	subgroup = "transport2",
+	subgroup = subgroup_hc, --"transport2",
 	order = "d[personal-transport]-d",
 	stack_size = 1,
 	place_result = "lcraft-entity"	

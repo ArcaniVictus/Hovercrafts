@@ -2,6 +2,14 @@
 -- prototypes.missilecraft
 
 
+-- Support for  Schallfalke's Schall Transport Group mod
+local subgroup_hc = "transport2"
+
+if mods["SchallTransportGroup"] then
+	subgroup_hc = "hovercrafts"
+end
+
+
 -- Missile-craft
 local missilecraft_entity = table.deepcopy(data.raw["car"]["hovercraft-entity"])
 local updates = {
@@ -126,7 +134,7 @@ local missilecraft_item = {
 	name = "missilecraft",
 	icon = "__Hovercrafts__/graphics/icons/missile_small.png",
 	icon_size = 32,
-	subgroup = "transport2",
+	subgroup = subgroup_hc, --"transport2",
 	order = "b[personal-transport]-d[missilecraft]",
 	stack_size = 1,
 	place_result = "missilecraft"	
