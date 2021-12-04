@@ -362,7 +362,7 @@ data:extend({
 	hcraft_recipe,
 	hover_smoke
 })
-
+--[[
 local hcraft_collision = table.deepcopy(hcraft_entity)
 hcraft_collision.name = "hcraft-collision"
 hcraft_collision.order = "zzzzqwe"
@@ -410,3 +410,4 @@ table.insert(hcraft_collision.flags,   "not-repairable")
 table.insert(hcraft_collision.flags,   "hide-alt-info")
 table.insert(hcraft_collision.flags,   "not-flammable")
 data:extend({hcraft_collision})
+]]--

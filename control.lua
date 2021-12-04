@@ -1,10 +1,6 @@
 -- control.lua
-local drifting_multipliers = {
-["hcraft-entity"] =  0.95, --2500  (weight)
-["mcraft-entity"] =  0.97, --10000 (weight)
-["ecraft-entity"] =  0.97, --7500  (weight)
-["lcraft-entity"] =  0.95, --1500  (weight)
-}
+
+
 local isWaterTile = {["water"]=true,["deepwater"]=true}
 local isHovercraft = {["hcraft-entity"]=true,["ecraft-entity"]=true,["mcraft-entity"]=true,["lcraft-entity"]=true}
 
@@ -102,7 +98,6 @@ script.on_event(defines.events.on_tick, function(event)
 if settings.global["hovercraft-drifting"].value then --check if drifting setting is active_mods
 	for unit_number, tbl in pairs(global.hovercrafts) do
 		if tbl.entity and tbl.entity.valid then
-			--game.print(tbl.entity.speed)
 			local pos = tbl.entity.position
 			local speed = tbl.entity.speed
 			if speed==0 then 
@@ -111,30 +106,13 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
 				tbl.idle_ticks = 0
 			end
 			if tbl.idle_ticks < 120 then
-				if not tbl.collision or not tbl.collision.valid then
-					collision = tbl.entity.surface.create_entity{name = "hcraft-collision", position = tbl.entity.position, force = "enemy"}
-					collision.orientation = tbl.entity.orientation
-					--collision.operable  = false
-					tbl.collision = collision
-					tbl.collision.speed = tbl.entity.speed
-				end
-				-- drifting
-				-- check collision
-				-- set collision
-				-- set last_pos
-				-- drifting
-				-- check collision - failed
-				-- teleport last_pos
-				--local surroundings = #tbl.entity.surface.find_entities_filtered {area = {{pos.x-1,pos.y-1},{pos.x+1,pos.y+1}}}
+				local surroundings = #tbl.entity.surface.find_entities_filtered {area = {{pos.x-1,pos.y-1},{pos.x+1,pos.y+1}}}
 			--if speed ~=0 or surroundings == 1 then
 				local drift_x = pos.x-tbl.position.x
 				local drift_y = pos.y-tbl.position.y
-				local drifting_multiplier = drifting_multipliers[tbl.entity.name]
-				
-				drift_x = drift_x*(1-drifting_multiplier)+tbl.drift.x*drifting_multiplier
-				drift_y = drift_y*(1-drifting_multiplier)+tbl.drift.y*drifting_multiplier
+				drift_x = drift_x*0.05+tbl.drift.x*0.95
+				drift_y = drift_y*0.05+tbl.drift.y*0.95
 				if (drift_x^2+drift_y^2)^0.5 >0.001 then
-					--game.print((drift_x^2+drift_y^2)^0.5)
 					local new_pos = {x=tbl.position.x+drift_x,y=tbl.position.y+drift_y}
 					
 					
@@ -146,109 +124,41 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
 					--local collisions = tbl.entity.surface.find_entities_filtered{position=new_pos, collision_mask= collision_masks}
 					--if #collisions ==0 or #collisions ==1 and collisions[1].unit_number ==tbl.entity.unit_number then
 					
-					----using new method now
-					--tbl.entity.teleport(-5,-5)
-					--local cliffs = tbl.entity.surface.find_entities_filtered { name = "cliff", area = {{new_pos.x-1.15,new_pos.y-1.15},{new_pos.x+1.15,new_pos.y+1.15}}}
-					--local rocks = tbl.entity.surface.find_entities_filtered { type = "simple-entity", area = {{new_pos.x-1,new_pos.y-1},{new_pos.x+1,new_pos.y+1}}}
-					--if #cliffs >0 then
-					--	local noncolliding = tbl.entity.surface.find_non_colliding_position("hovercraft-collision", new_pos, 0.1, 0.03)
-					--	if noncolliding and distance(noncolliding,new_pos)<0.04 then
-					--		tbl.entity.teleport(noncolliding)
-					--		tbl.idle_ticks = 120
-					--	else
-					--		tbl.entity.teleport(5,5)
-					--		tbl.drift = {x=0,y=0}
-					--		tbl.idle_ticks = 120
-					--	end
-					--else
-					--	if #rocks == 0 or tbl.entity.surface.can_place_entity{name="hovercraft-collision",position=new_pos, direction=tbl.entity.orientation} then
+					tbl.entity.teleport(-5,-5)
+					local cliffs = tbl.entity.surface.find_entities_filtered { name = "cliff", area = {{new_pos.x-1.15,new_pos.y-1.15},{new_pos.x+1.15,new_pos.y+1.15}}}
+					local rocks = tbl.entity.surface.find_entities_filtered { type = "simple-entity", area = {{new_pos.x-1,new_pos.y-1},{new_pos.x+1,new_pos.y+1}}}
+					if #cliffs >0 then
+						local noncolliding = tbl.entity.surface.find_non_colliding_position("hovercraft-collision", new_pos, 0.1, 0.03)
+						if noncolliding and distance(noncolliding,new_pos)<0.04 then
+							tbl.entity.teleport(noncolliding)
+							tbl.idle_ticks = 120
+						else
+							tbl.entity.teleport(5,5)
+							tbl.drift = {x=0,y=0}
+							tbl.idle_ticks = 120
+						end
+					else
+						if #rocks == 0 or tbl.entity.surface.can_place_entity{name="hovercraft-collision",position=new_pos, direction=tbl.entity.orientation} then
 							tbl.entity.teleport(new_pos)
-					--	else
-					--		tbl.entity.teleport(5,5)
-					--	end
-					--end
+						else
+							tbl.entity.teleport(5,5)
+						end
+					end
 					tbl.drift = {x=drift_x,y=drift_y}
 				else
 					tbl.drift = {x=0,y=0}
-					tbl.idle_ticks = 120
-				end
-				--game.print(game.tick.." "..tbl.collision.speed.." "..tbl.entity.speed)
-				if tbl.collision.speed == 0 then
-				--game.print(game.tick.. " reset")
-					tbl.entity.teleport(tbl.last_pos)
-					tbl.drift = {x=0,y=0}
-					tbl.idle_ticks = 120
-					--game.print("hmm")
-				end	
-				tbl.last_pos = tbl.collision.position
-				tbl.collision.teleport(tbl.entity.position)
-				--if tbl.entity.speed < 0 then
-				--	tbl.collision.speed = -0.01
-				--else
-				--	tbl.collision.speed = 0.01
-				--end
-				local speed = tbl.entity.speed
-				if speed >= 0 then
-					tbl.collision.speed = math.max(0.05,tbl.entity.speed)
-				else
-					tbl.collision.speed = math.min(-0.05,tbl.entity.speed)
-				end
-				tbl.collision.orientation = tbl.entity.orientation
-				--game.print(game.tick.." "..tbl.collision.health)
-				if tbl.collision.health < 2500 then
-					local slowdown = math.min(math.abs(speed),(2500-tbl.collision.health)/3000)
-					local percentage = slowdown/math.abs(speed)
-					if speed > 0 then
-						--game.print(game.tick.." "..tbl.entity.speed.. " - ".. ((500-tbl.collision.health)/3000))
-						tbl.entity.speed = speed -slowdown
-						speed = speed - slowdown
-					else
-						--game.print(game.tick.." "..tbl.entity.speed.. " + ".. ((500-tbl.collision.health)/3000))
-						tbl.entity.speed = speed +slowdown
-						speed = speed + slowdown
-					end
-					--tbl.drift = max_range({x=0,y=0},tbl.drift, speed)
-					tbl.drift.x = tbl.drift.x*(1-slowdown)
-					tbl.drift.y = tbl.drift.y*(1-slowdown)
-					tbl.entity.damage(2500-tbl.collision.health,"neutral")
-					tbl.collision.health =2500
 				end
 			else
 				tbl.drift = {x=0,y=0}
-				if tbl.collision then
-					tbl.collision.destroy()
-					tbl.collision = nil
-				end
 			end
-			if tbl.entity.valid then
-				tbl.position = tbl.entity.position
-			end
+			tbl.position = tbl.entity.position
 		else
 			global.hovercrafts[unit_number] = nil
-			if tbl.collision then tbl.collision.destroy() end
 		end
 	end	
 end
 end)
 
-script.on_event(defines.events.on_entity_died, function(event)
-	if isHovercraft[event.entity.name] then
-		if global.hovercrafts[event.entity.unit_number] and global.hovercrafts[event.entity.unit_number].collision then 
-			global.hovercrafts[event.entity.unit_number].collision.destroy()
-		end
-	end
-end)
-
-function max_range(pos1,pos2,range)
-	local distance = distance(pos1,pos2)
-	pos2.x = pos2.x-pos1.x
-	pos2.y = pos2.y-pos1.y
-	pos2.x=pos2.x*math.min(1,range/distance)
-	pos2.y=pos2.y*math.min(1,range/distance)
-	pos1.x=pos1.x+pos2.x
-	pos1.y=pos1.y+pos2.y
-	return pos1
-end
 -- Removes rocks if startup setting is selected
 --[[local function removerocks(e)
     local entities = e.surface.find_entities_filtered({ area = e.area, type = 'simple-entity' })
@@ -301,7 +211,7 @@ script.on_init(function()
 		global.player_ammo = defines.inventory.character_ammo
 		global.player_guns = defines.inventory.character_guns
 	end
-	global.version = 10
+	global.version = 9
 end)
 
 script.on_configuration_changed(function()
@@ -331,18 +241,6 @@ script.on_configuration_changed(function()
 			end
 		end
 	end
-	if global.version < 10 then
-		for unit_number, tbl in pairs(global.hovercrafts) do
-			if tbl.entity and tbl.entity.valid then
-				global.hovercrafts[unit_number].last_speed = tbl.entity.speed
-				global.hovercrafts[unit_number].last_pos = tbl.entity.position
-			else
-				global.hovercrafts[unit_number] = nil
-			end
-		end
-		global.version = 10
-	end
-	
 	if string.sub(game.active_mods["base"],1,4) == "0.16" then
 		global.player_main = defines.inventory.player_main
 		global.player_ammo = defines.inventory.player_ammo
@@ -359,8 +257,7 @@ script.on_event(defines.events.on_built_entity, function(event)
 		table.insert(global.vehicles,event.created_entity)
 	end
 	if isHovercraft[event.created_entity.name] then
-		--collision.set_driver(event.created_entity.surface.create_entity{name = "character", position = event.created_entity.position})
-		global.hovercrafts[event.created_entity.unit_number] = {entity = event.created_entity,drift={x=0,y=0}, last_speed = 0, collision = collision, last_pos = event.created_entity.position, position = event.created_entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
+		global.hovercrafts[event.created_entity.unit_number] = {entity = event.created_entity,drift={x=0,y=0}, position = event.created_entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
 	end
 end)
 
@@ -476,6 +373,9 @@ script.on_nth_tick(3, function(event)
 						stack.clear()
 					end
 					local gun_index = 2
+					if vehicle.name == "lasercar" then
+						gun_index = 1
+					end
 					if vehicle.name == "lcraft-entity" then
 						gun_index = 1
 					end
@@ -504,7 +404,7 @@ script.on_nth_tick(3, function(event)
 						local energy = 0
 						local modules = 0
 						for _, eq in pairs(vehicle.grid.equipment) do
-							if eq.name == "lcraft-charger" then
+							if eq.name == "laserrifle-charger" then
 								energy = energy+eq.energy
 								modules = modules+1
 								--game.connected_players [playerid].print(eq.energy)
@@ -532,7 +432,7 @@ script.on_nth_tick(3, function(event)
 							end
 						end
 						for _, eq in pairs(vehicle.grid.equipment) do
-							if eq.name == "lcraft-charger" then
+							if eq.name == "laserrifle-charger" then
 								eq.energy = eq.energy - inserted*(ENERGY_PER_CHARGE/(2.5-techlevel*0.5))/modules
 							end
 						end

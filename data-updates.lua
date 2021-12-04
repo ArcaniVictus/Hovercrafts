@@ -14,6 +14,7 @@ if settings.startup["hovercraft-grid"].value == true then
 	end
 end
 
+if mods["justgo"] then
 local function generate_migration_item(name) -- not sure if the "just go" dude will fix it...
 	if data.raw["item-with-entity-data"][name] then
 		local temp = table.deepcopy(data.raw["item-with-entity-data"][name])
@@ -26,4 +27,4 @@ generate_migration_item("hcraft-entity")
 generate_migration_item("mcraft-entity")
 generate_migration_item("ecraft-entity")
 generate_migration_item("lcraft-entity")
-		
+end

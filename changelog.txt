@@ -1,4 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 25. 08. 2020
+  Changes:
+    - Actually included the changes intended for 1.0.1(My bad)
+    - Resolved some minor issues caused in mod version 0.18.19
+    - Added mod check for "justgo" support to resolve an issue with the mod "Quick Item Search"
+---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 25. 08. 2020
+  Changes:
+    - Added the lamp to the list of entities the hovercrafts shouldn't collide with
+---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 14. 08. 2020
   Changes:
@@ -222,7 +234,7 @@ Date: 28. 03. 2019
   Changes:
     - Updated electric hovercraft recipe and tech to be more balanced
     - Improved electric hovercraft's braking
-    - Fixed changelog?
+    - Fixed changelog
   Features:
     - Added Extra high voltage transformer for use with electric hovercraft due to extra high power requirements not supported by lower tier transformers
 ---------------------------------------------------------------------------------------------------

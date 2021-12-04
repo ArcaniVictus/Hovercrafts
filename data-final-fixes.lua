@@ -32,7 +32,7 @@ local entity_types={
 "inserter",
 "item-request-proxy",
 "lab",
-"lamp",
+--"lamp",
 "land-mine",
 --"locomotive",
 "logistic-container",
