@@ -36,7 +36,7 @@ local entity_types={
 "land-mine",
 --"locomotive",
 "logistic-container",
-"logistic-robot",
+--"logistic-robot",
 "mining-drill",
 "offshore-pump",
 "pipe",
