@@ -1,3 +1,13 @@
+
+---------------------------------------------------------------------------------------------------
+Version: 0.18.25
+Date: 22. 07. 2020
+  Bugfixes:
+    - Resolved an issue involving Schallfalke's Transport group mod
+  Changes:
+    - Missilecraft
+      - Increased rocket launcher turret range (30 to 36)
+      - Reduced rocket launcher turret cooldown (300 to 120)
 ---------------------------------------------------------------------------------------------------
 Version: 0.18.24
 Date: 18. 06. 2020

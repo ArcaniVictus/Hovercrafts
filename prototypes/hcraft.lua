@@ -18,7 +18,6 @@ local hover_smoke = table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"])
 hcraft_entity.name = "hcraft-entity"
 hcraft_entity.icon = "__Hovercrafts__/graphics/icons/hcraft_small.png"
 hcraft_entity.icon_size = 32
-hcraft_entity.icon_mipmaps = 0
 hcraft_entity.corpse = "hovercraft-remnants"
 hcraft_entity.braking_power = "1200kW"
 hcraft_entity.consumption = "250kW"
@@ -76,115 +75,199 @@ hcraft_entity.stop_trigger =
 hcraft_entity.animation = { --animation required for car type
         layers = {
           {
-            animation_speed = 8,
-            direction_count = 64,
-            frame_count = 1,
-            height = 90,
-			width = 119,
-            max_advance = 0.2,
             priority = "low",
+			width = 119,
+            height = 90,
+            frame_count = 1,
+            direction_count = 64,
             shift = {0,0},
-            stripes = {
+            animation_speed = 8,
+            max_advance = 0.2,
+            stripes =
+			{
               {
-                filename = "__Hovercrafts__/graphics/hovercraft1-sd.png",
-                height_in_frames = 11,
-                width_in_frames = 1
+                filename = "__Hovercrafts__/graphics/hovercraft-1.png",
+                width_in_frames = 1,
+                height_in_frames = 11
               },
               {
-                filename = "__Hovercrafts__/graphics/hovercraft2-sd.png",
-                height_in_frames = 11,
-                width_in_frames = 1
+                filename = "__Hovercrafts__/graphics/hovercraft-2.png",
+                width_in_frames = 1,
+                height_in_frames = 11
               },
               {
-                filename = "__Hovercrafts__/graphics/hovercraft3-sd.png",
-                height_in_frames = 11,
-                width_in_frames = 1
+                filename = "__Hovercrafts__/graphics/hovercraft-3.png",
+                width_in_frames = 1,
+                height_in_frames = 11
               },
 			  {
-                filename = "__Hovercrafts__/graphics/hovercraft4-sd.png",
-                height_in_frames = 10,
-                width_in_frames = 1
+                filename = "__Hovercrafts__/graphics/hovercraft-4.png",
+                width_in_frames = 1,
+                height_in_frames = 10
               },
               {
-                filename = "__Hovercrafts__/graphics/hovercraft5-sd.png",
-                height_in_frames = 11,
-                width_in_frames = 1
+                filename = "__Hovercrafts__/graphics/hovercraft-5.png",
+                width_in_frames = 1,
+                height_in_frames = 11
               },
               {
-                filename = "__Hovercrafts__/graphics/hovercraft6-sd.png",
-                height_in_frames = 10,
-                width_in_frames = 1
+                filename = "__Hovercrafts__/graphics/hovercraft-6.png",
+                width_in_frames = 1,
+                height_in_frames = 10
               }
             },
 			hr_version = {
-				animation_speed = 8,
-				direction_count = 64,
-				frame_count = 1,
-				height = 180,
-				width = 237,
-				scale = 0.5,
-				max_advance = 0.2,
 				priority = "low",
+				width = 237,
+				height = 180,
+				frame_count = 1,
+				scale = 0.5,
+				direction_count = 64,
 				shift = {0,0},
-				stripes = {
+				animation_speed = 8,
+				max_advance = 0.2,
+                --line_length = 2,
+				stripes =
+				{
 				  {
-					filename = "__Hovercrafts__/graphics/hovercraft1.png",
-					height_in_frames = 11,
-					width_in_frames = 1
+					filename = "__Hovercrafts__/graphics/hr-hovercraft-1.png",
+                    width_in_frames = 1,
+                    height_in_frames = 11
 				  },
 				  {
-					filename = "__Hovercrafts__/graphics/hovercraft2.png",
-					height_in_frames = 11,
-					width_in_frames = 1
+					filename = "__Hovercrafts__/graphics/hr-hovercraft-2.png",
+                    width_in_frames = 1,
+                    height_in_frames = 11
 				  },
 				  {
-					filename = "__Hovercrafts__/graphics/hovercraft3.png",
-					height_in_frames = 11,
-					width_in_frames = 1
+					filename = "__Hovercrafts__/graphics/hr-hovercraft-3.png",
+                    width_in_frames = 1,
+                    height_in_frames = 11
 				  },
 				  {
-					filename = "__Hovercrafts__/graphics/hovercraft4.png",
-					height_in_frames = 10,
-					width_in_frames = 1
+					filename = "__Hovercrafts__/graphics/hr-hovercraft-4.png",
+                    width_in_frames = 1,
+                    height_in_frames = 10
 				  },
 				  {
-					filename = "__Hovercrafts__/graphics/hovercraft5.png",
-					height_in_frames = 11,
-					width_in_frames = 1
+					filename = "__Hovercrafts__/graphics/hr-hovercraft-5.png",
+                    width_in_frames = 1,
+                    height_in_frames = 11
 				  },
 				  {
-					filename = "__Hovercrafts__/graphics/hovercraft6.png",
-					height_in_frames = 10,
-					width_in_frames = 1
+					filename = "__Hovercrafts__/graphics/hr-hovercraft-6.png",
+                    width_in_frames = 1,
+                    height_in_frames = 10
 				  }
 				},
 			},
 		  },
-		  {
-            animation_speed = 8,
-            direction_count = 64,
-            frame_count = 1,
-            height = 90,
-			width = 119,
-            max_advance = 0.2,
+          --[[{
             priority = "low",
-            shift = {.3,.3},
+            width = 199,
+            height = 147,
+            frame_count = 1,
+            apply_runtime_tint = true,
+            direction_count = 64,
+            max_advance = 0.2,
+            line_length = 2,
+            shift = {0, 0},
+            stripes = util.multiplystripes(2,
+            {
+              {
+                filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-1.png",
+                width_in_frames = 1,
+                height_in_frames = 13
+              },
+              {
+                filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-2.png",
+                width_in_frames = 1,
+                height_in_frames = 13
+              },
+              {
+                filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-3.png",
+                width_in_frames = 1,
+                height_in_frames = 13
+              },
+              {
+                filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-4.png",
+                width_in_frames = 1,
+                height_in_frames = 13
+              },
+              {
+                filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-5.png",
+                width_in_frames = 1,
+                height_in_frames = 12
+              }
+            }),
+            hr_version =
+            {
+              priority = "low",
+              width = 199,
+              height = 147,
+              frame_count = 1,
+              apply_runtime_tint = true,
+              scale = 0.5,
+              axially_symmetrical = false,
+              direction_count = 64,
+              max_advance = 0.2,
+              shift =  {0, 0}, --util.by_pixel(0+2, -11+8.5),
+              line_length = 1,
+              stripes = util.multiplystripes(2,
+              {
+                {
+                  filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-1.png",
+                  width_in_frames = 1,
+                  height_in_frames = 13
+                },
+                {
+                  filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-2.png",
+                  width_in_frames = 1,
+                  height_in_frames = 13
+                },
+                {
+                  filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-3.png",
+                  width_in_frames = 1,
+                  height_in_frames = 13
+                },
+                {
+                  filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-4.png",
+                  width_in_frames = 1,
+                  height_in_frames = 13
+                },
+                {
+                  filename = "__Hovercrafts__/graphics/hr-hovercraft-mask-5.png",
+                  width_in_frames = 1,
+                  height_in_frames = 12
+                }
+              })
+            }
+          },]]--
+		  {
+            priority = "low",
+			width = 119,
+            height = 90,
+            frame_count = 1,
 			draw_as_shadow = true,
+            direction_count = 64,
+            shift = {.3,.3},
+            max_advance = 0.2,
+            --animation_speed = 8,
             stripes = {
 			  {
-					filename = "__Hovercrafts__/graphics/shadow-combined-sd-1.png",
+					filename = "__Hovercrafts__/graphics/hovercraft-shadow-1.png",
 					height_in_frames = 20,
 					width_in_frames = 1
 			  },{
-					filename = "__Hovercrafts__/graphics/shadow-combined-sd-2.png",
+					filename = "__Hovercrafts__/graphics/hovercraft-shadow-2.png",
 					height_in_frames = 20,
 					width_in_frames = 1
 			  },{
-					filename = "__Hovercrafts__/graphics/shadow-combined-sd-3.png",
+					filename = "__Hovercrafts__/graphics/hovercraft-shadow-3.png",
 					height_in_frames = 20,
 					width_in_frames = 1
 			  },{
-					filename = "__Hovercrafts__/graphics/shadow-combined-sd-4.png",
+					filename = "__Hovercrafts__/graphics/hovercraft-shadow-4.png",
 					height_in_frames = 4,
 					width_in_frames = 1
 			  },
@@ -219,6 +302,7 @@ hcraft_entity.turret_animation = {
 hcraft_item.name = "hcraft-entity"
 hcraft_item.icon = "__Hovercrafts__/graphics/icons/hcraft_small.png"
 hcraft_item.icon_size = 32
+hcraft_item.icon_mipmaps = 0
 hcraft_item.subgroup = subgroup_hc
 hcraft_item.order = "b[personal-transport]-c[hcraft-item]"
 hcraft_item.place_result = "hcraft-entity"	

@@ -6,12 +6,11 @@ require("prototypes.hcraft")
 require("prototypes.mcraft")
 require("prototypes.swimming")
 
-
 	
 local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
 hcraft_remnants.name = "hovercraft-remnants"
-hcraft_remnants.animation.layers[1].filename = "__Hovercrafts__/graphics/car-remnants.png"
-hcraft_remnants.animation.layers[1].hr_version.filename = "__Hovercrafts__/graphics/hr-car-remnants.png"
+hcraft_remnants.animation.layers[1].filename = "__Hovercrafts__/graphics/hovercraft-remnants.png"
+hcraft_remnants.animation.layers[1].hr_version.filename = "__Hovercrafts__/graphics/hr-hovercraft-remnants.png"
 
 data:extend({
 	hcraft_remnants,
@@ -107,6 +106,7 @@ ecraft_entity.burner =
 ecraft_item.name = "ecraft-entity"
 ecraft_item.icon = "__Hovercrafts__/graphics/icons/ecraft_small.png"
 ecraft_item.icon_size = 32
+ecraft_item.icon_mipmaps = 0
 ecraft_item.order = "b[personal-transport]-e[ecraft-item]"
 ecraft_item.place_result = "ecraft-entity"
 
@@ -246,8 +246,8 @@ lcraft_entity.rotation_speed = 0.0050
 lcraft_entity.weight = 7500
 lcraft_entity.minable = {mining_time = 0.5, result = "lcraft-entity"}
 lcraft_entity.equipment_grid = "lcraft-equipment"
--- lcraft_entity.immune_to_tree_impacts = true   -- no.. just no
--- lcraft_entity.immune_to_rock_impacts = true   -- no.. just no
+lcraft_entity.immune_to_tree_impacts = true
+--lcraft_entity.immune_to_rock_impacts = true
 lcraft_entity.burner =
     {
       effectivity = nil,
@@ -271,7 +271,7 @@ lcraft_entity.working_sound =
       },
 	  match_speed_to_activity = false
     }
-lcraft_entity.resistances =  -- why does this have different resistances?
+lcraft_entity.resistances =
     {
       {
         type = "fire",
@@ -359,6 +359,7 @@ lcraft_entity.turret_animation =
 lcraft_item.name = "lcraft-entity"
 lcraft_item.icon = "__Hovercrafts__/graphics/icons/lcraft_small_elec.png"
 lcraft_item.icon_size = 32
+lcraft_item.icon_mipmaps = 0
 lcraft_item.subgroup = subgroup_hc
 lcraft_item.order = "d[personal-transport]-d"
 lcraft_item.place_result = "lcraft-entity"
@@ -495,7 +496,13 @@ if mods["laser_tanks"] and settings.startup["enable-lcraft"].value then
 })
 end
 
-
+if mods["SchallTransportGroup"] then
+	if data.raw.item["lcraft-charger"] then
+	data.raw["item"]["lcraft-charger"].subgroup = "vehicle-equipment"
+	data.raw["item"]["lcraft-charger"].order = "e2"
+	end
+end
+	
 -- Support for Bob Vehicle Equipment mod
 if mods["bobvehicleequipment"] then
 	if data.raw["item-with-entity-data"]["ecraft-entity"] then

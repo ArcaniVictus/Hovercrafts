@@ -25,8 +25,8 @@ mcraft_entity.effectivity = 1.1
 mcraft_entity.max_health = 1200
 mcraft_entity.rotation_speed = 0.0045
 mcraft_entity.tank_driving = true
--- mcraft_entity.immune_to_tree_impacts = true  -- no.. just no
--- mcraft_entity.immune_to_rock_impacts = true  -- no.. just no
+mcraft_entity.immune_to_tree_impacts = true
+mcraft_entity.immune_to_rock_impacts = true
 mcraft_entity.weight = 10000
 mcraft_entity.minable = {mining_time = 0.5, result = "mcraft-entity"}
 mcraft_entity.resistances =
@@ -63,13 +63,13 @@ mcraft_entity.burner =
       effectivity = 1,
       fuel_inventory_size = 2,
     }
-mcraft_entity.guns = {"vehicle-missile-turret"}
+mcraft_entity.guns = {"hovercraft-missile-turret"}
 mcraft_entity.turret_animation =
     {
       layers =
       {
         {
-          filename = "__Hovercrafts__/graphics/vehicle-rocket-sheet2.png",
+          filename = "__Hovercrafts__/graphics/hovercraft-missile-turret.png",
           line_length = 16,
           width = 88,
           height = 80,
@@ -85,8 +85,8 @@ mcraft_entity.turret_rotation_speed = 0.40 / 60
 mcraft_entity.turret_return_timeout = 300
 
 -- Mcraft gun
-mcraft_gun.name = "vehicle-missile-turret"
-mcraft_gun.icon = "__Hovercrafts__/graphics/icons/missile-turret.png"
+mcraft_gun.name = "hovercraft-missile-turret"
+mcraft_gun.icon = "__Hovercrafts__/graphics/icons/hovercraft-missile-turret.png"
 mcraft_gun.icon_size = 32
 mcraft_gun.icon_mipmaps = 0
 mcraft_gun.order = "d[rocket-launcher]"
@@ -94,7 +94,7 @@ mcraft_gun.attack_parameters =
 	{
 		type = "projectile",
 		ammo_category = "rocket",
-		cooldown = 300,
+		cooldown = 120, --60, --300,
 		movement_slow_down_factor = 0.9,
 		projectile_center = 
 			{
@@ -102,7 +102,7 @@ mcraft_gun.attack_parameters =
 			0
 			},
 		projectile_creation_distance = 0.6,
-		range = 30,
+		range = 36,
 		sound =
 		{
 			{
@@ -117,6 +117,7 @@ mcraft_gun.attack_parameters =
 mcraft_item.name = "mcraft-entity"
 mcraft_item.icon = "__Hovercrafts__/graphics/icons/mcraft_small.png"
 mcraft_item.icon_size = 32
+mcraft_item.icon_mipmaps = 0
 mcraft_item.order = "b[personal-transport]-d[mcraft-entity]"
 mcraft_item.place_result = "mcraft-entity"	
 
