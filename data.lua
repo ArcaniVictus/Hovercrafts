@@ -58,6 +58,7 @@ local ecraft_recipe = table.deepcopy(data.raw.recipe["hcraft-recipe"])
 -- Ecraft entity
 ecraft_entity.name = "ecraft-entity"
 ecraft_entity.icon = "__Hovercrafts__/graphics/icons/ecraft_small.png"
+ecraft_entity.icon_size = 32
 ecraft_entity.braking_power = "1000kW"
 ecraft_entity.consumption = "6MW"
 ecraft_entity.effectivity = 0.11
@@ -91,12 +92,14 @@ ecraft_entity.burner =
 -- Item
 ecraft_item.name = "ecraft-item"
 ecraft_item.icon = "__Hovercrafts__/graphics/icons/ecraft_small.png"
+ecraft_item.icon_size = 32
 ecraft_item.order = "b[personal-transport]-e[ecraft-item]"
 ecraft_item.place_result = "ecraft-entity"
 
 -- Tech
 ecraft_tech.name = "ecraft-tech"
 ecraft_tech.icon = "__Hovercrafts__/graphics/icons/ecraft_large.png"
+ecraft_tech.icon_size = 128
 ecraft_tech.effects =
 	{
 		{
@@ -180,6 +183,7 @@ ehvt_equipment.categories = {"electric-hovercraft-equipment"}
 -- Item
 ehvt_item.name = "ehvt-equipment"
 ehvt_item.icon = "__Hovercrafts__/graphics/icons/ehvt-item.png"
+ehvt_item.icon_size = 32
 ehvt_item.placed_as_equipment_result = "ehvt-equipment"
 ehvt_item.subgroup = subgroup_ehvt
 ehvt_item.order = "d2"
@@ -220,6 +224,7 @@ local lcraft_recipe = table.deepcopy(data.raw.recipe["hcraft-recipe"])
 -- lcraft entity
 lcraft_entity.name = "lcraft-entity"
 lcraft_entity.icon = "__Hovercrafts__/graphics/icons/lcraft_small_elec.png"	
+lcraft_entity.icon_size = 32
 lcraft_entity.effectivity = 0.20
 lcraft_entity.max_health = 800
 lcraft_entity.rotation_speed = 0.0050
@@ -338,6 +343,7 @@ lcraft_entity.turret_animation =
 -- Item
 lcraft_item.name = "lcraft-item"
 lcraft_item.icon = "__Hovercrafts__/graphics/icons/lcraft_small_elec.png"
+lcraft_item.icon_size = 32
 lcraft_item.subgroup = subgroup_hc
 lcraft_item.order = "d[personal-transport]-d"
 lcraft_item.place_result = "lcraft-entity"
@@ -345,6 +351,7 @@ lcraft_item.place_result = "lcraft-entity"
 -- Tech
 lcraft_tech.name = "lcraft-tech"
 lcraft_tech.icon = "__Hovercrafts__/graphics/icons/lcraft_large_elec.png"
+lcraft_tech.icon_size = 128
 lcraft_tech.effects =
 	{
 		{
@@ -440,7 +447,9 @@ if data.raw["item-with-entity-data"]["ecraft-item"] == nil and settings.startup[
 	end
 	if settings.startup["lasertanks-electric-engine"] and mods["electric-vehicles-reborn"] == nil then
 		data.raw["item-with-entity-data"]["lcraft-item"].icon = "__Hovercrafts__/graphics/icons/lcraft_small_burn.png"
+		data.raw["item-with-entity-data"]["lcraft-item"].icon_size = 32
 		data.raw.technology["lcraft-tech"].icon = "__Hovercrafts__/graphics/icons/lcraft_large_burn.png"
+		data.raw.technology["lcraft-tech"].icon_size = 128
 		if settings.startup["lasertanks-electric-engine"].value == false then
 			table.remove(data.raw.technology["lcraft-tech"].effects, 2)
 			data.raw.car["lcraft-entity"].effectivity = 1
@@ -501,6 +510,8 @@ if settings.startup["lasertanks-electric-engine"] and settings.startup["lasertan
 --[[else
 	if mods["electric-vehicles-reborn"] == nil and mods["electric-vehicles-lib-reborn"] == nil and data.raw["item-with-entity-data"]["lcraft-item"] then
 		data.raw["item-with-entity-data"]["lcraft-item"].icon = "__Hovercrafts__/graphics/icons/lcraft_small_burn.png"
+		data.raw["item-with-entity-data"]["lcraft-item"].icon_size = 32
 		data.raw.technology["lcraft-tech"].icon = "__Hovercrafts__/graphics/icons/lcraft_large_burn.png"
+		data.raw.technology["lcraft-tech"].icon_size = 128
 	end]]--
 end

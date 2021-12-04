@@ -17,6 +17,7 @@ local hover_smoke = table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"])
 -- Hovercraft entity
 hcraft_entity.name = "hcraft-entity"
 hcraft_entity.icon = "__Hovercrafts__/graphics/icons/hcraft_small.png"
+hcraft_entity.icon_size = 32
 hcraft_entity.braking_power = "1200kW"
 hcraft_entity.consumption = "250kW"
 hcraft_entity.effectivity = 1.3
@@ -187,6 +188,7 @@ hcraft_entity.turret_animation = {
 -- Item
 hcraft_item.name = "hcraft-item"
 hcraft_item.icon = "__Hovercrafts__/graphics/icons/hcraft_small.png"
+hcraft_item.icon_size = 32
 hcraft_item.subgroup = subgroup_hc
 hcraft_item.order = "b[personal-transport]-c[hcraft-item]"
 hcraft_item.place_result = "hcraft-entity"	
@@ -195,6 +197,7 @@ hcraft_item.place_result = "hcraft-entity"
 -- Tech
 hcraft_tech.name = "hcraft-tech"
 hcraft_tech.icon = "__Hovercrafts__/graphics/icons/hcraft_large.png"
+hcraft_tech.icon_size = 128
 hcraft_tech.effects =
 	{
 		{type = "unlock-recipe", recipe = "hcraft-recipe"},

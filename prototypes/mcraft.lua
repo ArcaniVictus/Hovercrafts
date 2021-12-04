@@ -87,6 +87,7 @@ mcraft_entity.turret_return_timeout = 300
 -- Mcraft gun
 mcraft_gun.name = "vehicle-missile-turret"
 mcraft_gun.icon = "__Hovercrafts__/graphics/icons/missile-turret.png"
+mcraft_gun.icon_size = 32
 mcraft_gun.order = "d[rocket-launcher]"
 mcraft_gun.attack_parameters =
 	{
@@ -114,6 +115,7 @@ mcraft_gun.attack_parameters =
 -- Mcraft item
 mcraft_item.name = "mcraft-item"
 mcraft_item.icon = "__Hovercrafts__/graphics/icons/mcraft_small.png"
+mcraft_item.icon_size = 32
 mcraft_item.order = "b[personal-transport]-d[mcraft-entity]"
 mcraft_item.place_result = "mcraft-entity"	
 
@@ -122,6 +124,7 @@ mcraft_item.place_result = "mcraft-entity"
 -- Mcraft tech
 mcraft_tech.name = "mcraft-tech"
 mcraft_tech.icon = "__Hovercrafts__/graphics/icons/mcraft_large.png"
+mcraft_tech.icon_size = 128
 mcraft_tech.effects =
 	{
 		{type = "unlock-recipe", recipe = "mcraft-recipe"},
