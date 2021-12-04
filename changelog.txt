@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.17.18
+Date: 28. 11. 2019
+  Bugfixes:
+    - Reverted the implemented collision mask changes (Will revisit after holidays.  Happy Thanksgiving!)
+---------------------------------------------------------------------------------------------------
 Version: 0.17.17
 Date: 27. 11. 2019
   Bugfixes:
