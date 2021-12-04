@@ -89,129 +89,43 @@ hcraft_entity.light_animation = {
     repeat_count = 1,
   }
 }
-hcraft_entity.animation = { --animation required for car type
+hcraft_entity.animation = {
   layers = {
     {
-      priority = "low",
-      width = 119,
-      height = 90,
-      frame_count = 1,
-      direction_count = 64,
-      shift = {0,0},
-      animation_speed = 8,
+      filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-base.png",
+      line_length = 8,
+      size = 128,
       max_advance = 0.2,
-      stripes =
-      {
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-1.png",
-          width_in_frames = 1,
-          height_in_frames = 11
-        },
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-2.png",
-          width_in_frames = 1,
-          height_in_frames = 11
-        },
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-3.png",
-          width_in_frames = 1,
-          height_in_frames = 11
-        },
-       {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-4.png",
-          width_in_frames = 1,
-          height_in_frames = 10
-        },
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-5.png",
-          width_in_frames = 1,
-          height_in_frames = 11
-        },
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-6.png",
-          width_in_frames = 1,
-          height_in_frames = 10
-        }
-      },
+      direction_count = 64,
+      scale = 1,
       hr_version = {
-        priority = "low",
-        width = 237,
-        height = 180,
-        frame_count = 1,
-        scale = 0.5,
-        direction_count = 64,
-        shift = {0,0},
-        animation_speed = 8,
+        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-base.png",
+        line_length = 8,
+        size = 256,
         max_advance = 0.2,
-        --line_length = 2,
-        stripes =
-        {
-          {
-            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-1.png",
-            width_in_frames = 1,
-            height_in_frames = 11
-          },
-          {
-            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-2.png",
-            width_in_frames = 1,
-            height_in_frames = 11
-          },
-          {
-            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-3.png",
-            width_in_frames = 1,
-            height_in_frames = 11
-          },
-          {
-            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-4.png",
-            width_in_frames = 1,
-            height_in_frames = 10
-          },
-          {
-            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-5.png",
-            width_in_frames = 1,
-            height_in_frames = 11
-          },
-          {
-            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-6.png",
-            width_in_frames = 1,
-            height_in_frames = 10
-          }
-        },
-      },
+        direction_count = 64,
+        scale = 0.5,
+      }
     },
     {
-      priority = "low",
-      width = 119,
-      height = 90,
-      frame_count = 1,
-      draw_as_shadow = true,
-      direction_count = 64,
-      shift = {.3,.3},
+      filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow.png",
+      line_length = 8,
+      size = 128,
       max_advance = 0.2,
-      --animation_speed = 8,
-      stripes = {
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow-1.png",
-          height_in_frames = 20,
-          width_in_frames = 1
-        },
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow-2.png",
-          height_in_frames = 20,
-          width_in_frames = 1
-        },
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow-3.png",
-          height_in_frames = 20,
-          width_in_frames = 1
-        },
-        {
-          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow-4.png",
-          height_in_frames = 4,
-          width_in_frames = 1
-        },
-      },
-    }
+      direction_count = 64,
+      shift = util.by_pixel(8, 8),
+      draw_as_shadow = true,
+      hr_version = {
+        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-shadow.png",
+        line_length = 8,
+        size = 256,
+        max_advance = 0.2,
+        direction_count = 64,
+        scale = 0.5,
+        shift = util.by_pixel(8, 8),
+        draw_as_shadow = true,
+      }
+    },
   }
 }
 hcraft_entity.turret_animation = {
