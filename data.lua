@@ -7,64 +7,6 @@ require("prototypes.mcraft")
 require("prototypes.swimming")
 
 
-data:extend({
-	--recipe
-	{
-		type = "recipe",
-		name = "lcraft-charger",
-		enabled = false,
-		energy_required = 10,
-		ingredients =
-		{
-		{"processing-unit", 25},
-		{"energy-shield-mk2-equipment", 5},
-		{"ehvt-equipment", 2}
-		},
-		result = "lcraft-charger"
-	},
-	--item
-	{
-		type = "item",
-		name = "lcraft-charger",
-		icon = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
-		icon_size = 670,
-		flags = flags_main,
-		placed_as_equipment_result = "lcraft-charger",
-		subgroup = "equipment",
-		order = "e[robotics]-a[personal-roboport-equipment]",
-		stack_size = 20
-	},
-	--equipment
-	{
-	type = "battery-equipment",
-	name = "lcraft-charger",
-	sprite =
-       {
-       filename = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
-       width = 670,
-       height = 670,
-       priority = "medium"
-       },
-	shape =
-	   {
-	   width = 1,
-	   height = 1,
-	   type = "full"
-	   },
-	energy_source =
-	   {
-		type = "electric",
-		buffer_capacity = "2250KJ",
-		input_flow_limit = "750KW",
-		drain = "0W",
-		output_flow_limit = "0W",
-		usage_priority = "primary-input"
-		},
-		categories = { "armor" },
-		order = "b-i-c"
-	}
-})
-
 	
 local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
 hcraft_remnants.name = "hovercraft-remnants"
@@ -493,6 +435,63 @@ end
 
 if mods["laser_tanks"] and settings.startup["enable-lcraft"].value then
 	make_lcraft()
+	data:extend({
+	--recipe
+	{
+		type = "recipe",
+		name = "lcraft-charger",
+		enabled = false,
+		energy_required = 10,
+		ingredients =
+		{
+		{"processing-unit", 25},
+		{"energy-shield-mk2-equipment", 5},
+		{"ehvt-equipment", 2}
+		},
+		result = "lcraft-charger"
+	},
+	--item
+	{
+		type = "item",
+		name = "lcraft-charger",
+		icon = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
+		icon_size = 670,
+		flags = flags_main,
+		placed_as_equipment_result = "lcraft-charger",
+		subgroup = "equipment",
+		order = "e[robotics]-a[personal-roboport-equipment]",
+		stack_size = 20
+	},
+	--equipment
+	{
+	type = "battery-equipment",
+	name = "lcraft-charger",
+	sprite =
+       {
+       filename = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
+       width = 670,
+       height = 670,
+       priority = "medium"
+       },
+	shape =
+	   {
+	   width = 1,
+	   height = 1,
+	   type = "full"
+	   },
+	energy_source =
+	   {
+		type = "electric",
+		buffer_capacity = "2250KJ",
+		input_flow_limit = "750KW",
+		drain = "0W",
+		output_flow_limit = "0W",
+		usage_priority = "primary-input"
+		},
+		categories = { "armor" },
+		order = "b-i-c"
+	}
+})
 end
 
 
