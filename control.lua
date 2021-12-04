@@ -1,9 +1,8 @@
--- Hovercraft
 -- control.lua
 
 
 local isWaterTile = {["water"]=true,["deepwater"]=true}
-local isHovercraft = {["hovercraft-entity"]=true,["ecraft-entity"]=true,["missilecraft"]=true,["lcraft-entity"]=true}
+local isHovercraft = {["hcraft-entity"]=true,["ecraft-entity"]=true,["mcraft-entity"]=true,["lcraft-entity"]=true}
 
 
 -- check for other mods that make water effects
@@ -16,6 +15,7 @@ local function modCheck()
 		makeEffects = true
 	end
 end
+
 
 
 -- aesthetic ripple
@@ -159,11 +159,8 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
 end
 end)
 
-
-
 -- Removes rocks if startup setting is selected
---[[
-local function removerocks(e)
+--[[local function removerocks(e)
     local entities = e.surface.find_entities_filtered({ area = e.area, type = 'simple-entity' })
     for _, entity in pairs(entities) do
         if entity.prototype.count_as_rock_for_filtered_deconstruction then
@@ -185,27 +182,6 @@ script.on_event(defines.events.on_chunk_generated, function(e)
             e.surface.destroy_decoratives(e.area)
             if settings.startup["removerocks"].value == true then removerocks(e) end
 end)
-
-
-script.on_event(defines.events.on_chunk_generated, function()
-            --e.surface.destroy_decoratives(e.area)
-            if settings.startup["removecliffs"].value == true then remove_cliffs
-			end
-
-
-function remove_cliffs()
-  local kills = 0
-  for i=1,#game.players do
-    for _, v in pairs(game.players[i].surface.find_entities_filtered{type="cliff"}) do
-      v.destroy()
-      kills = kills + 1
-    end
-  end
-  for i=1,#game.players do
-    game.players[i].print(kills.." cliffs removed")
-  end 
-end
-end)
 ]]--
 
 
@@ -213,8 +189,8 @@ end)
 ------------Laser tank script for lcraft's turret------------
 -------------------------------------------------------------	
 script.on_init(function()
-	if game.active_mods["electric-vehicles-lib-reborn"] or game.active_mods["laser_tanks"] then
-		remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
+	if game.active_mods["electric-vehicles-lib-reborn"] or game.active_mods["laser_tanks"] and settings.startup["lasertanks-electric-engine"].value then
+		remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
 	end
 	global.e_vehicles = { }
 	global.braking_trains = { }
@@ -237,9 +213,9 @@ end)
 
 script.on_configuration_changed(function()
 	if not global.version then
-		if game.active_mods["electric-vehicles-lib-reborn"] then
-			remote.call("electric-vehicles-lib", "register-transformer", {name = "extra-high-voltage-transformer"})
-		end
+		--if game.active_mods["electric-vehicles-lib-reborn"] then
+		--	remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
+		--end
 		global.e_vehicles = { }
 		global.braking_trains = { }
 		global.braking_vehicles = { }

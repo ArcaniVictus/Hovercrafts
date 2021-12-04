@@ -1,3 +1,5 @@
+-- prototypes.categories.lua
+
 if mods["SchallTransportGroup"] then
   data:extend{
     {
@@ -8,8 +10,8 @@ if mods["SchallTransportGroup"] then
     }
   }
   else
-	data.raw["item-with-entity-data"]["car"].subgroup = "transport2"
-	data.raw["item-with-entity-data"]["tank"].subgroup = "transport2"
+	data.raw["item-with-entity-data"].car.subgroup = "transport2"
+	data.raw["item-with-entity-data"].tank.subgroup = "transport2"
 end
 
 data:extend

@@ -1,4 +1,19 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.17.14
+Date: 20. 06. 2019
+  Changes:
+    - General
+	- Added startup settings to disable/enable each hovercraft individually (except the standard hovercraft)
+    - Missilecraft
+	- Added collision immuntiy to rocks
+	- Balanced resistances to be more in line with recent changes
+    - Lasercraft
+	- Added support for Mod: Laser Tanks option to disable electric motors
+	- Added collision immuntiy to rocks and trees
+	- Balanced resistances to be more in line with recent changes
+    - Extra high voltage transformer
+	- Decreased the dimensions (2x4 to 2x3)
+---------------------------------------------------------------------------------------------------
 Version: 0.17.13
 Date: 22. 05. 2019
   Changes:

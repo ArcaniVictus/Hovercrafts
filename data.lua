@@ -1,12 +1,28 @@
--- Hovercraft
 -- data.lua
-
-
+ 
 require("prototypes.categories")
 require("prototypes.equipment")
-require("prototypes.hovercraft")
+require("prototypes.hcraft")
+require("prototypes.mcraft")
 require("prototypes.swimming")
-require("prototypes.missilecraft")
+
+data:extend({
+-- Equipment
+    {
+	type = "equipment-grid",
+    name = "ecraft-equipment",
+    width = 8,
+    height = 8,
+    equipment_categories = { "armor", "electric-hovercraft-equipment" },
+	},
+	{
+	type = "equipment-grid",
+    name = "lcraft-equipment",
+    width = 10,
+    height = 10,
+    equipment_categories = {"armor", "electric-hovercraft-equipment"},
+	}
+})
 
 -- Support for  Schallfalke's Schall Transport Group mod
 local subgroup_hc = "transport2"
@@ -16,8 +32,6 @@ local subgroup_ehvt = "electric-vehicles-equipment"
 if mods["SchallTransportGroup"] then
 	subgroup_hc = "hovercrafts"
 	subgroup_ehvt = "vehicle-equipment"
-	--table.insert(data.raw["item-with-entity-data"]["ecraft-item"].subgroup, "hovercrafts")
-	--table.insert(data.raw["item"]["extra-high-voltage-transformer"].subgroup, "vehicle-equipment" )
 end
 
 -- collision box
@@ -29,33 +43,37 @@ local collision = table.deepcopy(data.raw.car.car)
     collision.name="hovercraft-collision"
     collision.order="hovercraft-collision"
 data:extend({collision})
-	
-	
--- Checks for mod, Electric vehicles reborn, and if true inserts electric hovercraft
-if mods["electric-vehicles-lib-reborn"] or mods["laser_tanks"] then
+
+
+
+
+-- Checks mods/settings and handles electric hovercraft
+
+function make_ecraft()
+local ecraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
+local ecraft_item = table.deepcopy(data.raw["item-with-entity-data"]["hcraft-item"])
+local ecraft_tech = table.deepcopy(data.raw.technology["hcraft-tech"])
+local ecraft_recipe = table.deepcopy(data.raw.recipe["hcraft-recipe"])
+
 -- Ecraft entity
-local ecraft_entity = table.deepcopy(data.raw["car"]["hovercraft-entity"])
-local updates = {
-	name = "ecraft-entity",
-	icon = "__Hovercrafts__/graphics/icons/ecraft_small.png",
-	icon_size = 32,	
-	braking_power = "1000kW",
-	consumption = "6MW",
-	effectivity = 0.11, --0.21,
-	max_health = 250,
-	rotation_speed = 0.0075,
-	weight = 1500,
-	minable = {mining_time = 0.5, result = "ecraft-item"},
-	equipment_grid = "ecraft-equipment",
-	inventory_size = 80,
-	sound_no_fuel =
+ecraft_entity.name = "ecraft-entity"
+ecraft_entity.icon = "__Hovercrafts__/graphics/icons/ecraft_small.png"
+ecraft_entity.braking_power = "1000kW"
+ecraft_entity.consumption = "6MW"
+ecraft_entity.effectivity = 0.11
+ecraft_entity.max_health = 250
+ecraft_entity.rotation_speed = 0.0075
+ecraft_entity.weight = 1500
+ecraft_entity.minable = {mining_time = 0.5, result = "ecraft-item"}
+ecraft_entity.equipment_grid = "ecraft-equipment"
+ecraft_entity.sound_no_fuel =
     {
       {
         filename = "__Hovercrafts__/audio/no-energy.ogg",
         volume = 0.4
       }
-    },
-	working_sound =
+    }
+ecraft_entity.working_sound =
     {
       sound =
       {
@@ -63,54 +81,23 @@ local updates = {
         volume = 0.5
       },
 	  match_speed_to_activity = false
-    },
-	burner =
+    }
+ecraft_entity.burner =
     {
       effectivity = nil,
       fuel_inventory_size = 0,
-    },
-}
-for k,v in pairs(updates) do
-	ecraft_entity[k] = updates[k]
-end
+    }
 
-
-data:extend({
-	ecraft_entity,
-})	
-
-data:extend({
 -- Item
-    {
-	type = "item-with-entity-data",
-	name = "ecraft-item",
-	icon = "__Hovercrafts__/graphics/icons/ecraft_small.png",
-	icon_size = 32,
-	subgroup = subgroup_hc, --"transport2",
-	order = "b[personal-transport]-e[ecraft-item]",
-	stack_size = 1,
-	place_result = "ecraft-entity"	
-	},
-	{
-    type = "item",
-    name = "extra-high-voltage-transformer",
-    icon = "__Hovercrafts__/graphics/extra-high-voltage-transformer-icon.png",
-    icon_size = 32,
-    placed_as_equipment_result = "extra-high-voltage-transformer",
-    flags = {},
-    subgroup = subgroup_ehvt, --"electric-vehicles-equipment",
-    order = "d",
-    stack_size = 10,
-	},
-	
+ecraft_item.name = "ecraft-item"
+ecraft_item.icon = "__Hovercrafts__/graphics/icons/ecraft_small.png"
+ecraft_item.order = "b[personal-transport]-e[ecraft-item]"
+ecraft_item.place_result = "ecraft-entity"
 
 -- Tech
-    {
-	type = "technology",
-	name = "ecraft-tech",
-	icon = "__Hovercrafts__/graphics/icons/ecraft_large.png",
-	icon_size = 128,
-	effects =
+ecraft_tech.name = "ecraft-tech"
+ecraft_tech.icon = "__Hovercrafts__/graphics/icons/ecraft_large.png"
+ecraft_tech.effects =
 	{
 		{
 		type = "unlock-recipe",
@@ -118,10 +105,10 @@ data:extend({
 		},
 		{
         type = "unlock-recipe",
-        recipe = "extra-high-voltage-transformer-recipe",
+        recipe = "ehvt-equipment",
         },
-	},
-	prerequisites = {"hovercraft-tech"}, --, "electric-vehicles-high-voltage-transformer"
+	}
+ecraft_tech.prerequisites = {"hcraft-tech"} --, "electric-vehicles-high-voltage-transformer"
 	unit =
 	{
 		count = 400,
@@ -133,120 +120,143 @@ data:extend({
 			{"utility-science-pack", 1},
 		},
 		time = 60
-	},
-	order = "a"
-	},
-
+	}
 
 -- Recipe
-    {
-	type = "recipe",
-	name = "ecraft-recipe",
-	energy_required = 10,
-	enabled = false,
-	ingredients =
+ecraft_recipe.name = "ecraft-recipe"
+ecraft_recipe.ingredients =
 	{
 		{"low-density-structure", 25},
 		{"electric-engine-unit", 40},
 		{"processing-unit", 20},
-		{"hovercraft-item", 1},
-    },
-	result = "ecraft-item",
-	result_count = 1
-	},
-	{
-    type = "recipe",
-    name = "extra-high-voltage-transformer-recipe",
-    enabled = false,
-    ingredients =
-    {
-      --{"electric-vehicles-hi-voltage-transformer", 4},--
-	  {"battery-mk2-equipment", 2},
-	  --{"steel-plate", 150},
-      {type = "fluid", name = "lubricant", amount = 50},
-    },
-    result = "extra-high-voltage-transformer",
-    category = "crafting-with-fluid",
-	
-	},
-	
-	
+		{"hcraft-item", 1},
+    }
+ecraft_recipe.result = "ecraft-item"
+
+data:extend({
+	ecraft_entity,
+	ecraft_item,
+	ecraft_tech,
+	ecraft_recipe
+})
+end
+
+
+
+
+
+-- Checks mods/settings and handles Extra high voltage transformer
+
+function make_equipment()
+local ehvt_equipment = table.deepcopy(data.raw["battery-equipment"]["battery-equipment"])
+local ehvt_item = table.deepcopy(data.raw.item["battery"])
+local ehvt_recipe = table.deepcopy(data.raw.recipe["battery-equipment"])
 
 -- Equipment
+ehvt_equipment.name = "ehvt-equipment"
+ehvt_equipment.sprite =
     {
-	type = "equipment-grid",
-    name = "ecraft-equipment",
-    width = 8,
-    height = 8,
-    equipment_categories = { "armor", "electric-hovercraft-equipment" },
-	},
-	{
-	type = "battery-equipment",
-    name = "extra-high-voltage-transformer",
-    sprite =
-    {
-      filename = "__Hovercrafts__/graphics/extra-high-voltage-transformer-equipment.png",
-      width = 64,
-      height = 128,
+      filename = "__Hovercrafts__/graphics/icons/ehvt-equipment.png",
+      width = 64, --128
+      height = 96, --128
       priority = "medium"
-    },
-    shape =
+    }
+ehvt_equipment.shape =
     {
       width = 2,
-      height = 4,
+      height = 3,
       type = "full"
-    },
-    energy_source =
+    }
+ehvt_equipment.energy_source =
     {
       type = "electric",
       buffer_capacity = "200MJ", --math.ceil(500 / 60) .. "MW",
       input_flow_limit = "1GW", --500 .. "MW",
       output_flow_limit = "1GW", --"0W",
-      usage_priority = "secondary-input"
-    },
-    categories = {"electric-hovercraft-equipment"},
-	},
+      usage_priority = "primary-input"
+    }
+ehvt_equipment.categories = {"electric-hovercraft-equipment"}
+
+-- Item
+ehvt_item.name = "ehvt-equipment"
+ehvt_item.icon = "__Hovercrafts__/graphics/icons/ehvt-item.png"
+ehvt_item.placed_as_equipment_result = "ehvt-equipment"
+ehvt_item.subgroup = subgroup_ehvt
+ehvt_item.order = "d2"
+ehvt_item.stack_size = 10
+
+-- Recipe
+ehvt_recipe.name = "ehvt-equipment"
+ehvt_recipe.category = "crafting-with-fluid"
+ehvt_recipe.ingredients =
+    {
+	  {"battery-mk2-equipment", 2},
+	  {"processing-unit", 5},
+      {type = "fluid", name = "lubricant", amount = 50},
+    }
+ehvt_recipe.result = "ehvt-equipment"
+
+data:extend({
+	ehvt_equipment,
+	ehvt_item,
+	ehvt_recipe
 })
 end
 
 
--- Support for Vortik's Armor Plating mod
-if mods["vtk-armor-plating"] then
-	   --table.insert(ecraft_equipment.equipment_categories, "vtk-armor-plating")
-	   table.insert(data.raw["equipment-grid"]["ecraft-equipment"].equipment_categories, "vtk-armor-plating")
-end
 
 
--- Support for PiteR's Electric Vehicles Reborn mod
-if mods["electric-vehicles-reborn"] then
-	table.insert(data.raw["recipe"]["extra-high-voltage-transformer-recipe"].ingredients, {"electric-vehicles-hi-voltage-transformer", 2})
-	table.insert(data.raw["technology"]["ecraft-tech"].prerequisites, "electric-vehicles-high-voltage-transformer" )
-end
 
 
-	-- Checks for mods, Electric vehicles reborn and laser_tanks, and if true inserts laser-craft
+
+
+-- Checks mods/settings and handles laser-craft
+function make_lcraft()
+local lcraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
+local lcraft_item = table.deepcopy(data.raw["item-with-entity-data"]["hcraft-item"])
+local lcraft_tech = table.deepcopy(data.raw.technology["hcraft-tech"])
+local lcraft_recipe = table.deepcopy(data.raw.recipe["hcraft-recipe"])
+
 -- lcraft entity
-if mods["laser_tanks"] then -- or mods["electric-vehicles-lib-reborn"] then
-local lcraft_entity = table.deepcopy(data.raw["car"]["ecraft-entity"])
-local updates = {
-	name = "lcraft-entity",
-	icon = "__Hovercrafts__/graphics/icons/lcraft_small.png",
-	icon_size = 32,	
-	braking_power = "1250kW",
-	consumption = "8MW",
-	effectivity = 0.20, --0.40,
-	max_health = 800,
-	rotation_speed = 0.0050,
-	weight = 7500,
-	minable = {mining_time = 0.5, result = "lcraft-item"},
-	equipment_grid = "lcraft-equipment",
-	inventory_size = 80,
-	resistances =
+lcraft_entity.name = "lcraft-entity"
+lcraft_entity.icon = "__Hovercrafts__/graphics/icons/lcraft_small_elec.png"	
+lcraft_entity.effectivity = 0.20
+lcraft_entity.max_health = 800
+lcraft_entity.rotation_speed = 0.0050
+lcraft_entity.weight = 7500
+lcraft_entity.minable = {mining_time = 0.5, result = "lcraft-item"}
+lcraft_entity.equipment_grid = "lcraft-equipment"
+lcraft_entity.immune_to_tree_impacts = true
+lcraft_entity.immune_to_rock_impacts = true
+lcraft_entity.burner =
+    {
+      effectivity = nil,
+      fuel_inventory_size = 0,
+    }
+lcraft_entity.braking_power = "1250kW"
+lcraft_entity.consumption = "8MW"
+lcraft_entity.sound_no_fuel =
+    {
+      {
+        filename = "__Hovercrafts__/audio/no-energy.ogg",
+        volume = 0.4
+      }
+    }
+lcraft_entity.working_sound =
+    {
+      sound =
+      {
+        filename = "__Hovercrafts__/audio/vehicle-motor.ogg",
+        volume = 0.5
+      },
+	  match_speed_to_activity = false
+    }
+lcraft_entity.resistances =
     {
       {
         type = "fire",
-        decrease = 5,
-        percent = 20
+        decrease = 7.5,
+        percent = 30
       },
       {
         type = "physical",
@@ -255,44 +265,23 @@ local updates = {
       },
       {
         type = "impact",
-        decrease = 30,
-        percent = 25
+        decrease = 25,
+        percent = 40
       },
       {
         type = "explosion",
         decrease = 7.5,
-        percent = 30
+        percent = 35
       },
       {
         type = "acid",
         decrease = 0,
-        percent = 15
+        percent = 35
       }
-    },
-	sound_no_fuel =
-    {
-      {
-        filename = "__Hovercrafts__/audio/no-energy.ogg",
-        volume = 0.4
-      }
-    },
-	working_sound =
-    {
-      sound =
-      {
-        filename = "__Hovercrafts__/audio/vehicle-motor.ogg",
-        volume = 0.5
-      },
-	  match_speed_to_activity = false
-    },
-	burner =
-    {
-      effectivity = nil,
-      fuel_inventory_size = 0,
-    },
-	guns = {"vehicle-laser-gun"},
-    turret_rotation_speed = 0.35 / 60,
-	turret_animation =
+    }
+lcraft_entity.guns = {"vehicle-laser-gun"}
+lcraft_entity.turret_rotation_speed = 0.35 / 60
+lcraft_entity.turret_animation =
     {
       layers =
       {
@@ -344,40 +333,27 @@ local updates = {
           shift = {0.875, 0.359375}
         }
       }
-    },
-}
-for k,v in pairs(updates) do
-	lcraft_entity[k] = updates[k]
-end
+    }
 
 -- Item
-local lcraft_item = {
-	type = "item-with-entity-data",
-	name = "lcraft-item",
-	icon = "__Hovercrafts__/graphics/icons/lcraft_small.png",
-	icon_size = 32,
-	subgroup = subgroup_hc, --"transport2",
-	order = "d[personal-transport]-d",
-	stack_size = 1,
-	place_result = "lcraft-entity"	
-	}
-	
+lcraft_item.name = "lcraft-item"
+lcraft_item.icon = "__Hovercrafts__/graphics/icons/lcraft_small_elec.png"
+lcraft_item.subgroup = subgroup_hc
+lcraft_item.order = "d[personal-transport]-d"
+lcraft_item.place_result = "lcraft-entity"
 
 -- Tech
-local lcraft_tech = {
-	type = "technology",
-	name = "lcraft-tech",
-	icon = "__Hovercrafts__/graphics/icons/lcraft_large.png",
-	icon_size = 128,
-	effects =
+lcraft_tech.name = "lcraft-tech"
+lcraft_tech.icon = "__Hovercrafts__/graphics/icons/lcraft_large_elec.png"
+lcraft_tech.effects =
 	{
 		{
 		type = "unlock-recipe",
 		recipe = "lcraft-recipe"
 		},
-	},
-	prerequisites = {"laser-turrets", "laser-rifle-2", "nuclear-power", "ecraft-tech"}, --, "extra-high-voltage-transformer-tech",  "low-density-structure", "advanced-electronics-2"
-	unit =
+	}
+lcraft_tech.prerequisites = {"laser-turrets", "laser-rifle-2", "nuclear-power", "ecraft-tech"}
+lcraft_tech.unit =
 	{
 		count = 400,
 		ingredients =
@@ -389,62 +365,142 @@ local lcraft_tech = {
 			{"utility-science-pack", 1},
 		},
 		time = 60
-	},
-	order = "a"
 	}
-	
-
 -- Recipe
-local lcraft_recipe = {
-	type = "recipe",
-	name = "lcraft-recipe",
-	energy_required = 10,
-	enabled = false,
-	ingredients =
+lcraft_recipe.name = "lcraft-recipe"
+lcraft_recipe.ingredients =
 	{
 		{"ecraft-item", 1},
         {"laser-turret", 2},
 		{"heat-pipe", 25},
 		{"heat-exchanger", 2},
-    },
-	result = "lcraft-item",
-	result_count = 1
-	}
+    }
+lcraft_recipe.result = "lcraft-item"
 
--- Equipment
-local lcraft_equipment = {
-	type = "equipment-grid",
-    name = "lcraft-equipment",
-    width = 10,
-    height = 10,
-    equipment_categories = {"armor", "electric-hovercraft-equipment"},
-	}
-
---[[ Lcraft gun
-local lcraft_gun = table.deepcopy(data.raw.gun["vehicle-laser-gun"])
-local updates = {
-	name = "lcraft-laser",
-    icons = "__Hovercrafts__/graphics/icons/railgun.png",
-    icon_size = 32,
-	attack_parameters =
-      {
-      cooldown = 40,
-	  range = 24
-	  }
-	}]]--
-
--- Support for Vortik's Armor Plating mod
-if mods["vtk-armor-plating"] then
-	   table.insert(lcraft_equipment.equipment_categories, "vtk-armor-plating")
-	   table.insert(lcraft_recipe.ingredients, {"vtk-armor-plating", 8})
-end
-	
 data:extend({
 	lcraft_entity,
 	lcraft_item,
 	lcraft_tech,
-	lcraft_recipe,
-	lcraft_equipment,
-	--lcraft_gun,
+	lcraft_recipe
 })
+end
+
+
+if settings.startup["enable-ecraft"].value and (mods["electric-vehicles-lib-reborn"] or mods["laser_tanks"] and settings.startup["lasertanks-electric-engine"] and settings.startup["lasertanks-electric-engine"].value) then
+    make_ecraft()
+end
+
+if mods["electric-vehicles-lib-reborn"] or mods["laser_tanks"] then
+if settings.startup["enable-ecraft"].value == true or settings.startup["enable-lcraft"].value == true then
+	make_equipment()
+	
+end
+end
+
+-- Support for PiteR's Electric Vehicles Reborn mod
+if mods["electric-vehicles-reborn"] then
+	if settings.startup["enable-ecraft"].value then
+		table.remove(data.raw.recipe["ehvt-equipment"].ingredients, 2)	
+		table.insert(data.raw.recipe["ehvt-equipment"].ingredients, {"electric-vehicles-hi-voltage-transformer", 2})
+		if data.raw["item-with-entity-data"]["ecraft-item"] then
+		table.insert(data.raw.technology["ecraft-tech"].prerequisites, "electric-vehicles-high-voltage-transformer" )
+		end
+	end
+end
+
+if mods["laser_tanks"] and settings.startup["enable-lcraft"].value then
+	make_lcraft()
+end
+
+-- Support for Vortik's Armor Plating mod
+if mods["vtk-armor-plating"] then
+	if data.raw["item-with-entity-data"]["ecraft-item"] then
+	   table.insert(data.raw["equipment-grid"]["ecraft-equipment"].equipment_categories, "vtk-armor-plating")
+	end
+	if data.raw["item-with-entity-data"]["lcraft-item"] then -- settings.startup["enable-lcraft"].value then
+	   table.insert(data.raw["equipment-grid"]["lcraft-equipment"].equipment_categories, "vtk-armor-plating")
+	   table.insert(data.raw.recipe["lcraft-recipe"].ingredients, {"vtk-armor-plating", 8})
+	end
+end
+
+
+
+
+-- Manages changes if the electric hovercraft is disabled
+if data.raw["item-with-entity-data"]["ecraft-item"] == nil and settings.startup["enable-lcraft"].value == true and data.raw["item-with-entity-data"]["lcraft-item"] then --settings.startup["enable-ecraft"].value == true or
+	table.remove(data.raw.technology["lcraft-tech"].prerequisites, 4)
+	table.insert(data.raw.technology["lcraft-tech"].prerequisites, "hcraft-tech")
+	table.remove(data.raw.recipe["lcraft-recipe"].ingredients, 1)
+	table.insert(data.raw.recipe["lcraft-recipe"].ingredients, {"hcraft-item", 1})
+	table.insert(data.raw.technology["lcraft-tech"].effects, {type = "unlock-recipe", recipe = "ehvt-equipment"})
+	if mods["electric-vehicles-reborn"] then
+		table.remove(data.raw.recipe["ehvt-equipment"].ingredients, 2)
+		table.insert(data.raw.recipe["ehvt-equipment"].ingredients, {"electric-vehicles-hi-voltage-transformer", 2})
+		table.insert(data.raw.technology["lcraft-tech"].prerequisites, "electric-vehicles-high-voltage-transformer" )
+	end
+	if settings.startup["lasertanks-electric-engine"] and mods["electric-vehicles-reborn"] == nil then
+		data.raw["item-with-entity-data"]["lcraft-item"].icon = "__Hovercrafts__/graphics/icons/lcraft_small_burn.png"
+		data.raw.technology["lcraft-tech"].icon = "__Hovercrafts__/graphics/icons/lcraft_large_burn.png"
+		if settings.startup["lasertanks-electric-engine"].value == false then
+			table.remove(data.raw.technology["lcraft-tech"].effects, 2)
+			data.raw.car["lcraft-entity"].effectivity = 1
+			data.raw.car["lcraft-entity"].consumption = "640kW"
+			data.raw.car["lcraft-entity"].burner =
+			{
+				fuel_category = "chemical",
+				effectivity = 1,
+				fuel_inventory_size = 2,
+				smoke =
+				{
+					{
+					name = "car-smoke",
+					deviation = {0.25, 0.25},
+					frequency = 200,
+					position = {0, 1.5},
+					starting_frame = 0,
+					starting_frame_deviation = 60
+					}
+				}
+			}
+			data.raw.car["lcraft-entity"].sound_no_fuel =
+			{
+				{
+				filename = "__base__/sound/fight/car-no-fuel-1.ogg",
+				volume = 0.6
+				}
+			}
+			data.raw.car["lcraft-entity"].working_sound =
+			{
+				sound =
+					{
+					filename = "__base__/sound/car-engine.ogg",
+					volume = 0.6
+					},
+				activate_sound =
+					{
+					filename = "__base__/sound/car-engine-start.ogg",
+					volume = 0.6
+					},
+				deactivate_sound =
+					{
+					filename = "__base__/sound/car-engine-stop.ogg",
+					volume = 0.6
+					},
+				match_speed_to_activity = true
+			}
+		end
+	end
+end
+
+
+if settings.startup["lasertanks-electric-engine"] and settings.startup["lasertanks-electric-engine"].value then
+	if mods["electric-vehicles-reborn"] == nil then
+		table.remove(data.raw.recipe["ehvt-equipment"].ingredients, 2)
+		table.insert(data.raw.recipe["ehvt-equipment"].ingredients, {"electric-vehicles-hi-voltage-transformer", 2})
+	end
+--[[else
+	if mods["electric-vehicles-reborn"] == nil and mods["electric-vehicles-lib-reborn"] == nil and data.raw["item-with-entity-data"]["lcraft-item"] then
+		data.raw["item-with-entity-data"]["lcraft-item"].icon = "__Hovercrafts__/graphics/icons/lcraft_small_burn.png"
+		data.raw.technology["lcraft-tech"].icon = "__Hovercrafts__/graphics/icons/lcraft_large_burn.png"
+	end]]--
 end

@@ -1,5 +1,4 @@
--- HoverCraft
--- prototypes.swimming
+-- prototypes.swimming.lua
 
 
 -- only add if not already there (from CanalBuilder mod)

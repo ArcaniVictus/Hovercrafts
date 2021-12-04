@@ -1,5 +1,4 @@
--- Hovercraft
--- data-final-fixes
+-- data-final-fixes.lua
 
 -- Player
 for index, character in pairs(data.raw.character) do
@@ -23,7 +22,7 @@ end
 local vehicles = data.raw.car
 for k,v in pairs(vehicles) do
 	-- string.find allows other mods to add other named versions (ie aai-...)
-	if string.find(k,"hovercraft-entity",1,true)==nil and string.find(k,"ecraft-entity",1,true)==nil and string.find(k,"missilecraft",1,true)==nil and string.find(k,"lcraft-entity",1,true)==nil then
+	if string.find(k,"hcraft-entity",1,true)==nil and string.find(k,"ecraft-entity",1,true)==nil and string.find(k,"mcraft-entity",1,true)==nil and string.find(k,"lcraft-entity",1,true)==nil then
 		local mask = data.raw.car[k].collision_mask
 		if mask == nil then			-- if not defined, set new default
 			data.raw.car[k].collision_mask = {"player-layer","train-layer","layer-12"}
@@ -37,7 +36,7 @@ end
 local units = data.raw.unit
 for k,v in pairs(units) do
 	-- skip aai generated hovercraft units
-	if string.find(k,"hovercraft-entity",1,true)==nil and string.find(k,"ecraft-entity",1,true)==nil and string.find(k,"missilecraft",1,true)==nil and string.find(k,"lcraft-entity",1,true)==nil then
+	if string.find(k,"hcraft-entity",1,true)==nil and string.find(k,"ecraft-entity",1,true)==nil and string.find(k,"mcraft-entity",1,true)==nil and string.find(k,"lcraft-entity",1,true)==nil then
 		local mask = data.raw.unit[k].collision_mask
 		if mask == nil then			-- if not defined, set new default
 			data.raw.unit[k].collision_mask = {"player-layer","train-layer","layer-12"}
