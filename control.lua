@@ -194,8 +194,9 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
 					tbl.collision.speed = math.min(-0.05,tbl.entity.speed)
 				end
 				tbl.collision.orientation = tbl.entity.orientation
-				if tbl.collision.health < 500 then
-					local slowdown = math.min(math.abs(speed),(500-tbl.collision.health)/3000)
+				--game.print(game.tick.." "..tbl.collision.health)
+				if tbl.collision.health < 2500 then
+					local slowdown = math.min(math.abs(speed),(2500-tbl.collision.health)/3000)
 					local percentage = slowdown/math.abs(speed)
 					if speed > 0 then
 						--game.print(game.tick.." "..tbl.entity.speed.. " - ".. ((500-tbl.collision.health)/3000))
@@ -209,8 +210,8 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
 					--tbl.drift = max_range({x=0,y=0},tbl.drift, speed)
 					tbl.drift.x = tbl.drift.x*(1-slowdown)
 					tbl.drift.y = tbl.drift.y*(1-slowdown)
-					tbl.entity.damage(500-tbl.collision.health,"neutral")
-					tbl.collision.health =500
+					tbl.entity.damage(2500-tbl.collision.health,"neutral")
+					tbl.collision.health =2500
 				end
 			else
 				tbl.drift = {x=0,y=0}
@@ -228,6 +229,14 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
 		end
 	end	
 end
+end)
+
+script.on_event(defines.events.on_entity_died, function(event)
+	if isHovercraft[event.entity.name] then
+		if global.hovercrafts[event.entity.unit_number] and global.hovercrafts[event.entity.unit_number].collision then 
+			global.hovercrafts[event.entity.unit_number].collision.destroy()
+		end
+	end
 end)
 
 function max_range(pos1,pos2,range)

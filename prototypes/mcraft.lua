@@ -13,7 +13,7 @@ if settings.startup["enable-mcraft"].value then
 
 local mcraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
 local mcraft_gun = table.deepcopy(data.raw.gun["vehicle-machine-gun"])
-local mcraft_item = table.deepcopy(data.raw["item-with-entity-data"]["hcraft-item"])
+local mcraft_item = table.deepcopy(data.raw["item-with-entity-data"]["hcraft-entity"])
 local mcraft_tech = table.deepcopy(data.raw.technology["hcraft-tech"])
 local mcraft_recipe = table.deepcopy(data.raw.recipe["hcraft-recipe"])
 
@@ -28,7 +28,7 @@ mcraft_entity.tank_driving = true
 -- mcraft_entity.immune_to_tree_impacts = true  -- no.. just no
 -- mcraft_entity.immune_to_rock_impacts = true  -- no.. just no
 mcraft_entity.weight = 10000
-mcraft_entity.minable = {mining_time = 0.5, result = "mcraft-item"}
+mcraft_entity.minable = {mining_time = 0.5, result = "mcraft-entity"}
 mcraft_entity.resistances =
     {
       {
@@ -113,7 +113,7 @@ mcraft_gun.attack_parameters =
 
 
 -- Mcraft item
-mcraft_item.name = "mcraft-item"
+mcraft_item.name = "mcraft-entity"
 mcraft_item.icon = "__Hovercrafts__/graphics/icons/mcraft_small.png"
 mcraft_item.icon_size = 32
 mcraft_item.order = "b[personal-transport]-d[mcraft-entity]"
@@ -148,12 +148,12 @@ mcraft_tech.unit =
 mcraft_recipe.name = "mcraft-recipe"
 mcraft_recipe.ingredients =
 	{
-        {"hcraft-item", 1},
+        {"hcraft-entity", 1},
 		{"advanced-circuit", 40},
         {"gun-turret", 2},
         {"rocket-launcher", 16}
     }
-mcraft_recipe.result = "mcraft-item"
+mcraft_recipe.result = "mcraft-entity"
 
 -- Support for Vortik's Armor Plating mod
 if mods["vtk-armor-plating"] then

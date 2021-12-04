@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.18.20
+Date: 03. 02. 2020
+  Bugfixes:
+    - Added support for "Just go!"
+    - The collision box of the hovercraft won't kill you anymore when the hovercraft crashes
+
+---------------------------------------------------------------------------------------------------
 Version: 0.18.19
 Date: 26. 01. 2020
   Bugfixes:

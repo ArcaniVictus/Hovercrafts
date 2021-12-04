@@ -28,7 +28,7 @@ hcraft_entity.terrain_friction_modifier = 0
 hcraft_entity.rotation_speed = 0.0060
 hcraft_entity.tank_driving = true
 hcraft_entity.weight = 2500
-hcraft_entity.minable = {mining_time = 0.5, result = "hcraft-item"}
+hcraft_entity.minable = {mining_time = 0.5, result = "hcraft-entity"}
 hcraft_entity.has_belt_immunity = true
 hcraft_entity.collision_mask = {"player-layer","train-layer","not-colliding-with-itself"}
 hcraft_entity.resistances =
@@ -215,7 +215,7 @@ hcraft_entity.turret_animation = {
 
 
 -- Item
-hcraft_item.name = "hcraft-item"
+hcraft_item.name = "hcraft-entity"
 hcraft_item.icon = "__Hovercrafts__/graphics/icons/hcraft_small.png"
 hcraft_item.icon_size = 32
 hcraft_item.subgroup = subgroup_hc
@@ -256,7 +256,7 @@ hcraft_recipe.ingredients =
         {"speed-module", 2},
         {"effectivity-module", 2}
     }
-hcraft_recipe.result = "hcraft-item"
+hcraft_recipe.result = "hcraft-entity"
 
 -- Hover smoke
 hover_smoke.name = "hover-smoke"
@@ -287,6 +287,7 @@ hcraft_collision. selectable_in_game = false
 hcraft_collision. selection_box = {{0,0},{0,0}}
 hcraft_collision. selection_priority = 0
 hcraft_collision. alert_icon_scale = 0
+hcraft_collision. max_health = 2500
 hcraft_collision.resistances =  --higher resistances to other sources than impact
     {
       {

@@ -1,0 +1,16 @@
+{
+  "item-with-entity-data":
+  [
+    ["hcraft-item", "hcraft-entity"],
+    ["mcraft-item", "mcraft-entity"],
+	["ecraft-item", "ecraft-entity"],
+	["lcraft-item", "lcraft-entity"]
+  ],
+  "item":
+  [
+    ["hcraft-item", "hcraft-entity"],
+    ["mcraft-item", "mcraft-entity"],
+	["ecraft-item", "ecraft-entity"],
+	["lcraft-item", "lcraft-entity"]
+  ]
+}
