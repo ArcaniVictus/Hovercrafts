@@ -1,12 +1,18 @@
 -- data.lua
- 
+
 require("prototypes.categories")
 require("prototypes.equipment")
 require("prototypes.hcraft")
 require("prototypes.mcraft")
 require("prototypes.swimming")
 
+local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
+hcraft_remnants.name = "hovercraft-remnants"
+hcraft_remnants.animation.layers[1].filename = "__Hovercrafts__/graphics/car-remnants.png"
+hcraft_remnants.animation.layers[1].hr_version.filename = "__Hovercrafts__/graphics/hr-car-remnants.png"
+
 data:extend({
+	hcraft_remnants,
 -- Equipment
     {
 	type = "equipment-grid",
@@ -231,8 +237,8 @@ lcraft_entity.rotation_speed = 0.0050
 lcraft_entity.weight = 7500
 lcraft_entity.minable = {mining_time = 0.5, result = "lcraft-item"}
 lcraft_entity.equipment_grid = "lcraft-equipment"
-lcraft_entity.immune_to_tree_impacts = true
-lcraft_entity.immune_to_rock_impacts = true
+-- lcraft_entity.immune_to_tree_impacts = true   -- no.. just no
+-- lcraft_entity.immune_to_rock_impacts = true   -- no.. just no
 lcraft_entity.burner =
     {
       effectivity = nil,
@@ -256,7 +262,7 @@ lcraft_entity.working_sound =
       },
 	  match_speed_to_activity = false
     }
-lcraft_entity.resistances =
+lcraft_entity.resistances =  -- why does this have different resistances?
     {
       {
         type = "fire",
@@ -270,8 +276,8 @@ lcraft_entity.resistances =
       },
       {
         type = "impact",
-        decrease = 25,
-        percent = 40
+        decrease = 30,
+        percent = 65
       },
       {
         type = "explosion",

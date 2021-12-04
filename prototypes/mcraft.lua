@@ -25,8 +25,8 @@ mcraft_entity.effectivity = 1.1
 mcraft_entity.max_health = 1200
 mcraft_entity.rotation_speed = 0.0045
 mcraft_entity.tank_driving = true
-mcraft_entity.immune_to_tree_impacts = true
-mcraft_entity.immune_to_rock_impacts = true
+-- mcraft_entity.immune_to_tree_impacts = true  -- no.. just no
+-- mcraft_entity.immune_to_rock_impacts = true  -- no.. just no
 mcraft_entity.weight = 10000
 mcraft_entity.minable = {mining_time = 0.5, result = "mcraft-item"}
 mcraft_entity.resistances =
@@ -43,8 +43,8 @@ mcraft_entity.resistances =
       },
       {
         type = "impact",
-        decrease = 50,
-        percent = 55
+        decrease = 30, -- from 50
+        percent = 65 --from 55
       },
       {
         type = "explosion",
