@@ -1,0 +1,36 @@
+{
+  "entity":
+  [
+    ["hovercraft-entity", "hcraft-entity"],
+    ["missilecraft", "mcraft-entity"]
+  ],
+  "battery-equipment":
+  [
+    ["extra-high-voltage-transformer", "ehvt-equipment"]
+  ],
+  "item-with-entity-data":
+  [
+    ["hovercraft-item", "hcraft-item"],
+    ["missilecraft", "mcraft-item"]
+  ],
+  "item":
+  [
+    ["extra-high-voltage-transformer", "ehvt-equipment"]
+  ],
+  "technology":
+  [
+    ["hovercraft-tech", "hcraft-tech"],
+    ["missilecraft", "mcraft-tech"]
+  ],
+  "recipe":
+  [
+    ["hovercraft-recipe", "hcraft-recipe"],
+    ["missilecraft", "mcraft-recipe"],
+    ["extra-high-voltage-transformer-recipe", "ehvt-equipment"]
+  ],
+  "equipment-grid":
+  [
+    ["hovercraft-equipment", "hcraft-equipment"],
+    ["missilecraft-equipment", "mcraft-equipment"]
+  ]
+}

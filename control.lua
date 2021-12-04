@@ -189,9 +189,12 @@ end)
 ------------Laser tank script for lcraft's turret------------
 -------------------------------------------------------------	
 script.on_init(function()
-	if game.active_mods["electric-vehicles-lib-reborn"] or game.active_mods["laser_tanks"] and settings.startup["lasertanks-electric-engine"].value then
+	if remote.interfaces["electric-vehicles-lib"] and game.equipment_prototypes["ehvt-equipment"] then
+        remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
+    end
+	--[[if game.active_mods["electric-vehicles-lib-reborn"] or game.active_mods["laser_tanks"] and settings.startup["lasertanks-electric-engine"].value then
 		remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
-	end
+	end]]--
 	global.e_vehicles = { }
 	global.braking_trains = { }
 	global.braking_vehicles = { }
@@ -212,6 +215,9 @@ script.on_init(function()
 end)
 
 script.on_configuration_changed(function()
+	if remote.interfaces["electric-vehicles-lib"] and game.equipment_prototypes["ehvt-equipment"] then
+        remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
+    end
 	if not global.version then
 		--if game.active_mods["electric-vehicles-lib-reborn"] then
 		--	remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})

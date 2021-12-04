@@ -1,6 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.17.15
+Date: 21. 06. 2019
+  Bugfixes:
+    - Resolved an issue caused by entity name changes and saved games
+---------------------------------------------------------------------------------------------------
 Version: 0.17.14
-Date: 20. 06. 2019
+Date: 19. 06. 2019
   Changes:
     - General
 	- Added startup settings to disable/enable each hovercraft individually (except the standard hovercraft)
