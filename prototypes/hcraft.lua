@@ -18,6 +18,7 @@ local hover_smoke = table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"])
 hcraft_entity.name = "hcraft-entity"
 hcraft_entity.icon = "__Hovercrafts__/graphics/icons/hcraft_small.png"
 hcraft_entity.icon_size = 32
+hcraft_entity.icon_mipmaps = 0
 hcraft_entity.corpse = "hovercraft-remnants"
 hcraft_entity.braking_power = "1200kW"
 hcraft_entity.consumption = "250kW"

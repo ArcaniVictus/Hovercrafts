@@ -1,4 +1,11 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.18.24
+Date: 18. 06. 2020
+  Bugfixes:
+    - Resolved an issue involving the recently added icon mipmaps
+  Locale:
+    - Updated Russian translation (Thanks Va7ya)
+---------------------------------------------------------------------------------------------------
 Version: 0.18.23
 Date: 06. 07. 2020
   Bugfixes:
@@ -47,7 +54,7 @@ Date: 27. 11. 2019
   Bugfixes:
     - Implemented collision mask improvements (Thanks PyroFire)
   Locale:
-    - Added Russian translations (Thanks Va7ya)
+    - Added Russian translation (Thanks Va7ya)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.16
 Date: 18. 10. 2019

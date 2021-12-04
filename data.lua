@@ -198,6 +198,7 @@ ehvt_equipment.categories = {"electric-hovercraft-equipment"}
 ehvt_item.name = "ehvt-equipment"
 ehvt_item.icon = "__Hovercrafts__/graphics/icons/ehvt-item.png"
 ehvt_item.icon_size = 32
+ehvt_item.icon_mipmaps = 0
 ehvt_item.placed_as_equipment_result = "ehvt-equipment"
 ehvt_item.subgroup = subgroup_ehvt
 ehvt_item.order = "d2"
