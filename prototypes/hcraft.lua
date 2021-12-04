@@ -72,11 +72,38 @@ hcraft_entity.stop_trigger =
         }
       }
     }
+hcraft_entity.light_animation =
+    {
+      filename = "__base__/graphics/entity/car/car-light.png",
+      priority = "low",
+      blend_mode = "additive",
+      draw_as_glow = true,
+      width = 102,
+      height = 84,
+      line_length = 8,
+      direction_count = 64,
+      shift = util.by_pixel(0 + 2, -8 + 3),
+      repeat_count = 1,
+      hr_version =
+      {
+        filename = "__base__/graphics/entity/car/hr-car-light.png",
+        priority = "low",
+        blend_mode = "additive",
+        draw_as_glow = true,
+        width = 206,
+        height = 162,
+        line_length = 8,
+        direction_count = 64,
+        scale = 0.5,
+        shift = util.by_pixel(-1 + 2, -6 + 3),
+        repeat_count = 1,
+      }
+    }
 hcraft_entity.animation = { --animation required for car type
         layers = {
           {
             priority = "low",
-			width = 119,
+			      width = 119,
             height = 90,
             frame_count = 1,
             direction_count = 64,
@@ -84,7 +111,7 @@ hcraft_entity.animation = { --animation required for car type
             animation_speed = 8,
             max_advance = 0.2,
             stripes =
-			{
+		      	{
               {
                 filename = "__Hovercrafts__/graphics/hovercraft-1.png",
                 width_in_frames = 1,
@@ -100,7 +127,7 @@ hcraft_entity.animation = { --animation required for car type
                 width_in_frames = 1,
                 height_in_frames = 11
               },
-			  {
+			       {
                 filename = "__Hovercrafts__/graphics/hovercraft-4.png",
                 width_in_frames = 1,
                 height_in_frames = 10
@@ -126,7 +153,7 @@ hcraft_entity.animation = { --animation required for car type
 				shift = {0,0},
 				animation_speed = 8,
 				max_advance = 0.2,
-                --line_length = 2,
+        --line_length = 2,
 				stripes =
 				{
 				  {

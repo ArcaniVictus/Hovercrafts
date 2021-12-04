@@ -379,7 +379,7 @@ lcraft_tech.effects =
 		recipe = "lcraft-charger"
 		},
 	}
-lcraft_tech.prerequisites = {"laser-turrets", "laser-rifle-2", "nuclear-power", "ecraft-tech"}
+lcraft_tech.prerequisites = {"laser-turret", "laser-rifle-2", "nuclear-power", "ecraft-tech"}
 lcraft_tech.unit =
 	{
 		count = 400,
@@ -398,7 +398,7 @@ lcraft_recipe.name = "lcraft-recipe"
 lcraft_recipe.ingredients =
 	{
 		{"ecraft-entity", 1},
-        {"laser-turret", 2},
+    {"laser-turret", 2},
 		{"heat-pipe", 25},
 		{"heat-exchanger", 2},
     }

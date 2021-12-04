@@ -131,7 +131,7 @@ mcraft_tech.effects =
 	{
 		{type = "unlock-recipe", recipe = "mcraft-recipe"},
 	}
-mcraft_tech.prerequisites = {"hcraft-tech", "turrets", "rocketry"}
+mcraft_tech.prerequisites = {"hcraft-tech", "gun-turret", "rocketry"}
 mcraft_tech.unit =
 	{
 		count = 200,
