@@ -1,5 +1,5 @@
 -- data.lua
-
+require("constants")
 require("prototypes.categories")
 require("prototypes.equipment")
 require("prototypes.hcraft")
@@ -9,8 +9,8 @@ require("prototypes.swimming")
 
 local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
 hcraft_remnants.name = "hovercraft-remnants"
-hcraft_remnants.animation.layers[1].filename = "__Hovercrafts__/graphics/hovercraft-remnants.png"
-hcraft_remnants.animation.layers[1].hr_version.filename = "__Hovercrafts__/graphics/hr-hovercraft-remnants.png"
+hcraft_remnants.animation.layers[1].filename = HCGRAPHICS .. "entity/hovercraft/remnants/hovercraft-remnants.png"
+hcraft_remnants.animation.layers[1].hr_version.filename = HCGRAPHICS .. "entity/hovercraft/remnants/hr-hovercraft-remnants.png"
 
 data:extend({
   hcraft_remnants,
@@ -67,8 +67,8 @@ function make_ecraft()
 
   -- Ecraft entity
   ecraft_entity.name = "ecraft-entity"
-  ecraft_entity.icon = "__Hovercrafts__/graphics/icons/ecraft_small.png"
-  ecraft_entity.icon_size = 32
+  ecraft_entity.icon = HCGRAPHICS .. "icons/ecraft_small.png"
+  ecraft_entity.icon_size = 64
   ecraft_entity.braking_power = "1000kW"
   ecraft_entity.consumption = "6MW"
   ecraft_entity.effectivity = 0.11
@@ -99,16 +99,16 @@ function make_ecraft()
 
   -- Item
   ecraft_item.name = "ecraft-entity"
-  ecraft_item.icon = "__Hovercrafts__/graphics/icons/ecraft_small.png"
-  ecraft_item.icon_size = 32
+  ecraft_item.icon = HCGRAPHICS .. "icons/ecraft_small.png"
+  ecraft_item.icon_size = 64
   ecraft_item.icon_mipmaps = 0
   ecraft_item.order = "b[personal-transport]-e[ecraft-item]"
   ecraft_item.place_result = "ecraft-entity"
 
   -- Tech
   ecraft_tech.name = "ecraft-tech"
-  ecraft_tech.icon = "__Hovercrafts__/graphics/icons/ecraft_large.png"
-  ecraft_tech.icon_size = 128
+  ecraft_tech.icon = HCGRAPHICS .. "technology/ecraft_large.png"
+  ecraft_tech.icon_size = 256
   ecraft_tech.effects = {
     {
       type = "unlock-recipe",
@@ -160,10 +160,11 @@ function make_equipment()
   -- Equipment
   ehvt_equipment.name = "ehvt-equipment"
   ehvt_equipment.sprite = {
-    filename = "__Hovercrafts__/graphics/icons/ehvt-equipment.png",
-    width = 64, --128
-    height = 96, --128
-    priority = "medium"
+    filename = HCGRAPHICS .. "equipment/ehvt-equipment.png",
+    width = 128, --128
+    height = 192, --128
+    priority = "medium",
+    scale = 0.5,
   }
   ehvt_equipment.shape = {
     width = 2,
@@ -181,8 +182,8 @@ function make_equipment()
 
   -- Item
   ehvt_item.name = "ehvt-equipment"
-  ehvt_item.icon = "__Hovercrafts__/graphics/icons/ehvt-item.png"
-  ehvt_item.icon_size = 32
+  ehvt_item.icon = HCGRAPHICS .. "icons/ehvt-item.png"
+  ehvt_item.icon_size = 64
   ehvt_item.icon_mipmaps = 0
   ehvt_item.placed_as_equipment_result = "ehvt-equipment"
   ehvt_item.subgroup = subgroup_ehvt
@@ -215,8 +216,8 @@ function make_lcraft()
 
   -- lcraft entity
   lcraft_entity.name = "lcraft-entity"
-  lcraft_entity.icon = "__Hovercrafts__/graphics/icons/lcraft_small_elec.png"
-  lcraft_entity.icon_size = 32
+  lcraft_entity.icon = HCGRAPHICS .. "icons/lcraft_small_elec.png"
+  lcraft_entity.icon_size = 64
   lcraft_entity.effectivity = 0.20
   lcraft_entity.max_health = 800
   lcraft_entity.rotation_speed = 0.0050
@@ -327,8 +328,8 @@ function make_lcraft()
 
   -- Item
   lcraft_item.name = "lcraft-entity"
-  lcraft_item.icon = "__Hovercrafts__/graphics/icons/lcraft_small_elec.png"
-  lcraft_item.icon_size = 32
+  lcraft_item.icon = HCGRAPHICS .. "icons/lcraft_small_elec.png"
+  lcraft_item.icon_size = 64
   lcraft_item.icon_mipmaps = 0
   lcraft_item.subgroup = subgroup_hc
   lcraft_item.order = "d[personal-transport]-d"
@@ -336,8 +337,8 @@ function make_lcraft()
 
   -- Tech
   lcraft_tech.name = "lcraft-tech"
-  lcraft_tech.icon = "__Hovercrafts__/graphics/icons/lcraft_large_elec.png"
-  lcraft_tech.icon_size = 128
+  lcraft_tech.icon = HCGRAPHICS .. "technology/lcraft_large_elec.png"
+  lcraft_tech.icon_size = 256
   lcraft_tech.effects = {
     {
       type = "unlock-recipe",
@@ -385,7 +386,7 @@ if settings.startup["enable-ecraft"].value and (mods["electric-vehicles-lib-rebo
 end
 
 if mods["electric-vehicles-lib-reborn"] or mods["laser_tanks"] then
-  if settings.startup["enable-ecraft"].value == true or settings.startup["enable-lcraft"].value == true then
+  if settings.startup["enable-ecraft"].value or settings.startup["enable-lcraft"].value then
     make_equipment()
   end
 end
@@ -423,8 +424,8 @@ if mods["laser_tanks"] and settings.startup["enable-lcraft"].value then
     {
       type = "item",
       name = "lcraft-charger",
-      icon = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
-      icon_size = 670,
+      icon = HCGRAPHICS .. "icons/lcraft_charger-icon.png",
+      icon_size = 64,
       flags = {},
       placed_as_equipment_result = "lcraft-charger",
       subgroup = "equipment",
@@ -436,10 +437,11 @@ if mods["laser_tanks"] and settings.startup["enable-lcraft"].value then
       type = "battery-equipment",
       name = "lcraft-charger",
       sprite = {
-        filename = "__Hovercrafts__/graphics/icons/lcraft_charger.png",
-        width = 670,
-        height = 670,
-        priority = "medium"
+        filename = HCGRAPHICS .. "equipment/lcraft_charger.png",
+        width = 64,
+        height = 64,
+        priority = "medium",
+        scale = 0.5,
       },
       shape = {
         width = 1,
@@ -493,11 +495,8 @@ if mods["vtk-armor-plating"] then
   end
 end
 
-
-
-
 -- Manages changes if the electric hovercraft is disabled
-if data.raw["item-with-entity-data"]["ecraft-entity"] == nil and settings.startup["enable-lcraft"].value == true and data.raw["item-with-entity-data"]["lcraft-entity"] then --settings.startup["enable-ecraft"].value == true or
+if data.raw["item-with-entity-data"]["ecraft-entity"] == nil and settings.startup["enable-lcraft"].value and data.raw["item-with-entity-data"]["lcraft-entity"] then --settings.startup["enable-ecraft"].value or
   table.remove(data.raw.technology["lcraft-tech"].prerequisites, 4)
   table.insert(data.raw.technology["lcraft-tech"].prerequisites, "hcraft-tech")
   table.remove(data.raw.recipe["lcraft-recipe"].ingredients, 1)
@@ -509,10 +508,10 @@ if data.raw["item-with-entity-data"]["ecraft-entity"] == nil and settings.startu
     table.insert(data.raw.technology["lcraft-tech"].prerequisites, "electric-vehicles-high-voltage-transformer" )
   end
   if settings.startup["lasertanks-electric-engine"] and mods["electric-vehicles-reborn"] == nil then
-    data.raw["item-with-entity-data"]["lcraft-entity"].icon = "__Hovercrafts__/graphics/icons/lcraft_small_burn.png"
-    data.raw["item-with-entity-data"]["lcraft-entity"].icon_size = 32
-    data.raw.technology["lcraft-tech"].icon = "__Hovercrafts__/graphics/icons/lcraft_large_burn.png"
-    data.raw.technology["lcraft-tech"].icon_size = 128
+    data.raw["item-with-entity-data"]["lcraft-entity"].icon = HCGRAPHICS .. "icons/lcraft_small_burn.png"
+    data.raw["item-with-entity-data"]["lcraft-entity"].icon_size = 64
+    data.raw.technology["lcraft-tech"].icon = HCGRAPHICS .. "technology/lcraft_large_burn.png"
+    data.raw.technology["lcraft-tech"].icon_size = 256
     if settings.startup["lasertanks-electric-engine"].value == false then
       table.remove(data.raw.technology["lcraft-tech"].effects, 2)
       data.raw.car["lcraft-entity"].effectivity = 1
@@ -538,36 +537,14 @@ if data.raw["item-with-entity-data"]["ecraft-entity"] == nil and settings.startu
           volume = 0.6
         }
       }
-      data.raw.car["lcraft-entity"].working_sound = {
-        sound = {
-          filename = "__base__/sound/car-engine.ogg",
-          volume = 0.6
-        },
-        activate_sound = {
-          filename = "__base__/sound/car-engine-start.ogg",
-          volume = 0.6
-        },
-        deactivate_sound = {
-          filename = "__base__/sound/car-engine-stop.ogg",
-          volume = 0.6
-        },
-        match_speed_to_activity = true
-      }
+      data.raw.car["lcraft-entity"].working_sound = car_sounds
     end
   end
 end
-
 
 if settings.startup["lasertanks-electric-engine"] and settings.startup["lasertanks-electric-engine"].value then
   if mods["electric-vehicles-reborn"] == nil then
     table.remove(data.raw.recipe["ehvt-equipment"].ingredients, 2)
     table.insert(data.raw.recipe["ehvt-equipment"].ingredients, {"electric-vehicles-hi-voltage-transformer", 2})
   end
---[[else
-  if mods["electric-vehicles-reborn"] == nil and mods["electric-vehicles-lib-reborn"] == nil and data.raw["item-with-entity-data"]["lcraft-entity"] then
-    data.raw["item-with-entity-data"]["lcraft-entity"].icon = "__Hovercrafts__/graphics/icons/lcraft_small_burn.png"
-    data.raw["item-with-entity-data"]["lcraft-entity"].icon_size = 32
-    data.raw.technology["lcraft-tech"].icon = "__Hovercrafts__/graphics/icons/lcraft_large_burn.png"
-    data.raw.technology["lcraft-tech"].icon_size = 128
-  end]]--
 end

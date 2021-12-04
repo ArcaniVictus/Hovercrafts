@@ -1,3 +1,5 @@
+require("constants")
+
 if mods["traintunnels"] then
   data.raw["train-stop"]["train-stop"].collision_mask = { "item-layer", "object-layer", "player-layer", "water-tile", "layer-14" }
   table.insert(data.raw["train-stop"]["traintunnel"].collision_mask, "layer-14")

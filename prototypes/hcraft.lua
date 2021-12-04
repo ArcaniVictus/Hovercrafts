@@ -10,8 +10,8 @@ end
 -- Hovercraft entity
 local hcraft_entity = table.deepcopy(data.raw.car.car)
 hcraft_entity.name = "hcraft-entity"
-hcraft_entity.icon = "__Hovercrafts__/graphics/icons/hcraft_small.png"
-hcraft_entity.icon_size = 32
+hcraft_entity.icon = HCGRAPHICS .. "icons/hcraft_small.png"
+hcraft_entity.icon_size = 64
 hcraft_entity.corpse = "hovercraft-remnants"
 hcraft_entity.braking_power = "1200kW"
 hcraft_entity.consumption = "250kW"
@@ -103,32 +103,32 @@ hcraft_entity.animation = { --animation required for car type
       stripes =
       {
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-1.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-1.png",
           width_in_frames = 1,
           height_in_frames = 11
         },
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-2.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-2.png",
           width_in_frames = 1,
           height_in_frames = 11
         },
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-3.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-3.png",
           width_in_frames = 1,
           height_in_frames = 11
         },
        {
-          filename = "__Hovercrafts__/graphics/hovercraft-4.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-4.png",
           width_in_frames = 1,
           height_in_frames = 10
         },
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-5.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-5.png",
           width_in_frames = 1,
           height_in_frames = 11
         },
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-6.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-6.png",
           width_in_frames = 1,
           height_in_frames = 10
         }
@@ -147,32 +147,32 @@ hcraft_entity.animation = { --animation required for car type
         stripes =
         {
           {
-            filename = "__Hovercrafts__/graphics/hr-hovercraft-1.png",
+            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-1.png",
             width_in_frames = 1,
             height_in_frames = 11
           },
           {
-            filename = "__Hovercrafts__/graphics/hr-hovercraft-2.png",
+            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-2.png",
             width_in_frames = 1,
             height_in_frames = 11
           },
           {
-            filename = "__Hovercrafts__/graphics/hr-hovercraft-3.png",
+            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-3.png",
             width_in_frames = 1,
             height_in_frames = 11
           },
           {
-            filename = "__Hovercrafts__/graphics/hr-hovercraft-4.png",
+            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-4.png",
             width_in_frames = 1,
             height_in_frames = 10
           },
           {
-            filename = "__Hovercrafts__/graphics/hr-hovercraft-5.png",
+            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-5.png",
             width_in_frames = 1,
             height_in_frames = 11
           },
           {
-            filename = "__Hovercrafts__/graphics/hr-hovercraft-6.png",
+            filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-6.png",
             width_in_frames = 1,
             height_in_frames = 10
           }
@@ -191,22 +191,22 @@ hcraft_entity.animation = { --animation required for car type
       --animation_speed = 8,
       stripes = {
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-shadow-1.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow-1.png",
           height_in_frames = 20,
           width_in_frames = 1
         },
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-shadow-2.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow-2.png",
           height_in_frames = 20,
           width_in_frames = 1
         },
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-shadow-3.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow-3.png",
           height_in_frames = 20,
           width_in_frames = 1
         },
         {
-          filename = "__Hovercrafts__/graphics/hovercraft-shadow-4.png",
+          filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow-4.png",
           height_in_frames = 4,
           width_in_frames = 1
         },
@@ -239,8 +239,8 @@ hcraft_entity.turret_animation = {
 -- Item
 local hcraft_item = table.deepcopy(data.raw["item-with-entity-data"].car)
 hcraft_item.name = "hcraft-entity"
-hcraft_item.icon = "__Hovercrafts__/graphics/icons/hcraft_small.png"
-hcraft_item.icon_size = 32
+hcraft_item.icon = HCGRAPHICS .. "icons/hcraft_small.png"
+hcraft_item.icon_size = 64
 hcraft_item.icon_mipmaps = 0
 hcraft_item.subgroup = subgroup_hc
 hcraft_item.order = "b[personal-transport]-c[hcraft-item]"
@@ -249,8 +249,8 @@ hcraft_item.place_result = "hcraft-entity"
 -- Tech
 local hcraft_tech = table.deepcopy(data.raw.technology.automobilism)
 hcraft_tech.name = "hcraft-tech"
-hcraft_tech.icon = "__Hovercrafts__/graphics/icons/hcraft_large.png"
-hcraft_tech.icon_size = 128
+hcraft_tech.icon = HCGRAPHICS .. "technology/hcraft_large.png"
+hcraft_tech.icon_size = 256
 hcraft_tech.effects = {
   {type = "unlock-recipe", recipe = "hcraft-recipe"},
 }

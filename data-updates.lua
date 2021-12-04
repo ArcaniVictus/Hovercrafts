@@ -1,7 +1,8 @@
 -- data-updates.lua
+require("constants")
 
 -- add equipment grid to hovercraft and mcraft-entity if startup setting selected
-if settings.startup["hovercraft-grid"].value == true then
+if settings.startup["hovercraft-grid"].value then
   local crafts = {
     ["hcraft-entity"] = "hcraft-equipment",
     ["mcraft-entity"] = "mcraft-equipment",

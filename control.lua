@@ -339,7 +339,7 @@ end
 
 script.on_event(defines.events.on_chunk_generated, function(e)
       e.surface.destroy_decoratives(e.area)
-      if settings.startup["removerocks"].value == true then removerocks(e) end
+      if settings.startup["removerocks"].value then removerocks(e) end
 end)
 ]]--
 

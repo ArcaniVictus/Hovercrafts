@@ -59,25 +59,24 @@ mcraft_entity.guns = {"hovercraft-missile-turret"}
 mcraft_entity.turret_animation = {
   layers = {
     {
-      filename = "__Hovercrafts__/graphics/hovercraft-missile-turret.png",
+      filename = HCGRAPHICS .. "entity/turret/hovercraft-missile-turret.png",
       line_length = 16,
       width = 88,
       height = 80,
       frame_count = 1,
       axially_symmetrical = false,
       direction_count = 64,
-      shift = {.05,-.85},
+      shift = {0.05, -0.85},
       scale = 0.5,
-      hr_version =
-      {
-        filename = "__Hovercrafts__/graphics/hr-hovercraft-missile-turret.png",
+      hr_version = {
+        filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret.png",
         line_length = 16,
         width = 176,
         height = 160,
         frame_count = 1,
         axially_symmetrical = false,
         direction_count = 64,
-        shift = {.05,-.85},
+        shift = {0.05, -0.85},
         scale = 0.25,
       }
     }
@@ -89,12 +88,11 @@ mcraft_entity.turret_return_timeout = 300
 -- Mcraft gun
 local mcraft_gun = table.deepcopy(data.raw.gun["vehicle-machine-gun"])
 mcraft_gun.name = "hovercraft-missile-turret"
-mcraft_gun.icon = "__Hovercrafts__/graphics/icons/hovercraft-missile-turret.png"
-mcraft_gun.icon_size = 32
+mcraft_gun.icon = HCGRAPHICS .. "icons/hovercraft-missile-turret-icon.png"
+mcraft_gun.icon_size = 64
 mcraft_gun.icon_mipmaps = 0
 mcraft_gun.order = "d[rocket-launcher]"
-mcraft_gun.attack_parameters =
-{
+mcraft_gun.attack_parameters = {
   type = "projectile",
   ammo_category = "rocket",
   cooldown = 120, --60, --300,
@@ -113,8 +111,8 @@ mcraft_gun.attack_parameters =
 -- Mcraft item
 local mcraft_item = table.deepcopy(data.raw["item-with-entity-data"]["hcraft-entity"])
 mcraft_item.name = "mcraft-entity"
-mcraft_item.icon = "__Hovercrafts__/graphics/icons/mcraft_small.png"
-mcraft_item.icon_size = 32
+mcraft_item.icon = HCGRAPHICS .. "icons/mcraft_small.png"
+mcraft_item.icon_size = 64
 mcraft_item.icon_mipmaps = 0
 mcraft_item.order = "b[personal-transport]-d[mcraft-entity]"
 mcraft_item.place_result = "mcraft-entity"
@@ -122,8 +120,8 @@ mcraft_item.place_result = "mcraft-entity"
 -- Mcraft tech
 local mcraft_tech = table.deepcopy(data.raw.technology["hcraft-tech"])
 mcraft_tech.name = "mcraft-tech"
-mcraft_tech.icon = "__Hovercrafts__/graphics/icons/mcraft_large.png"
-mcraft_tech.icon_size = 128
+mcraft_tech.icon = HCGRAPHICS .. "technology/mcraft_large.png"
+mcraft_tech.icon_size = 256
 mcraft_tech.effects = {
   {type = "unlock-recipe", recipe = "mcraft-recipe"},
 }

@@ -12,7 +12,7 @@ for i=1,10 do
     start_scale = 1,
     end_scale = 1,
     animation = {
-      filename = "__Hovercrafts__/graphics/water-splash.png",
+      filename = HCGRAPHICS .. "/entity/effects/water-splash.png",
       priority = "extra-high",
       width = 92,
       height = 66,
@@ -45,7 +45,7 @@ if data.raw["smoke-with-trigger"]["water-ripple1-smoke"] == nil then
       show_when_smoke_off = true,
       deviation = {0, 0},
       animation = {
-        filename = "__Hovercrafts__/graphics/ripple" .. i .. ".png",
+        filename = HCGRAPHICS .. "/entity/effects/ripple" .. i .. ".png",
         priority = "extra-high",
         width = 192,
         height = 128,
