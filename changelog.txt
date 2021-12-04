@@ -1,11 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.17.17
+Date: 27. 11. 2019
+  Bugfixes:
+    - Implemented collision mask improvements (Thanks PyroFire)
+  Locale:
+    - Added Russian translations (Thanks Va7ya)
+---------------------------------------------------------------------------------------------------
 Version: 0.17.16
 Date: 18. 10. 2019
   Bugfixes:
     - Added compatibility with Rampant
     - Added compatibility with Industrial Revolution
----------------------------------------------------------------------------------------------------
-
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.15
 Date: 21. 06. 2019
@@ -16,29 +21,25 @@ Version: 0.17.14
 Date: 19. 06. 2019
   Changes:
     - General
-	- Added startup settings to disable/enable each hovercraft individually (except the standard hovercraft)
+      - Added startup settings to disable/enable each hovercraft individually (except the standard hovercraft)
+      - Balanced resistances to be more in line with recent changes
     - Missilecraft
-	- Added collision immuntiy to rocks
-	- Balanced resistances to be more in line with recent changes
+      - Added collision immuntiy to rocks
     - Lasercraft
-	- Added support for Mod: Laser Tanks option to disable electric motors
-	- Added collision immuntiy to rocks and trees
-	- Balanced resistances to be more in line with recent changes
+      - Added support for Mod: Laser Tanks option to disable electric motors
+      - Added collision immuntiy to rocks and trees
     - Extra high voltage transformer
-	- Decreased the dimensions (2x4 to 2x3)
+      - Decreased the dimensions (2x4 to 2x3)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.13
 Date: 22. 05. 2019
   Changes:
     - General
-	- Improved mod requirements
-	- Clarified hovercraft drifting setting description warning
-    - Electric hovercraft
-	- Requires either Electric Vehicles Lib: Reborn or Laser Tanks to be enabled
+      - Improved mod requirements
+      - Clarified hovercraft drifting setting description warning
+      - Electric hovercraft and the extra high voltage transformer require either Electric Vehicles Lib: Reborn or Laser Tanks to be enabled
     - Lasercraft
-	- Requires only Laser Tanks to be enabled
-    - Extra high voltage transformer
-	- Requires either Electric Vehicles Lib: Reborn or Laser Tanks to be enabled
+      - Requires only Laser Tanks to be enabled
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.12
 Date: 21. 05. 2019
@@ -49,16 +50,13 @@ Version: 0.17.11
 Date: 17. 05. 2019
   Changes:
     - General
-	- Merged extra high voltage transformer tech into electric hovercraft tech
-    - Missilecraft
-	- Added support for armor plating.  Recipe now requires armor plates
-    - Lasercraft
-	- Added support for armor plating.  Recipe now requires armor plates
+      - Merged extra high voltage transformer tech into electric hovercraft tech
+      - Added support for armor plating.  Recipes now requires armor plates
     - Extra high voltage transformer
-	- Added an energy capacity of 200MJ
-	- Removed recipe ingredient (processing unit)
-	- Added recipe ingredient (Battery mk2 equipment)
-	- Doubled Recipe ingredient requirement (Lubricant)
+      - Added an energy capacity of 200MJ
+      - Removed recipe ingredient (processing unit)
+      - Added recipe ingredient (Battery mk2 equipment)
+      - Doubled Recipe ingredient requirement (Lubricant)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.10
 Date: 17. 05. 2019
@@ -71,19 +69,19 @@ Version: 0.17.09
 Date: 16. 05. 2019
   Changes:
     - General
-	- Corrected a spelling error in the extra high voltage transformer's item description
-	- Added an electric hovercraft armed with a laser for use with Laser Tanks
-	- Added drifting to the hovercrafts (Credit Ownlyme)
-    	- Added a runtime global option to enable/disable hovercraft drifting (Enabled by default)
-    	- Corrected an issue with the splash animation (Credit Ownlyme)
+      - Corrected a spelling error in the extra high voltage transformer's item description
+      - Added an electric hovercraft armed with a laser for use with Laser Tanks
+      - Added drifting to the hovercrafts (Credit Ownlyme)
+      - Added a runtime global option to enable/disable hovercraft drifting (Enabled by default)
+      - Corrected an issue with the splash animation (Credit Ownlyme)
     - Electric hovercraft
-	- Reduced the equipment grid (10x10 to 8x8)
+      - Reduced the equipment grid (10x10 to 8x8)
     - Missilecraft
-	- Increased health (1000 to 1200)
-	- Removed recipe ingredient (Steel plate)
-	- Added recipe ingredient (Advanced circuit)
-	- Doubled recipe ingredient requirements (Gun turret and Rocket launcher)
-	- Reduced the missile launcher's rate of fire (50 to 300)
+      - Increased health (1000 to 1200)
+      - Removed recipe ingredient (Steel plate)
+      - Added recipe ingredient (Advanced circuit)
+      - Doubled recipe ingredient requirements (Gun turret and Rocket launcher)
+      - Reduced the missile launcher's rate of fire (50 to 300)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.08
 Date: 08. 05. 2019
@@ -115,35 +113,35 @@ Version: 0.17.04
 Date: 25. 04. 2019
   Changes:
     - General
-	- Merged extra high voltage transformer tech into electric hovercraft tech
+      - Merged extra high voltage transformer tech into electric hovercraft tech
     - Hovercraft
-	- Removed tech requirement (Engine and plastics)
-	- Added tech requirement (Effectivity module, speed module, and chemical science pack)
-	- Added tech ingredient (chemical science pack)
+      - Removed tech requirement (Engine and plastics)
+      - Added tech requirement (Effectivity module, speed module, and chemical science pack)
+      - Added tech ingredient (chemical science pack)
     - Electric hovercraft
-	- Removed tech requirement (Extra high voltage transformer tech and speed module 3)
-	- Added tech requirement (Advanced electronics 2 and low density structure)
-	- Removed tech ingredient (Miltary science pack and production science pack)
+      - Removed tech requirement (Extra high voltage transformer tech and speed module 3)
+      - Added tech requirement (Advanced electronics 2 and low density structure)
+      - Removed tech ingredient (Miltary science pack and production science pack)
     - Missilecraft
-	- Removed tech requirement (Miltary 3)
-	- Added tech requirement (Turrets and rocketry)
+      - Removed tech requirement (Miltary 3)
+      - Added tech requirement (Turrets and rocketry)
 ---------------------------------------------------------------------------------------------------
 Version: 0.17.03
 Date: 19. 04. 2019
   Changes:
     - General
-	- Added turning while not moving
-	- Reduced turning radius
-	- Changed recipes
+      - Added turning while not moving
+      - Reduced turning radius
+      - Changed recipes
     - Hovercraft
-	- Increased speed (161 to 187)
-	- Increased health (250 to 500)
+      - Increased speed (161 to 187)
+      - Increased health (250 to 500)
     - Electric hovercraft
-	- Reduced speed (268 to 216)
-	- Reduced health (1000 to 250)
+      - Reduced speed (268 to 216)
+      - Reduced health (1000 to 250)
     - Missilecraft
-	- Reduced speed (161 to 115)
-	- Increased health (500 to 1000)
+      - Reduced speed (161 to 115)
+      - Increased health (500 to 1000)
   Bugfixes:
     - Resolved an issue with the electric hovercraft's equipment grid losing equipment when picked up
 ---------------------------------------------------------------------------------------------------
