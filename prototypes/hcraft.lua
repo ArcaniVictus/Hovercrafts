@@ -64,35 +64,31 @@ hcraft_entity.stop_trigger = {
   }
 }
 hcraft_entity.light_animation = {
-  filename = "__base__/graphics/entity/car/car-light.png",
+  filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-light.png",
   priority = "low",
   blend_mode = "additive",
   draw_as_glow = true,
-  width = 102,
-  height = 84,
+  size = 128,
   line_length = 8,
   direction_count = 64,
-  shift = util.by_pixel(0 + 2, -8 + 3),
-  repeat_count = 1,
   hr_version =
   {
-    filename = "__base__/graphics/entity/car/hr-car-light.png",
+    filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-light.png",
     priority = "low",
     blend_mode = "additive",
     draw_as_glow = true,
-    width = 206,
-    height = 162,
+    size = 256,
     line_length = 8,
     direction_count = 64,
     scale = 0.5,
-    shift = util.by_pixel(-1 + 2, -6 + 3),
-    repeat_count = 1,
   }
 }
+
 hcraft_entity.animation = {
   layers = {
     {
       filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-base.png",
+      priority = "high",
       line_length = 8,
       size = 128,
       max_advance = 0.2,
@@ -100,11 +96,32 @@ hcraft_entity.animation = {
       scale = 1,
       hr_version = {
         filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-base.png",
+        priority = "high",
         line_length = 8,
         size = 256,
         max_advance = 0.2,
         direction_count = 64,
         scale = 0.5,
+      }
+    },
+    {
+      filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-mask.png",
+      priority = "low",
+      line_length = 8,
+      size = 128,
+      max_advance = 0.2,
+      direction_count = 64,
+      scale = 1,
+      apply_runtime_tint = true,
+      hr_version = {
+        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-mask.png",
+        priority = "low",
+        line_length = 8,
+        size = 256,
+        max_advance = 0.2,
+        direction_count = 64,
+        scale = 0.5,
+        apply_runtime_tint = true,
       }
     },
     {
@@ -113,7 +130,7 @@ hcraft_entity.animation = {
       size = 128,
       max_advance = 0.2,
       direction_count = 64,
-      shift = util.by_pixel(8, 8),
+      shift = util.by_pixel(4, 4),
       draw_as_shadow = true,
       hr_version = {
         filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-shadow.png",
@@ -122,33 +139,13 @@ hcraft_entity.animation = {
         max_advance = 0.2,
         direction_count = 64,
         scale = 0.5,
-        shift = util.by_pixel(8, 8),
+        shift = util.by_pixel(4, 4),
         draw_as_shadow = true,
       }
     },
   }
 }
-hcraft_entity.turret_animation = {
-  layers = {
-    {
-      animation_speed = 8,
-      direction_count = 1,
-      frame_count = 1,
-      width = 1,
-      height = 1,
-      max_advance = 0.2,
-      priority = "low",
-      shift = {0,0},
-      stripes = {
-        {
-          filename = "__core__/graphics/empty.png",
-          height_in_frames = 1,
-          width_in_frames = 1
-        }
-      }
-    }
-  }
-}
+hcraft_entity.turret_animation = nil
 
 -- Item
 local hcraft_item = table.deepcopy(data.raw["item-with-entity-data"].car)

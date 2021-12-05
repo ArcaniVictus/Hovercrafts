@@ -61,23 +61,21 @@ mcraft_entity.turret_animation = {
     {
       filename = HCGRAPHICS .. "entity/turret/hovercraft-missile-turret.png",
       line_length = 16,
-      width = 88,
-      height = 80,
+      width = 44,
+      height = 40,
       frame_count = 1,
-      axially_symmetrical = false,
       direction_count = 64,
       shift = {0.05, -0.85},
-      scale = 0.5,
+      scale = 1,
       hr_version = {
         filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret.png",
         line_length = 16,
-        width = 176,
-        height = 160,
+        width = 88,
+        height = 80,
         frame_count = 1,
-        axially_symmetrical = false,
         direction_count = 64,
         shift = {0.05, -0.85},
-        scale = 0.25,
+        scale = 0.5,
       }
     }
   }

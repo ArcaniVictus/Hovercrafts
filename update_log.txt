@@ -1,0 +1,16 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.1.2
+Date: 2021-12-05
+  Info:
+    - !!!WIP!!!
+    - Update by snouz
+
+- Redone stabilized hovercraft visuals (from scratch).
+- Added mask to color hovercrafts (like cars).
+- New HD shadow.
+- Adjusted light position.
+
+- Optimization.
+- Files sorted.
+- code factorisation.
+- Turret improved and size adjusted to match HD/LD resolutions.
