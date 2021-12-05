@@ -73,7 +73,7 @@ end)
 
 
 -- Now and then create smoke, ripple
-local function  tickHandler(e)
+local function tickHandler(e)
   local eTick = e.tick
   if eTick % 7==2 then
     for _,player in pairs(game.connected_players) do

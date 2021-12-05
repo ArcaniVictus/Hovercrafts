@@ -2,70 +2,17 @@
 require("constants")
 require("prototypes.categories")
 require("prototypes.equipment")
-require("prototypes.hcraft")
-require("prototypes.mcraft")
-require("prototypes.swimming")
-
-
-local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
-hcraft_remnants.name = "hovercraft-remnants"
-hcraft_remnants.animation.layers[1].filename = HCGRAPHICS .. "entity/hovercraft/remnants/hovercraft-remnants.png"
-hcraft_remnants.animation.layers[1].hr_version.filename = HCGRAPHICS .. "entity/hovercraft/remnants/hr-hovercraft-remnants.png"
-
-data:extend({
-  hcraft_remnants,
--- Equipment
-  {
-    type = "equipment-grid",
-    name = "ecraft-equipment",
-    width = 8,
-    height = 8,
-    equipment_categories = {"armor", "electric-hovercraft-equipment"},
-  },
-  {
-    type = "equipment-grid",
-    name = "lcraft-equipment",
-    width = 10,
-    height = 10,
-    equipment_categories = {"armor", "electric-hovercraft-equipment", "lcraft-charger"},
-  }
-})
-
--- Support for  Schallfalke's Schall Transport Group mod
-local subgroup_hc = "transport2"
-local subgroup_ehvt = "electric-vehicles-equipment"
-
-
-if mods["SchallTransportGroup"] then
-  subgroup_hc = "hovercrafts"
-  subgroup_ehvt = "vehicle-equipment"
-end
-
--- Support for lovely_santa's Train construction site mod
-if mods["trainConstructionSite"] then
-  subgroup_hc = "hovercrafts"
-end
-
-
--- collision box
-local collision = table.deepcopy(data.raw.car.car)
-  collision.collision_box[1][1] = collision.collision_box[1][1]*1.2
-  collision.collision_box[1][2] = collision.collision_box[1][2]*1.2
-  collision.collision_box[2][1] = collision.collision_box[2][1]*1.2
-  collision.collision_box[2][2] = collision.collision_box[2][2]*1.2
-  collision.name = "hovercraft-collision"
-  collision.order = "hovercraft-collision"
-data:extend({collision})
+require("prototypes.entity")
+require("prototypes.item")
+require("prototypes.technology")
+require("prototypes.effects")
 
 -- Checks mods/settings and handles electric hovercraft
 
 function make_ecraft()
-  local ecraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
-  local ecraft_item = table.deepcopy(data.raw["item-with-entity-data"]["hcraft-entity"])
-  local ecraft_tech = table.deepcopy(data.raw.technology["hcraft-tech"])
-  local ecraft_recipe = table.deepcopy(data.raw.recipe["hcraft-recipe"])
 
   -- Ecraft entity
+  local ecraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
   ecraft_entity.name = "ecraft-entity"
   ecraft_entity.icon = HCGRAPHICS .. "icons/ecraft_small.png"
   ecraft_entity.icon_size = 64
@@ -98,6 +45,7 @@ function make_ecraft()
   }
 
   -- Item
+  local ecraft_item = table.deepcopy(data.raw["item-with-entity-data"]["hcraft-entity"])
   ecraft_item.name = "ecraft-entity"
   ecraft_item.icon = HCGRAPHICS .. "icons/ecraft_small.png"
   ecraft_item.icon_size = 64
@@ -105,7 +53,19 @@ function make_ecraft()
   ecraft_item.order = "b[personal-transport]-e[ecraft-item]"
   ecraft_item.place_result = "ecraft-entity"
 
+  -- Recipe
+  local ecraft_recipe = table.deepcopy(data.raw.recipe["hcraft-recipe"])
+  ecraft_recipe.name = "ecraft-recipe"
+  ecraft_recipe.ingredients = {
+    {"low-density-structure", 25},
+    {"electric-engine-unit", 40},
+    {"processing-unit", 20},
+    {"hcraft-entity", 1},
+  }
+  ecraft_recipe.result = "ecraft-entity"
+
   -- Tech
+  local ecraft_tech = table.deepcopy(data.raw.technology["hcraft-tech"])
   ecraft_tech.name = "ecraft-tech"
   ecraft_tech.icon = HCGRAPHICS .. "technology/ecraft_large.png"
   ecraft_tech.icon_size = 256
@@ -131,17 +91,6 @@ function make_ecraft()
     },
     time = 60
   }
-
-  -- Recipe
-  ecraft_recipe.name = "ecraft-recipe"
-  ecraft_recipe.ingredients = {
-    {"low-density-structure", 25},
-    {"electric-engine-unit", 40},
-    {"processing-unit", 20},
-    {"hcraft-entity", 1},
-  }
-  ecraft_recipe.result = "ecraft-entity"
-
   data:extend({
     ecraft_entity,
     ecraft_item,
@@ -186,7 +135,7 @@ function make_equipment()
   ehvt_item.icon_size = 64
   ehvt_item.icon_mipmaps = 0
   ehvt_item.placed_as_equipment_result = "ehvt-equipment"
-  ehvt_item.subgroup = subgroup_ehvt
+  ehvt_item.subgroup = subgroup_hovercrafts_ehvt
   ehvt_item.order = "d2"
   ehvt_item.stack_size = 10
 
@@ -331,7 +280,7 @@ function make_lcraft()
   lcraft_item.icon = HCGRAPHICS .. "icons/lcraft_small_elec.png"
   lcraft_item.icon_size = 64
   lcraft_item.icon_mipmaps = 0
-  lcraft_item.subgroup = subgroup_hc
+  lcraft_item.subgroup = subgroup_hovercrafts
   lcraft_item.order = "d[personal-transport]-d"
   lcraft_item.place_result = "lcraft-entity"
 

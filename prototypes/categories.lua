@@ -1,5 +1,9 @@
 -- prototypes.categories.lua
 
+-- Support for  Schallfalke's Schall Transport Group mod
+subgroup_hovercrafts = "transport2"
+subgroup_hovercrafts_ehvt = "electric-vehicles-equipment"
+
 if mods["trainConstructionSite"] then
   data:extend({
     {
@@ -9,6 +13,7 @@ if mods["trainConstructionSite"] then
       order = "c2"
     }
   })
+  subgroup_hovercrafts = "hovercrafts"
 end
 
 if mods["SchallTransportGroup"] then
@@ -20,6 +25,8 @@ if mods["SchallTransportGroup"] then
       order = "c-2"
     }
   })
+  subgroup_hovercrafts = "hovercrafts"
+  subgroup_hovercrafts_ehvt = "vehicle-equipment"
 else
   data.raw["item-with-entity-data"].car.subgroup = "transport2"
   data.raw["item-with-entity-data"].tank.subgroup = "transport2"

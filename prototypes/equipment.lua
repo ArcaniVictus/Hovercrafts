@@ -42,3 +42,48 @@ if settings.startup["hovercraft-grid"].value == true then
     mcraft_equipment,
   })
 end
+
+
+if settings.startup["enable-mcraft"].value then
+-- Mcraft gun
+local mcraft_gun = table.deepcopy(data.raw.gun["vehicle-machine-gun"])
+mcraft_gun.name = "hovercraft-missile-turret"
+mcraft_gun.icon = HCGRAPHICS .. "icons/hovercraft-missile-turret-icon.png"
+mcraft_gun.icon_size = 64
+mcraft_gun.icon_mipmaps = 0
+mcraft_gun.order = "d[rocket-launcher]"
+mcraft_gun.attack_parameters = {
+  type = "projectile",
+  ammo_category = "rocket",
+  cooldown = 120, --60, --300,
+  movement_slow_down_factor = 0.9,
+  projectile_center = {-0.17, 0},
+  projectile_creation_distance = 0.6,
+  range = 36,
+  sound = {
+    {
+      filename = "__base__/sound/fight/rocket-launcher.ogg",
+      volume = 0.7
+    }
+  }
+}
+data:extend({mcraft_gun})
+end
+
+data:extend({
+-- Equipment
+  {
+    type = "equipment-grid",
+    name = "ecraft-equipment",
+    width = 8,
+    height = 8,
+    equipment_categories = {"armor", "electric-hovercraft-equipment"},
+  },
+  {
+    type = "equipment-grid",
+    name = "lcraft-equipment",
+    width = 10,
+    height = 10,
+    equipment_categories = {"armor", "electric-hovercraft-equipment", "lcraft-charger"},
+  }
+})
