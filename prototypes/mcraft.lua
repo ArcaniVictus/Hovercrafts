@@ -60,24 +60,36 @@ mcraft_entity.turret_animation = {
   layers = {
     {
       filename = HCGRAPHICS .. "entity/turret/hovercraft-missile-turret.png",
-      line_length = 16,
-      width = 44,
-      height = 40,
-      frame_count = 1,
+      line_length = 8,
+      size = 64,
       direction_count = 64,
-      shift = {0.05, -0.85},
-      scale = 1,
+      shift = util.by_pixel(0, -27),
       hr_version = {
         filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret.png",
-        line_length = 16,
-        width = 88,
-        height = 80,
-        frame_count = 1,
+        line_length = 8,
+        size = 128,
         direction_count = 64,
-        shift = {0.05, -0.85},
+        shift = util.by_pixel(0, -27),
         scale = 0.5,
       }
-    }
+    },
+    {
+      filename = HCGRAPHICS .. "entity/turret/hovercraft-missile-turret-shadow.png",
+      line_length = 8,
+      size = 64,
+      direction_count = 64,
+      shift = util.by_pixel(40, 17),
+      draw_as_shadow = true,
+      hr_version = {
+        filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret-shadow.png",
+        line_length = 8,
+        size = 128,
+        direction_count = 64,
+        shift = util.by_pixel(40, 17),
+        draw_as_shadow = true,
+        scale = 0.5,
+      }
+    },
   }
 }
 mcraft_entity.turret_rotation_speed = 0.40 / 60
