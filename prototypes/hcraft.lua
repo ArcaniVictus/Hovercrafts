@@ -145,6 +145,18 @@ hcraft_entity.animation = {
     },
   }
 }
+hcraft_entity.water_reflection = {
+  pictures = {
+    filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-water-reflection.png",
+    width = 26,
+    height = 26,
+    shift = util.by_pixel(0, 15),
+    variation_count = 1,
+    scale = 5
+  },
+  rotate = true,
+  orientation_to_variation = false
+}
 hcraft_entity.turret_animation = nil
 
 -- Item
