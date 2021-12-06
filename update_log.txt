@@ -11,6 +11,8 @@ Date: 2021-12-06
     - New HD shadow, including turret shadow.
     - Improved water reflection.
     - Adjusted light position.
+    - New technology icons.
+    - New icons.
   Bugfixes:
     - Fixed hovercrafts getting stuck in cliffs.
     - Improved collision with rocks

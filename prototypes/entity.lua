@@ -16,7 +16,7 @@ local collision = table.deepcopy(data.raw.car.car)
   collision.water_reflection = nil
 data:extend({collision})
 
-local shadow_distance = 15
+local shadow_distance = 11
 --------------------------------------------------------------------------------------------------------------------
 local hcraft_entity = table.deepcopy(data.raw.car.car)
 hcraft_entity.name = "hcraft-entity"
@@ -148,8 +148,6 @@ if mcraft_activated then
   -- Mcraft entity
   local mcraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
   mcraft_entity.name = "mcraft-entity"
-  mcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_mcraft_icon.png"
-  mcraft_entity.icon_size = 64
   mcraft_entity.braking_power = "1500kW"
   mcraft_entity.consumption = "450kW"
   mcraft_entity.effectivity = 1.1
@@ -195,14 +193,14 @@ if mcraft_activated then
         line_length = 8,
         size = 64,
         direction_count = 64,
-        shift = util.by_pixel(26+shadow_distance, 5+shadow_distance),
+        shift = util.by_pixel(30+shadow_distance, 8+shadow_distance),
         draw_as_shadow = true,
         hr_version = {
           filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret-shadow.png",
           line_length = 8,
           size = 128,
           direction_count = 64,
-          shift = util.by_pixel(26+shadow_distance, 5+shadow_distance),
+          shift = util.by_pixel(30+shadow_distance, 8+shadow_distance),
           draw_as_shadow = true,
           scale = 0.5,
         }
