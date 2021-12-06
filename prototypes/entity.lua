@@ -8,8 +8,8 @@ data:extend({hcraft_remnants})
 local collision = table.deepcopy(data.raw.car.car)
   collision.name = "hovercraft-collision"
   collision.order = "hovercraft-collision"
-  collision.collision_box = {{-0.84, -1.2}, {0.84, 1.2}}
-  collision.animation = {filename = "__core__/graphics/empty.png", size = 1}
+  collision.collision_box = {{-2, -2}, {2, 2}}
+  collision.animation = {filename = "__core__/graphics/empty.png", size = 1, direction_count = 1}
   collision.turret_animation = nil
   collision.light_animation = nil
   collision.light = nil
@@ -24,6 +24,8 @@ hcraft_entity.icon_size = 64
 hcraft_entity.corpse = "hovercraft-remnants"
 hcraft_entity.braking_power = "1200kW"
 hcraft_entity.consumption = "250kW"
+hcraft_entity.selection_box = {{-1, -1.2}, {1, 1.2}}
+hcraft_entity.collision_box = {{-1, -1.2}, {1, 1.2}}
 hcraft_entity.effectivity = 1.3
 hcraft_entity.max_health = 500
 hcraft_entity.guns = {}

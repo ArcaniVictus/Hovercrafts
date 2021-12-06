@@ -124,7 +124,7 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
         if (drift_x^2+drift_y^2)^0.5 >0.001 then
           local new_pos = {x = tbl.position.x+drift_x, y = tbl.position.y+drift_y}
           tbl.entity.teleport(-5,-5)
-          local cliffsize = 2.15
+          local cliffsize = 2.5
           local cliffs = tbl.entity.surface.find_entities_filtered{ type = "cliff", area = {{new_pos.x-cliffsize, new_pos.y-cliffsize}, {new_pos.x+cliffsize, new_pos.y+cliffsize}} }
           local rocks = tbl.entity.surface.find_entities_filtered{ type = "simple-entity", area = {{new_pos.x-1, new_pos.y-1}, {new_pos.x+1, new_pos.y+1}} }
           if #cliffs >0 then
