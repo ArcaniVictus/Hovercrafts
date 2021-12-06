@@ -73,7 +73,7 @@ end)
 
 
 -- Now and then create smoke, ripple
-local function  tickHandler(e)
+local function tickHandler(e)
   local eTick = e.tick
   if eTick % 7==2 then
     for _,player in pairs(game.connected_players) do
@@ -115,30 +115,21 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
         tbl.idle_ticks = 0
       end
       if tbl.idle_ticks < 120 then
-        local surroundings = #tbl.entity.surface.find_entities_filtered {area = {{pos.x-1,pos.y-1},{pos.x+1,pos.y+1}}}
+        local surroundings = #tbl.entity.surface.find_entities_filtered {area = {{pos.x-1, pos.y-1}, {pos.x+1, pos.y+1}}}
       --if speed ~=0 or surroundings == 1 then
         local drift_x = pos.x-tbl.position.x
         local drift_y = pos.y-tbl.position.y
         drift_x = drift_x*0.05+tbl.drift.x*0.95
         drift_y = drift_y*0.05+tbl.drift.y*0.95
         if (drift_x^2+drift_y^2)^0.5 >0.001 then
-          local new_pos = {x=tbl.position.x+drift_x,y=tbl.position.y+drift_y}
-
-
-          --local collision_masks = {}
-          --for mask in pairs(tbl.entity.prototype.collision_mask) do
-          --  table.insert(collision_masks,mask)
-          --
-          --end
-          --local collisions = tbl.entity.surface.find_entities_filtered{position=new_pos, collision_mask= collision_masks}
-          --if #collisions ==0 or #collisions ==1 and collisions[1].unit_number ==tbl.entity.unit_number then
-
+          local new_pos = {x = tbl.position.x+drift_x, y = tbl.position.y+drift_y}
           tbl.entity.teleport(-5,-5)
-          local cliffs = tbl.entity.surface.find_entities_filtered { name = "cliff", area = {{new_pos.x-1.15,new_pos.y-1.15},{new_pos.x+1.15,new_pos.y+1.15}}}
-          local rocks = tbl.entity.surface.find_entities_filtered { type = "simple-entity", area = {{new_pos.x-1,new_pos.y-1},{new_pos.x+1,new_pos.y+1}}}
-          if #cliffs >0 then
+          local cliffsize = 2
+          local cliffs = tbl.entity.surface.find_entities_filtered{ type = "cliff", area = {{new_pos.x-cliffsize, new_pos.y-cliffsize}, {new_pos.x+cliffsize, new_pos.y+cliffsize}} }
+          local rocks = tbl.entity.surface.find_entities_filtered{ type = "simple-entity", area = {{new_pos.x-1, new_pos.y-1}, {new_pos.x+1, new_pos.y+1}} }
+          if #cliffs > 0 or #rocks > 0 then
             local noncolliding = tbl.entity.surface.find_non_colliding_position("hovercraft-collision", new_pos, 0.1, 0.03)
-            if noncolliding and distance(noncolliding,new_pos)<0.04 then
+            if noncolliding and distance(noncolliding,new_pos) < 0.04 then
               tbl.entity.teleport(noncolliding)
               tbl.idle_ticks = 120
             else
@@ -147,18 +138,18 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
               tbl.idle_ticks = 120
             end
           else
-            if #rocks == 0 or tbl.entity.surface.can_place_entity{name="hovercraft-collision",position=new_pos, direction=tbl.entity.orientation} then
+            if tbl.entity.surface.can_place_entity{name = "hovercraft-collision", position = new_pos, direction = tbl.entity.orientation} then
               tbl.entity.teleport(new_pos)
             else
               tbl.entity.teleport(5,5)
             end
           end
-          tbl.drift = {x=drift_x,y=drift_y}
+          tbl.drift = {x = drift_x, y = drift_y}
         else
-          tbl.drift = {x=0,y=0}
+          tbl.drift = {x = 0, y = 0}
         end
       else
-        tbl.drift = {x=0,y=0}
+        tbl.drift = {x = 0, y = 0}
       end
       tbl.position = tbl.entity.position
     else
@@ -167,138 +158,6 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
   end
 end
 end)
---[[script.on_event(defines.events.on_tick, function(event)
-if settings.global["hovercraft-drifting"].value then --check if drifting setting is active_mods
-  for unit_number, tbl in pairs(global.hovercrafts) do
-    if tbl.entity and tbl.entity.valid then
-      --game.print(tbl.entity.speed)
-      local pos = tbl.entity.position
-      local speed = tbl.entity.speed
-      if speed==0 then
-        tbl.idle_ticks = tbl.idle_ticks + 1
-      else
-        tbl.idle_ticks = 0
-      end
-      if tbl.idle_ticks < 120 then
-        if not tbl.collision or not tbl.collision.valid then
-          collision = tbl.entity.surface.create_entity{name = "hcraft-collision", position = tbl.entity.position, force = "enemy"}
-          collision.orientation = tbl.entity.orientation
-          --collision.operable  = false
-          tbl.collision = collision
-          tbl.collision.speed = tbl.entity.speed
-        end
-        -- drifting
-        -- check collision
-        -- set collision
-        -- set last_pos
-        -- drifting
-        -- check collision - failed
-        -- teleport last_pos
-        --local surroundings = #tbl.entity.surface.find_entities_filtered {area = {{pos.x-1,pos.y-1},{pos.x+1,pos.y+1}}}
-      --if speed ~=0 or surroundings == 1 then
-        local drift_x = pos.x-tbl.position.x
-        local drift_y = pos.y-tbl.position.y
-        local drifting_multiplier = drifting_multipliers[tbl.entity.name]
-
-        drift_x = drift_x*(1-drifting_multiplier)+tbl.drift.x*drifting_multiplier
-        drift_y = drift_y*(1-drifting_multiplier)+tbl.drift.y*drifting_multiplier
-        if (drift_x^2+drift_y^2)^0.5 >0.001 then
-          --game.print((drift_x^2+drift_y^2)^0.5)
-          local new_pos = {x=tbl.position.x+drift_x,y=tbl.position.y+drift_y}
-
-
-          --local collision_masks = {}
-          --for mask in pairs(tbl.entity.prototype.collision_mask) do
-          --  table.insert(collision_masks,mask)
-          --
-          --end
-          --local collisions = tbl.entity.surface.find_entities_filtered{position=new_pos, collision_mask= collision_masks}
-          --if #collisions ==0 or #collisions ==1 and collisions[1].unit_number ==tbl.entity.unit_number then
-
-          ----using new method now
-          --tbl.entity.teleport(-5,-5)
-          --local cliffs = tbl.entity.surface.find_entities_filtered { name = "cliff", area = {{new_pos.x-1.15,new_pos.y-1.15},{new_pos.x+1.15,new_pos.y+1.15}}}
-          --local rocks = tbl.entity.surface.find_entities_filtered { type = "simple-entity", area = {{new_pos.x-1,new_pos.y-1},{new_pos.x+1,new_pos.y+1}}}
-          --if #cliffs >0 then
-          --  local noncolliding = tbl.entity.surface.find_non_colliding_position("hovercraft-collision", new_pos, 0.1, 0.03)
-          --  if noncolliding and distance(noncolliding,new_pos)<0.04 then
-          --    tbl.entity.teleport(noncolliding)
-          --    tbl.idle_ticks = 120
-          --  else
-          --    tbl.entity.teleport(5,5)
-          --    tbl.drift = {x=0,y=0}
-          --    tbl.idle_ticks = 120
-          --  end
-          --else
-          --  if #rocks == 0 or tbl.entity.surface.can_place_entity{name="hovercraft-collision",position=new_pos, direction=tbl.entity.orientation} then
-              tbl.entity.teleport(new_pos)
-          --  else
-          --    tbl.entity.teleport(5,5)
-          --  end
-          --end
-          tbl.drift = {x=drift_x,y=drift_y}
-        else
-          tbl.drift = {x=0,y=0}
-          tbl.idle_ticks = 120
-        end
-        --game.print(game.tick.." "..tbl.collision.speed.." "..tbl.entity.speed)
-        if tbl.collision.speed == 0 then
-        --game.print(game.tick.. " reset")
-          tbl.entity.teleport(tbl.last_pos)
-          tbl.drift = {x=0,y=0}
-          tbl.idle_ticks = 120
-          --game.print("hmm")
-        end
-        tbl.last_pos = tbl.collision.position
-        tbl.collision.teleport(tbl.entity.position)
-        --if tbl.entity.speed < 0 then
-        --  tbl.collision.speed = -0.01
-        --else
-        --  tbl.collision.speed = 0.01
-        --end
-        local speed = tbl.entity.speed
-        if speed >= 0 then
-          tbl.collision.speed = math.max(0.05,tbl.entity.speed)
-        else
-          tbl.collision.speed = math.min(-0.05,tbl.entity.speed)
-        end
-        tbl.collision.orientation = tbl.entity.orientation
-        --game.print(game.tick.." "..tbl.collision.health)
-        if tbl.collision.health < 2500 then
-          local slowdown = math.min(math.abs(speed),(2500-tbl.collision.health)/3000)
-          local percentage = slowdown/math.abs(speed)
-          if speed > 0 then
-            --game.print(game.tick.." "..tbl.entity.speed.. " - ".. ((500-tbl.collision.health)/3000))
-            tbl.entity.speed = speed -slowdown
-            speed = speed - slowdown
-          else
-            --game.print(game.tick.." "..tbl.entity.speed.. " + ".. ((500-tbl.collision.health)/3000))
-            tbl.entity.speed = speed +slowdown
-            speed = speed + slowdown
-          end
-          --tbl.drift = max_range({x=0,y=0},tbl.drift, speed)
-          tbl.drift.x = tbl.drift.x*(1-slowdown)
-          tbl.drift.y = tbl.drift.y*(1-slowdown)
-          tbl.entity.damage(2500-tbl.collision.health,"neutral")
-          tbl.collision.health =2500
-        end
-      else
-        tbl.drift = {x=0,y=0}
-        if tbl.collision then
-          tbl.collision.destroy()
-          tbl.collision = nil
-        end
-      end
-      if tbl.entity.valid then
-        tbl.position = tbl.entity.position
-      end
-    else
-      global.hovercrafts[unit_number] = nil
-      if tbl.collision then tbl.collision.destroy() end
-    end
-  end
-end
-end)]]--
 
 script.on_event(defines.events.on_entity_died, function(event)
   if isHovercraft[event.entity.name] then
@@ -318,31 +177,6 @@ function max_range(pos1,pos2,range)
   pos1.y = pos1.y+pos2.y
   return pos1
 end
--- Removes rocks if startup setting is selected
---[[local function removerocks(e)
-  local entities = e.surface.find_entities_filtered({ area = e.area, type = 'simple-entity' })
-  for _, entity in pairs(entities) do
-    if entity.prototype.count_as_rock_for_filtered_deconstruction then
-      entity.destroy()
-    end
-  end
-end
-
-local function removeEntitiesOfType(e, type)
-  local entities = e.surface.find_entities_filtered({ area = e.area, type = type })
-  local count = 0
-  for _, entity in pairs(entities) do
-    count = count + 1
-    entity.destroy()
-  end
-end
-
-script.on_event(defines.events.on_chunk_generated, function(e)
-      e.surface.destroy_decoratives(e.area)
-      if settings.startup["removerocks"].value then removerocks(e) end
-end)
-]]--
-
 
 -------------------------------------------------------------
 ------------Laser tank script for lcraft's turret------------
@@ -450,7 +284,7 @@ function table_length(tbl)
 end
 
 script.on_nth_tick(3, function(event)
-  if game.active_mods["laser_tanks"] then
+  if game.active_mods["laser_tanks"] or game.active_mods["laser_tanks_updated"] then
   local temp_count = table_length(game.connected_players )
   local i
 
