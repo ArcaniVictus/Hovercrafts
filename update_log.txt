@@ -5,7 +5,7 @@ Date: 2021-12-06
     - !!!WIP!!!
     - Update by snouz
   Visuals:
-    - Redone stabilized hovercraft visuals (from scratch).
+    - Redone stabilized hovercraft visuals (from scratch). Un-mirrored.
     - Added mask to color hovercrafts (like cars).
     - Turret improved and size adjusted to match HD/LD resolutions.
     - New HD shadow, including turret shadow.
@@ -13,6 +13,7 @@ Date: 2021-12-06
     - Adjusted light position.
   Bugfixes:
     - Fixed hovercrafts getting stuck in cliffs.
+    - Improved collision with rocks
   Compatibility:
     - Added Industrial Revolution compatibility (thanks to daniels1989).
     - Added Larger Lamps compatibility (thanks to daniels1989).

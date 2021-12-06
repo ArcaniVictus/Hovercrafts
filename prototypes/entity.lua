@@ -8,7 +8,7 @@ data:extend({hcraft_remnants})
 local collision = table.deepcopy(data.raw.car.car)
   collision.name = "hovercraft-collision"
   collision.order = "hovercraft-collision"
-  collision.collision_box = {{-2, -2}, {2, 2}}
+  collision.collision_box = {{-1.5, -1.5}, {1.5, 1.5}}
   collision.animation = {filename = "__core__/graphics/empty.png", size = 1, direction_count = 1}
   collision.turret_animation = nil
   collision.light_animation = nil
@@ -16,6 +16,7 @@ local collision = table.deepcopy(data.raw.car.car)
   collision.water_reflection = nil
 data:extend({collision})
 
+local shadow_distance = 15
 --------------------------------------------------------------------------------------------------------------------
 local hcraft_entity = table.deepcopy(data.raw.car.car)
 hcraft_entity.name = "hcraft-entity"
@@ -25,7 +26,7 @@ hcraft_entity.corpse = "hovercraft-remnants"
 hcraft_entity.braking_power = "1200kW"
 hcraft_entity.consumption = "250kW"
 hcraft_entity.selection_box = {{-1, -1.2}, {1, 1.2}}
-hcraft_entity.collision_box = {{-1, -1.2}, {1, 1.2}}
+hcraft_entity.collision_box = {{-0.7, -0.9}, {0.7, 0.9}}
 hcraft_entity.effectivity = 1.3
 hcraft_entity.max_health = 500
 hcraft_entity.guns = {}
@@ -92,7 +93,7 @@ hcraft_entity.animation = {
       size = 128,
       max_advance = 0.2,
       direction_count = 64,
-      shift = util.by_pixel(4, 4),
+      shift = util.by_pixel(shadow_distance, shadow_distance),
       draw_as_shadow = true,
       hr_version = {
         filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-shadow.png",
@@ -101,7 +102,7 @@ hcraft_entity.animation = {
         max_advance = 0.2,
         direction_count = 64,
         scale = 0.5,
-        shift = util.by_pixel(4, 4),
+        shift = util.by_pixel(shadow_distance, shadow_distance),
         draw_as_shadow = true,
       }
     },
@@ -194,14 +195,14 @@ if mcraft_activated then
         line_length = 8,
         size = 64,
         direction_count = 64,
-        shift = util.by_pixel(40, 17),
+        shift = util.by_pixel(26+shadow_distance, 5+shadow_distance),
         draw_as_shadow = true,
         hr_version = {
           filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret-shadow.png",
           line_length = 8,
           size = 128,
           direction_count = 64,
-          shift = util.by_pixel(40, 17),
+          shift = util.by_pixel(26+shadow_distance, 5+shadow_distance),
           draw_as_shadow = true,
           scale = 0.5,
         }
