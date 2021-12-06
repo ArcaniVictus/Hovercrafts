@@ -9,7 +9,6 @@ if settings.startup["hovercraft-grid"].value == true then
   local mgridw, mgridh = string.match(settings.startup["grid-mcraft"].value, "(%d+)x(%d+)")
   log("grid-mcraft-entity = " .. tostring(settings.startup["grid-mcraft"].value) .. " " .. tostring(mgridw) .. ", " .. tostring(mgridh))
 
-  -- Equipment
   local hcraft_equipment = {
     type = "equipment-grid",
     name = "hcraft-equipment",
@@ -17,6 +16,7 @@ if settings.startup["hovercraft-grid"].value == true then
     height = hgridh or 2,
     equipment_categories = {"armor"}
   }
+
   local mcraft_equipment = {
     type = "equipment-grid",
     name = "mcraft-equipment",
@@ -44,31 +44,7 @@ if settings.startup["hovercraft-grid"].value == true then
 end
 
 
-if settings.startup["enable-mcraft"].value then
--- Mcraft gun
-local mcraft_gun = table.deepcopy(data.raw.gun["vehicle-machine-gun"])
-mcraft_gun.name = "hovercraft-missile-turret"
-mcraft_gun.icon = HCGRAPHICS .. "icons/hovercraft-missile-turret-icon.png"
-mcraft_gun.icon_size = 64
-mcraft_gun.icon_mipmaps = 0
-mcraft_gun.order = "d[rocket-launcher]"
-mcraft_gun.attack_parameters = {
-  type = "projectile",
-  ammo_category = "rocket",
-  cooldown = 120, --60, --300,
-  movement_slow_down_factor = 0.9,
-  projectile_center = {-0.17, 0},
-  projectile_creation_distance = 0.6,
-  range = 36,
-  sound = {
-    {
-      filename = "__base__/sound/fight/rocket-launcher.ogg",
-      volume = 0.7
-    }
-  }
-}
-data:extend({mcraft_gun})
-end
+
 
 data:extend({
 -- Equipment
@@ -87,3 +63,79 @@ data:extend({
     equipment_categories = {"armor", "electric-hovercraft-equipment", "lcraft-charger"},
   }
 })
+
+if ecraft_activated then
+  if mods["bobvehicleequipment"] then
+    data.raw["equipment-grid"]["ecraft-equipment"].width = 10
+    data.raw["equipment-grid"]["ecraft-equipment"].height = 4
+    data.raw["equipment-grid"]["ecraft-equipment"].equipment_categories = { "car", "vehicle", "electric-hovercraft-equipment" }
+  end
+end
+
+--------------------------------------------------------------------------------------------------------------------
+if lcraft_activated then
+  data:extend({
+    --equipment
+    {
+      type = "battery-equipment",
+      name = "lcraft-charger",
+      sprite = {
+        filename = HCGRAPHICS .. "equipment/lcraft_charger.png",
+        width = 64,
+        height = 64,
+        priority = "medium",
+        scale = 0.5,
+      },
+      shape = {
+        width = 1,
+        height = 1,
+        type = "full"
+      },
+      energy_source = {
+        type = "electric",
+        buffer_capacity = "2250KJ",
+        input_flow_limit = "750KW",
+        drain = "0W",
+        output_flow_limit = "0W",
+        usage_priority = "primary-input"
+      },
+      categories = {"armor"},
+      order = "b-i-c"
+    }
+  })
+
+
+  if mods["bobvehicleequipment"] then
+    data.raw["equipment-grid"]["lcraft-equipment"].width = 10
+    data.raw["equipment-grid"]["lcraft-equipment"].height = 6
+    data.raw["equipment-grid"]["lcraft-equipment"].equipment_categories = { "tank", "vehicle", "armoured-vehicle", "electric-hovercraft-equipment", "lcraft-charger" }
+    data.raw["battery-equipment"]["lcraft-charger"].categories = { "lcraft-charger" }
+  end
+end
+
+--------------------------------------------------------------------------------------------------------------------
+if electriccraft_equipment_activated then
+  local ehvt_equipment = table.deepcopy(data.raw["battery-equipment"]["battery-equipment"])
+  ehvt_equipment.name = "ehvt-equipment"
+  ehvt_equipment.sprite = {
+    filename = HCGRAPHICS .. "equipment/ehvt-equipment.png",
+    width = 128, --128
+    height = 192, --128
+    priority = "medium",
+    scale = 0.5,
+  }
+  ehvt_equipment.shape = {
+    width = 2,
+    height = 3,
+    type = "full"
+  }
+  ehvt_equipment.energy_source = {
+    type = "electric",
+    buffer_capacity = "200MJ", --math.ceil(500 / 60) .. "MW",
+    input_flow_limit = "1GW", --500 .. "MW",
+    output_flow_limit = "1GW", --"0W",
+    usage_priority = "primary-input"
+  }
+  ehvt_equipment.categories = {"electric-hovercraft-equipment"}
+  data:extend({ehvt_equipment})
+end
