@@ -134,8 +134,9 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
           --if #collisions ==0 or #collisions ==1 and collisions[1].unit_number ==tbl.entity.unit_number then
 
           tbl.entity.teleport(-5,-5)
-          local cliffs = tbl.entity.surface.find_entities_filtered { name = "cliff", area = {{new_pos.x-1.15,new_pos.y-1.15},{new_pos.x+1.15,new_pos.y+1.15}}}
-          local rocks = tbl.entity.surface.find_entities_filtered { type = "simple-entity", area = {{new_pos.x-1,new_pos.y-1},{new_pos.x+1,new_pos.y+1}}}
+          local cliffsize = 2.15
+          local cliffs = tbl.entity.surface.find_entities_filtered{ type = "cliff", area = {{new_pos.x-cliffsize, new_pos.y-cliffsize}, {new_pos.x+cliffsize, new_pos.y+cliffsize}} }
+          local rocks = tbl.entity.surface.find_entities_filtered{ type = "simple-entity", area = {{new_pos.x-1, new_pos.y-1}, {new_pos.x+1, new_pos.y+1}} }
           if #cliffs >0 then
             local noncolliding = tbl.entity.surface.find_non_colliding_position("hovercraft-collision", new_pos, 0.1, 0.03)
             if noncolliding and distance(noncolliding,new_pos)<0.04 then
@@ -147,15 +148,15 @@ if settings.global["hovercraft-drifting"].value then --check if drifting setting
               tbl.idle_ticks = 120
             end
           else
-            if #rocks == 0 or tbl.entity.surface.can_place_entity{name="hovercraft-collision",position=new_pos, direction=tbl.entity.orientation} then
+            if #rocks == 0 or tbl.entity.surface.can_place_entity{name = "hovercraft-collision", position = new_pos, direction = tbl.entity.orientation} then
               tbl.entity.teleport(new_pos)
             else
               tbl.entity.teleport(5,5)
             end
           end
-          tbl.drift = {x=drift_x,y=drift_y}
+          tbl.drift = {x=drift_x, y=drift_y}
         else
-          tbl.drift = {x=0,y=0}
+          tbl.drift = {x=0, y=0}
         end
       else
         tbl.drift = {x=0,y=0}

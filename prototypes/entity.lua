@@ -15,8 +15,6 @@ local collision = table.deepcopy(data.raw.car.car)
 data:extend({collision})
 
 --------------------------------------------------------------------------------------------------------------------
-
--- Hovercraft entity
 local hcraft_entity = table.deepcopy(data.raw.car.car)
 hcraft_entity.name = "hcraft-entity"
 hcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_icon.png"
@@ -141,7 +139,6 @@ hcraft_entity.turret_animation = nil
 data:extend({hcraft_entity})
 
 --------------------------------------------------------------------------------------------------------------------
-
 if mcraft_activated then
   -- Mcraft entity
   local mcraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
@@ -233,7 +230,6 @@ if mcraft_activated then
   }
   data:extend({mcraft_entity, mcraft_gun})
 end
-
 
 --------------------------------------------------------------------------------------------------------------------
 if ecraft_activated then

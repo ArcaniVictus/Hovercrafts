@@ -4,15 +4,18 @@ Date: 2021-12-05
   Info:
     - !!!WIP!!!
     - Update by snouz
+  Visuals:
+    - Redone stabilized hovercraft visuals (from scratch).
+    - Added mask to color hovercrafts (like cars).
+    - Turret improved and size adjusted to match HD/LD resolutions.
+    - New HD shadow, including turret shadow.
+    - Improved water reflection.
+    - Adjusted light position.
 
-- Redone stabilized hovercraft visuals (from scratch).
-- Added mask to color hovercrafts (like cars).
-- New HD shadow.
-- Adjusted light position.
+  Bugfixes
+    - Fixed hovercrafts getting stuck in cliffs.
 
-- Optimization.
-- Files sorted.
-- code factorisation.
-- Turret improved and size adjusted to match HD/LD resolutions.
-- turret shadow
-- Improved water reflection
+  Optimization:
+    - Optimization.
+    - Files sorted.
+    - Code factorisation.
