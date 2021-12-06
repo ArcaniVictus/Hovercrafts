@@ -1,4 +1,29 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.0
+Date: 2021-12-07
+  Info:
+    - Update by snouz
+  Visuals:
+    - Redone stabilized hovercraft visuals (from scratch). Un-mirrored.
+    - Added color mask to hovercrafts.
+    - Turret improved and size adjusted to match HD/LD resolutions.
+    - New HD shadow, including turret shadow.
+    - Improved water reflection.
+    - Adjusted light position.
+    - New technology icons.
+    - New icons.
+    - New mod thumbnail.
+  Bugfixes:
+    - Fixed dependency to Laser Tanks. Removed dependency to deprecated Electric Vehicles.
+    - Fixed hovercrafts getting stuck in cliffs and rocks.
+  Compatibility:
+    - Added Industrial Revolution compatibility (thanks to daniels1989).
+    - Added Larger Lamps compatibility (thanks to daniels1989).
+  Optimization:
+    - Images optimized.
+    - Files sorted.
+    - Code factorised.
+---------------------------------------------------------------------------------------------------
 Version: 1.1.1
 Date: 2021-01-09
   Changes:

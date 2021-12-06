@@ -1,14 +1,12 @@
 {
   "name": "Hovercrafts",
   "author": "Arcani_Victus",
-  "version": "1.1.1",
+  "version": "1.2",
   "factorio_version": "1.1",
   "title": "Hovercrafts",
-  "description": "Speed across land and water in your own personal hovercraft, missile armed hovercraft, electric powered hovercraft (Mod dependent), or laser armed electric hovercraft (Mod dependent).",
+  "description": "Speed across land and water in your own personal hovercraft. 2 versions, plus 2 more with the mod 'Laser Tanks'",
   "dependencies": [
     "base >= 1.1.0",
-    "? CanalBuilder17 >= 0.17.6",
-    "? electric-vehicles-lib-reborn >= 0.1.3",
     "? laser_tanks_updated >= 0.19.0",
     "(?) laser_tanks > 0.18.15"
   ]

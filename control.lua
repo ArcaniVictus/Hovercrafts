@@ -284,7 +284,7 @@ function table_length(tbl)
 end
 
 script.on_nth_tick(3, function(event)
-  if game.active_mods["laser_tanks"] then
+  if game.active_mods["laser_tanks"] or game.active_mods["laser_tanks_updated"] then
   local temp_count = table_length(game.connected_players )
   local i
 
