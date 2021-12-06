@@ -19,7 +19,7 @@ data:extend({collision})
 -- Hovercraft entity
 local hcraft_entity = table.deepcopy(data.raw.car.car)
 hcraft_entity.name = "hcraft-entity"
-hcraft_entity.icon = HCGRAPHICS .. "icons/hcraft_small.png"
+hcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_icon.png"
 hcraft_entity.icon_size = 64
 hcraft_entity.corpse = "hovercraft-remnants"
 hcraft_entity.braking_power = "1200kW"
@@ -146,6 +146,8 @@ if mcraft_activated then
   -- Mcraft entity
   local mcraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
   mcraft_entity.name = "mcraft-entity"
+  mcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_mcraft_icon.png"
+  mcraft_entity.icon_size = 64
   mcraft_entity.braking_power = "1500kW"
   mcraft_entity.consumption = "450kW"
   mcraft_entity.effectivity = 1.1
@@ -207,9 +209,7 @@ if mcraft_activated then
   }
   mcraft_entity.turret_rotation_speed = 0.40 / 60
   mcraft_entity.turret_return_timeout = 300
-  data:extend({mcraft_entity})
 
-  -- Mcraft gun
   local mcraft_gun = table.deepcopy(data.raw.gun["vehicle-machine-gun"])
   mcraft_gun.name = "hovercraft-missile-turret"
   mcraft_gun.icon = HCGRAPHICS .. "icons/hovercraft-missile-turret-icon.png"
@@ -231,7 +231,7 @@ if mcraft_activated then
       }
     }
   }
-  data:extend({mcraft_gun})
+  data:extend({mcraft_entity, mcraft_gun})
 end
 
 
@@ -239,7 +239,7 @@ end
 if ecraft_activated then
   local ecraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
   ecraft_entity.name = "ecraft-entity"
-  ecraft_entity.icon = HCGRAPHICS .. "icons/ecraft_small.png"
+  ecraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_ecraft_icon.png"
   ecraft_entity.icon_size = 64
   ecraft_entity.braking_power = "1000kW"
   ecraft_entity.consumption = "6MW"
@@ -275,7 +275,7 @@ end
 if lcraft_activated then
   local lcraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
   lcraft_entity.name = "lcraft-entity"
-  lcraft_entity.icon = HCGRAPHICS .. "icons/lcraft_small_elec.png"
+  lcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_lcraft_icon.png"
   lcraft_entity.icon_size = 64
   lcraft_entity.effectivity = 0.20
   lcraft_entity.max_health = 800
@@ -306,83 +306,14 @@ if lcraft_activated then
     match_speed_to_activity = false
   }
   lcraft_entity.resistances = {
-    {
-      type = "fire",
-      decrease = 7.5,
-      percent = 30
-    },
-    {
-      type = "physical",
-      decrease = 7.5,
-      percent = 30
-    },
-    {
-      type = "impact",
-      decrease = 40,
-      percent = 75
-    },
-    {
-      type = "explosion",
-      decrease = 7.5,
-      percent = 35
-    },
-    {
-      type = "acid",
-      decrease = 0,
-      percent = 35
-    }
+    { type = "fire", decrease = 7.5, percent = 30 },
+    { type = "physical", decrease = 7.5, percent = 30 },
+    { type = "impact", decrease = 40, percent = 75 },
+    { type = "explosion", decrease = 7.5, percent = 35 },
+    { type = "acid", decrease = 0, percent = 35 }
   }
   lcraft_entity.guns = {"vehicle-laser-gun"}
   lcraft_entity.turret_rotation_speed = 0.35 / 60
-  lcraft_entity.turret_animation = {
-    layers = {
-      {
-        filename = "__base__/graphics/entity/car/car-turret.png",
-        priority = "low",
-        line_length = 8,
-        width = 36,
-        height = 29,
-        frame_count = 1,
-        direction_count = 64,
-        shift = {0.03125, -0.890625},
-        animation_speed = 8,
-        hr_version =
-        {
-          priority = "low",
-          width = 71,
-          height = 57,
-          frame_count = 1,
-          axially_symmetrical = false,
-          direction_count = 64,
-          shift = util.by_pixel(0+2, -33.5+8.5),
-          animation_speed = 8,
-          scale = 0.5,
-          stripes = {
-            {
-              filename = "__base__/graphics/entity/car/hr-car-turret-1.png",
-              width_in_frames = 1,
-              height_in_frames = 32
-            },
-            {
-              filename = "__base__/graphics/entity/car/hr-car-turret-2.png",
-              width_in_frames = 1,
-              height_in_frames = 32
-            }
-          }
-        }
-      },
-      {
-        filename = "__base__/graphics/entity/car/car-turret-shadow.png",
-        priority = "low",
-        line_length = 8,
-        width = 46,
-        height = 31,
-        frame_count = 1,
-        draw_as_shadow = true,
-        direction_count = 64,
-        shift = {0.875, 0.359375}
-      }
-    }
-  }
+  lcraft_entity.turret_animation = data.raw.car.car.turret_animation
   data:extend({lcraft_entity})
 end

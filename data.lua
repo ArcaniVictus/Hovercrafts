@@ -52,27 +52,6 @@ if mods["electric-vehicles-reborn"] then
   end
 end
 
-
-if mods["SchallTransportGroup"] then
-  if data.raw.item["lcraft-charger"] then
-    data.raw["item"]["lcraft-charger"].subgroup = "vehicle-equipment"
-    data.raw["item"]["lcraft-charger"].order = "e2"
-  end
-end
-
-
-
--- Support for Vortik's Armor Plating mod
-if mods["vtk-armor-plating"] then
-  if data.raw["item-with-entity-data"]["ecraft-entity"] then
-    table.insert(data.raw["equipment-grid"]["ecraft-equipment"].equipment_categories, "vtk-armor-plating")
-  end
-  if data.raw["item-with-entity-data"]["lcraft-entity"] then -- settings.startup["enable-lcraft"].value then
-    table.insert(data.raw["equipment-grid"]["lcraft-equipment"].equipment_categories, "vtk-armor-plating")
-    table.insert(data.raw.recipe["lcraft-recipe"].ingredients, {"vtk-armor-plating", 8})
-  end
-end
-
 -- Manages changes if the electric hovercraft is disabled
 if data.raw["item-with-entity-data"]["ecraft-entity"] == nil and settings.startup["enable-lcraft"].value and data.raw["item-with-entity-data"]["lcraft-entity"] then --settings.startup["enable-ecraft"].value or
   table.remove(data.raw.technology["lcraft-tech"].prerequisites, 4)
@@ -86,9 +65,9 @@ if data.raw["item-with-entity-data"]["ecraft-entity"] == nil and settings.startu
     table.insert(data.raw.technology["lcraft-tech"].prerequisites, "electric-vehicles-high-voltage-transformer" )
   end
   if settings.startup["lasertanks-electric-engine"] and mods["electric-vehicles-reborn"] == nil then
-    data.raw["item-with-entity-data"]["lcraft-entity"].icon = HCGRAPHICS .. "icons/lcraft_small_burn.png"
+    data.raw["item-with-entity-data"]["lcraft-entity"].icon = HCGRAPHICS .. "icons/hovercraft_lcraft_fueled_icon.png"
     data.raw["item-with-entity-data"]["lcraft-entity"].icon_size = 64
-    data.raw.technology["lcraft-tech"].icon = HCGRAPHICS .. "technology/lcraft_large_burn.png"
+    data.raw.technology["lcraft-tech"].icon = HCGRAPHICS .. "technology/lcraft_burner_tech.png"
     data.raw.technology["lcraft-tech"].icon_size = 256
     if settings.startup["lasertanks-electric-engine"].value == false then
       table.remove(data.raw.technology["lcraft-tech"].effects, 2)
