@@ -2,7 +2,8 @@
 Version: 1.2.1
 Date: 2021-12-07
   Compatibility:
-    - Fixed compatibility with IR2 + Krastorio2
+    - Fixed compatibility with IR2 + Krastorio2.
+    - Fixed startup crash when Armor Plating was on.
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 2021-12-07
@@ -22,7 +23,7 @@ Date: 2021-12-07
     - Fixed dependency to Laser Tanks. Removed dependency to deprecated Electric Vehicles.
     - Fixed hovercrafts getting stuck in cliffs and rocks.
   Compatibility:
-    - Added Industrial Revolution compatibility (thanks to daniels1989).
+    - Added Industrial Revolution fuel compatibility (thanks to daniels1989).
     - Added Larger Lamps compatibility (thanks to daniels1989).
   Optimization:
     - Images optimized.

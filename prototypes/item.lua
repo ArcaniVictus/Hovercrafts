@@ -54,7 +54,7 @@ if mcraft_activated then
   })
 
   if mods["vtk-armor-plating"] then
-    table.insert(data.raw.recipe.mcraft_recipe.ingredients, {"vtk-armor-plating", 12})
+    table.insert(data.raw.recipe["mcraft-recipe"].ingredients, {"vtk-armor-plating", 12})
   end
 end
 
