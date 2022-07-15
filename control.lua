@@ -163,7 +163,7 @@ end
 
 local function update_global_state()
   global.settings = {}
-  global.settings["hovercraft-drifting"] = settings.map_settings["hovercraft-drifting"].value
+  global.settings["hovercraft-drifting"] = settings.global["hovercraft-drifting"].value
   global.mods_installed = {}
   global.mods_installed.laser_tanks = game.active_mods["laser_tanks"] or game.active_mods["laser_tanks_updated"]
 
