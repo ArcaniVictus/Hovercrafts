@@ -57,7 +57,7 @@ end
 
 -- when moving about in a hovercraft
 script.on_event(defines.events.on_player_changed_position, function(e)
-  local player = game.players[e.player_index]
+  local player = game.get_player(e.player_index)
   if player.character and not global.mods_installed.canal_builder then
     make_ripple(player)
     make_splash(player)
@@ -283,11 +283,11 @@ script.on_nth_tick(3, function(event)
       if game.connected_players[global.iterate_players].character then
         local playerid = global.iterate_players
         local techlevel = 0
-        if game.connected_players [playerid].force.technologies["laser-rifle-1"].researched then
+        if game.connected_players[playerid].force.technologies["laser-rifle-1"].researched then
           techlevel = 1
-          if game.connected_players [playerid].force.technologies["laser-rifle-2"].researched then
+          if game.connected_players[playerid].force.technologies["laser-rifle-2"].researched then
             techlevel = 2
-            if game.connected_players [playerid].force.technologies["laser-rifle-3"].researched then
+            if game.connected_players[playerid].force.technologies["laser-rifle-3"].researched then
               techlevel = 3
             end
           end
