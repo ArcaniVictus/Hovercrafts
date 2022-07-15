@@ -195,15 +195,6 @@ script.on_init(function()
   global.brakes = { }
   global.vehicles={}
   global.hovercrafts = {}
-  if string.sub(game.active_mods["base"],1,4) == "0.16" then
-    global.player_main = defines.inventory.player_main
-    global.player_ammo = defines.inventory.player_ammo
-    global.player_guns = defines.inventory.player_guns
-  else
-    global.player_main = defines.inventory.character_main
-    global.player_ammo = defines.inventory.character_ammo
-    global.player_guns = defines.inventory.character_guns
-  end
   global.version = 10
 end)
 
@@ -244,16 +235,6 @@ script.on_configuration_changed(function()
       end
     end
     global.version = 10
-  end
-
-  if string.sub(game.active_mods["base"],1,4) == "0.16" then
-    global.player_main = defines.inventory.player_main
-    global.player_ammo = defines.inventory.player_ammo
-    global.player_guns = defines.inventory.player_guns
-  else
-    global.player_main = defines.inventory.character_main
-    global.player_ammo = defines.inventory.character_ammo
-    global.player_guns = defines.inventory.character_guns
   end
 end)
 
@@ -313,21 +294,21 @@ script.on_nth_tick(3, function(event)
               techlevel = 3
             end
           end
-          local stack = game.connected_players[playerid].get_inventory(global.player_main).find_item_stack("lasertanks-ammo-"..techlevel)
+          local stack = game.connected_players[playerid].get_inventory(defines.inventory.character_main).find_item_stack("lasertanks-ammo-"..techlevel)
           if stack then
             stack.clear()
           end
-          stack = game.connected_players[playerid].get_inventory(global.player_main).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
-          if stack then
-            stack.clear()
-          end
-
-          stack = game.connected_players[playerid].get_inventory(global.player_ammo).find_item_stack("lasertanks-ammo-"..techlevel)
+          stack = game.connected_players[playerid].get_inventory(defines.inventory.character_main).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
           if stack then
             stack.clear()
           end
 
-          stack = game.connected_players[playerid].get_inventory(global.player_ammo).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
+          stack = game.connected_players[playerid].get_inventory(defines.inventory.character_ammo).find_item_stack("lasertanks-ammo-"..techlevel)
+          if stack then
+            stack.clear()
+          end
+
+          stack = game.connected_players[playerid].get_inventory(defines.inventory.character_ammo).find_item_stack("lasertanks-cannon-ammo-"..techlevel)
           if stack then
             stack.clear()
           end
