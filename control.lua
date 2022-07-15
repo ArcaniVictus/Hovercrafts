@@ -16,6 +16,11 @@ local isHovercraft = {
   ["lcraft-entity"] = true
 }
 
+function distance(pos1,pos2)
+  local x = (pos1.x-pos2.x)^2
+  local y = (pos1.y-pos2.y)^2
+  return (x+y)^0.5
+end
 
 -- aesthetic ripple
 local function make_ripple(player)
@@ -79,72 +84,63 @@ local function tickHandler(e)
       end
     end
   end
-end
-script.on_event(defines.events.on_tick,tickHandler)
 
-
--- Hovercraft difting
-function distance(pos1,pos2)
-  local x = (pos1.x-pos2.x)^2
-  local y = (pos1.y-pos2.y)^2
-  return (x+y)^0.5
-end
-
-script.on_event(defines.events.on_tick, function(event)
-if global.settings["hovercraft-drifting"] then
-  for unit_number, tbl in pairs(global.hovercrafts) do
-    if tbl.entity and tbl.entity.valid then
-      local pos = tbl.entity.position
-      local speed = tbl.entity.speed
-      if speed == 0 then
-        tbl.idle_ticks = tbl.idle_ticks + 1
-      else
-        tbl.idle_ticks = 0
-      end
-      if tbl.idle_ticks < 120 then
-      --local surroundings = #tbl.entity.surface.find_entities_filtered {area = {{pos.x-1, pos.y-1}, {pos.x+1, pos.y+1}}}
-      --if speed ~=0 or surroundings == 1 then
-        local drift_x = pos.x-tbl.position.x
-        local drift_y = pos.y-tbl.position.y
-        drift_x = drift_x*0.05+tbl.drift.x*0.95
-        drift_y = drift_y*0.05+tbl.drift.y*0.95
-        if (drift_x^2+drift_y^2)^0.5 >0.001 then
-          local new_pos = {x = tbl.position.x+drift_x, y = tbl.position.y+drift_y}
-          tbl.entity.teleport(-5,-5)
-          local cliffsize = 2
-          local cliffs = tbl.entity.surface.find_entities_filtered{ type = "cliff", area = {{new_pos.x-cliffsize, new_pos.y-cliffsize}, {new_pos.x+cliffsize, new_pos.y+cliffsize}} }
-          local rocks = tbl.entity.surface.find_entities_filtered{ type = "simple-entity", area = {{new_pos.x-1, new_pos.y-1}, {new_pos.x+1, new_pos.y+1}} }
-          if #cliffs > 0 or #rocks > 0 then
-            local noncolliding = tbl.entity.surface.find_non_colliding_position("hovercraft-collision", new_pos, 0.1, 0.03)
-            if noncolliding and distance(noncolliding,new_pos) < 0.04 then
-              tbl.entity.teleport(noncolliding)
-              tbl.idle_ticks = 120
+  if global.settings["hovercraft-drifting"] then
+    for unit_number, tbl in pairs(global.hovercrafts) do
+      if tbl.entity and tbl.entity.valid then
+        local pos = tbl.entity.position
+        local speed = tbl.entity.speed
+        if speed == 0 then
+          tbl.idle_ticks = tbl.idle_ticks + 1
+        else
+          tbl.idle_ticks = 0
+        end
+        if tbl.idle_ticks < 120 then
+        --local surroundings = #tbl.entity.surface.find_entities_filtered {area = {{pos.x-1, pos.y-1}, {pos.x+1, pos.y+1}}}
+        --if speed ~=0 or surroundings == 1 then
+          local drift_x = pos.x-tbl.position.x
+          local drift_y = pos.y-tbl.position.y
+          drift_x = drift_x*0.05+tbl.drift.x*0.95
+          drift_y = drift_y*0.05+tbl.drift.y*0.95
+          if (drift_x^2+drift_y^2)^0.5 >0.001 then
+            local new_pos = {x = tbl.position.x+drift_x, y = tbl.position.y+drift_y}
+            tbl.entity.teleport(-5,-5)
+            local cliffsize = 2
+            local cliffs = tbl.entity.surface.find_entities_filtered{ type = "cliff", area = {{new_pos.x-cliffsize, new_pos.y-cliffsize}, {new_pos.x+cliffsize, new_pos.y+cliffsize}} }
+            local rocks = tbl.entity.surface.find_entities_filtered{ type = "simple-entity", area = {{new_pos.x-1, new_pos.y-1}, {new_pos.x+1, new_pos.y+1}} }
+            if #cliffs > 0 or #rocks > 0 then
+              local noncolliding = tbl.entity.surface.find_non_colliding_position("hovercraft-collision", new_pos, 0.1, 0.03)
+              if noncolliding and distance(noncolliding,new_pos) < 0.04 then
+                tbl.entity.teleport(noncolliding)
+                tbl.idle_ticks = 120
+              else
+                tbl.entity.teleport(5,5)
+                tbl.drift = {x=0,y=0}
+                tbl.idle_ticks = 120
+              end
             else
-              tbl.entity.teleport(5,5)
-              tbl.drift = {x=0,y=0}
-              tbl.idle_ticks = 120
+              if tbl.entity.surface.can_place_entity{name = "hovercraft-collision", position = new_pos, direction = tbl.entity.orientation} then
+                tbl.entity.teleport(new_pos)
+              else
+                tbl.entity.teleport(5,5)
+              end
             end
+            tbl.drift = {x = drift_x, y = drift_y}
           else
-            if tbl.entity.surface.can_place_entity{name = "hovercraft-collision", position = new_pos, direction = tbl.entity.orientation} then
-              tbl.entity.teleport(new_pos)
-            else
-              tbl.entity.teleport(5,5)
-            end
+            tbl.drift = {x = 0, y = 0}
           end
-          tbl.drift = {x = drift_x, y = drift_y}
         else
           tbl.drift = {x = 0, y = 0}
         end
+        tbl.position = tbl.entity.position
       else
-        tbl.drift = {x = 0, y = 0}
+        global.hovercrafts[unit_number] = nil
       end
-      tbl.position = tbl.entity.position
-    else
-      global.hovercrafts[unit_number] = nil
     end
   end
 end
-end)
+script.on_event(defines.events.on_tick, tickHandler)
+
 
 script.on_event(defines.events.on_entity_died, function(event)
   if isHovercraft[event.entity.name] then
