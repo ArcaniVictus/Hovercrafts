@@ -16,16 +16,6 @@ local isHovercraft = {
   ["lcraft-entity"] = true
 }
 
--- check for other mods that make water effects
--- push all into on_load?
-local makeEffects = true
-local function modCheck()
-  if remote.interfaces["CanalBuilder"] and remote.interfaces["CanalBuilder"]["exists"] then
-    makeEffects = false
-  else
-    makeEffects = true
-  end
-end
 
 -- aesthetic ripple
 local function make_ripple(player)
@@ -63,11 +53,9 @@ end
 -- when moving about in a hovercraft
 script.on_event(defines.events.on_player_changed_position, function(e)
   local player = game.players[e.player_index]
-  if player.character then
-    if makeEffects then
-      make_ripple(player)
-      make_splash(player)
-    end
+  if player.character and not global.mods_installed.canal_builder then
+    make_ripple(player)
+    make_splash(player)
   end
 end)
 
@@ -86,14 +74,13 @@ local function tickHandler(e)
   end
   if eTick % 120 == 4 then
     for _,player in pairs(game.connected_players) do
-      if player.character and makeEffects then
+      if player.character and not global.mods_installed.canal_builder then
         make_ripple(player)
       end
     end
   end
 end
 script.on_event(defines.events.on_tick,tickHandler)
-script.on_load(modCheck)
 
 
 -- Hovercraft difting
@@ -104,7 +91,7 @@ function distance(pos1,pos2)
 end
 
 script.on_event(defines.events.on_tick, function(event)
-if settings.global["hovercraft-drifting"].value then --check if drifting setting is active_mods
+if global.settings["hovercraft-drifting"] then
   for unit_number, tbl in pairs(global.hovercrafts) do
     if tbl.entity and tbl.entity.valid then
       local pos = tbl.entity.position
@@ -178,9 +165,17 @@ function max_range(pos1,pos2,range)
   return pos1
 end
 
--------------------------------------------------------------
-------------Laser tank script for lcraft's turret------------
--------------------------------------------------------------
+local function update_global_state()
+  global.settings = {}
+  global.settings["hovercraft-drifting"] = settings.map_settings["hovercraft-drifting"].value
+  global.mods_installed = {}
+  global.mods_installed.laser_tanks = game.active_mods["laser_tanks"] or game.active_mods["laser_tanks_updated"]
+
+  -- check for other mods that make water effects
+  global.mods_installed.canal_builder = remote.interfaces["CanalBuilder"] and remote.interfaces["CanalBuilder"]["exists"]
+end
+script.on_event(defines.events.on_runtime_mod_setting_changed, update_global_state)
+
 script.on_init(function()
   if remote.interfaces["electric-vehicles-lib"] and game.equipment_prototypes["ehvt-equipment"] then
     remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
@@ -196,6 +191,7 @@ script.on_init(function()
   global.vehicles={}
   global.hovercrafts = {}
   global.version = 10
+  update_global_state()
 end)
 
 script.on_configuration_changed(function()
@@ -236,6 +232,7 @@ script.on_configuration_changed(function()
     end
     global.version = 10
   end
+  update_global_state()
 end)
 
 script.on_event(defines.events.on_built_entity, function(event)
@@ -248,9 +245,13 @@ script.on_event(defines.events.on_built_entity, function(event)
   end
 end)
 
+
+-------------------------------------------------------------
+------------Laser tank script for lcraft's turret------------
+-------------------------------------------------------------
+
 TICKS_PER_UPDATE = 20 --*3 (per 3rd tick)
 ENERGY_PER_CHARGE = 749998 -- wtf 500k is buggy?
-
 
 function table_length(tbl)
   if tbl == nil then
@@ -265,7 +266,7 @@ function table_length(tbl)
 end
 
 script.on_nth_tick(3, function(event)
-  if game.active_mods["laser_tanks"] or game.active_mods["laser_tanks_updated"] then
+  if not global.mods_installed.laser_tanks then return end
   local temp_count = table_length(game.connected_players )
   local i
 
@@ -429,6 +430,5 @@ script.on_nth_tick(3, function(event)
       end
       i=i+1
     end
-  end
   end
 end)
