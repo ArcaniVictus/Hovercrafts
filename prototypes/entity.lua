@@ -9,6 +9,7 @@ local collision = table.deepcopy(data.raw.car.car)
   collision.name = "hovercraft-collision"
   collision.order = "hovercraft-collision"
   collision.collision_box = {{-1.5, -1.5}, {1.5, 1.5}}
+  collision.collision_mask = { "player-layer" }  -- Will be replaced by custom collision layer in data-final-fixes
   collision.animation = {filename = "__core__/graphics/empty.png", size = 1, direction_count = 1}
   collision.turret_animation = nil
   collision.light_animation = nil
@@ -36,7 +37,7 @@ hcraft_entity.tank_driving = true
 hcraft_entity.weight = 2500
 hcraft_entity.minable = {mining_time = 0.5, result = "hcraft-entity"}
 hcraft_entity.has_belt_immunity = true
-hcraft_entity.collision_mask = { "train-layer", "layer-14" } --{, "not-colliding-with-itself"}
+hcraft_entity.collision_mask = { "player-layer" }  -- Will be replaced by custom collision layer in data-final-fixes
 hcraft_entity.resistances = {
   { type = "fire",      decrease = 7.5, percent = 30 },
   { type = "physical",  decrease = 7.5, percent = 30 },
