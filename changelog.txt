@@ -1,4 +1,20 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.2
+Date: 2022-07-30
+  Info:
+    - Update by Xorimuth
+  Bugfixes:
+    - Fixed ripples and splashes not being created
+    - Fixed hovercraft-collision colliding with water, which caused drifting over water to not work. This was particularly apparent when drifting over a land/water border
+    - Fixed trains colliding with walls (https://mods.factorio.com/mod/Hovercrafts/discussion/6181b19499129db2c2577a89)
+    - Fixed missing missile turret locale
+  Compatibility:
+    - Fixed not being able to walk through SE pipes (https://mods.factorio.com/mod/Hovercrafts/discussion/61b19c0e7a19f2772f5262e8)
+    - Fixed SE core miners not being able to be placed on core seams
+    - Stopped using a hardcoded collision mask (layer-14) which could cause compatibility issues with mods that use the same mask for something else
+  Optimization:
+    - Improved performance by caching mod settings and installed mod list (https://mods.factorio.com/mod/Hovercrafts/discussion/61f5ca1f1f7f35bd94096d0b)
+---------------------------------------------------------------------------------------------------
 Version: 1.2.1
 Date: 2021-12-07
   Compatibility:
