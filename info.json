@@ -8,6 +8,7 @@
   "dependencies": [
     "base >= 1.1.0",
     "? laser_tanks_updated >= 0.19.0",
-    "(?) laser_tanks > 0.18.15"
+    "(?) laser_tanks > 0.18.15",
+    "(?) space-exploration"
   ]
 }
