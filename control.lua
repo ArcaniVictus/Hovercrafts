@@ -45,11 +45,10 @@ end
 -- aesthetic splash
 local function make_splash(player)
   if isWaterTile[player.surface.get_tile(player.position).name] then
-    local driving = player.driving
-    --if not driving or (driving and isHovercraft[player.vehicle.name]) then
-    if (driving and isHovercraft[player.vehicle.name]) then
-      local speed = 1+math.min(9,math.floor(math.abs(player.vehicle.speed)*9))
-      player.surface.create_entity{name = "water-splash-smoke-"..speed, position = {player.vehicle.position.x+0.2,player.vehicle.position.y+0.5}}
+    local vehicle = player.vehicle
+    if (vehicle and isHovercraft[vehicle.name]) then
+      local speed = 1+math.min(9,math.floor(math.abs(vehicle.speed)*9))
+      player.surface.create_entity{name = "water-splash-smoke-"..speed, position = {vehicle.position.x+0.2, vehicle.position.y+0.5}}
     end
   end
 end
@@ -69,9 +68,10 @@ end)
 local function tickHandler(e)
   local eTick = e.tick
   if eTick % 7==2 then
-    for _,player in pairs(game.connected_players) do
-      if player.character and player.driving then
-        if isHovercraft[player.vehicle.name] then
+    for _, player in pairs(game.connected_players) do
+      local vehicle = player.vehicle
+      if player.character and vehicle then
+        if isHovercraft[vehicle.name] then
           player.surface.create_trivial_smoke{name = "hover-smoke", position = player.position}
         end
       end
