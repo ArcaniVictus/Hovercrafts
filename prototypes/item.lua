@@ -21,7 +21,7 @@ data:extend({
       {"speed-module", 2},
       {"effectivity-module", 2}
     },
-    result = "hcraft-entity"
+    results = {{type="item", name="hcraft-entity", amount=1}}
   },
 })
 
@@ -49,7 +49,7 @@ if mcraft_activated then
         {"gun-turret", 2},
         {"rocket-launcher", 16}
       },
-      result = "mcraft-entity"
+      results = {{type="item", name="mcraft-entity", amount=1}}
     },
   })
 
@@ -82,7 +82,7 @@ if ecraft_activated then
         {"processing-unit", 20},
         {"hcraft-entity", 1},
       },
-      result = "ecraft-entity"
+      results = {{type="item", name="ecraft-entity", amount=1}}
     },
   })
 end
@@ -111,7 +111,7 @@ if lcraft_activated then
         {"heat-pipe", 25},
         {"heat-exchanger", 2},
       },
-      result = "lcraft-entity"
+      results = {{type="item", name="lcraft-entity", amount=1}}
     },
     {
       type = "item",
@@ -134,7 +134,7 @@ if lcraft_activated then
         {"energy-shield-mk2-equipment", 5},
         {"ehvt-equipment", 2}
       },
-      result = "lcraft-charger"
+      results = {{type="item", name="lcraft-charger", amount=1}}
     },
   })
 
@@ -168,7 +168,7 @@ if electriccraft_equipment_activated then
         {"processing-unit", 5},
         {type = "fluid", name = "lubricant", amount = 50},
       },
-      result = "ehvt-equipment"
+      results = {{type="item", name="ehvt-equipment", amount=1}}
     },
   })
 end
