@@ -128,6 +128,7 @@ if mcraft_activated then
     { type = "acid",      decrease = 0,  percent = 55 }
   }
   mcraft_entity.energy_source = {
+    type = "burner",
     fuel_category = "chemical",
     effectivity = 1,
     fuel_inventory_size = 2,
@@ -211,6 +212,7 @@ if ecraft_activated then
   }
   ecraft_entity.energy_source =
   {
+    type = "burner",
     effectivity = nil,
     fuel_inventory_size = 0,
   }
@@ -233,6 +235,7 @@ if lcraft_activated then
   --lcraft_entity.immune_to_rock_impacts = true
   lcraft_entity.energy_source =
   {
+    type = "burner",
     effectivity = nil,
     fuel_inventory_size = 0,
   }
