@@ -25,7 +25,7 @@ hcraft_entities = {
   ["lcraft-entity"] = true,
 }
 
-local prototypes = collision_mask_util.collect_prototypes_with_layer("player-layer")
+local prototypes = collision_mask_util.collect_prototypes_with_layer("player")
 
 data:extend{
   {
@@ -37,8 +37,9 @@ data:extend{
 
 for _, prototype in pairs(prototypes) do
   if prototype.type ~= "tile" and not hcraft_entities[prototype.name] then
-    local prototype_mask = collision_mask_util.get_mask(prototype)
-    prototype_mask.layers["hovercraft"] = true
+    local collision_mask = collision_mask_util.get_mask(prototype)
+    collision_mask.layers["hovercraft"] = true
+    prototype.collision_mask = collision_mask
   end
 end
 
