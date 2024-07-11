@@ -5,15 +5,15 @@ data:extend({hcraft_remnants})
 
 -- collision box
 local collision = table.deepcopy(data.raw.car.car)
-  collision.name = "hovercraft-collision"
-  collision.order = "hovercraft-collision"
-  collision.collision_box = {{-1.5, -1.5}, {1.5, 1.5}}
-  collision.collision_mask = { "player-layer" }  -- Will be replaced by custom collision layer in data-final-fixes
-  collision.animation = {filename = "__core__/graphics/empty.png", size = 1, direction_count = 1}
-  collision.turret_animation = nil
-  collision.light_animation = nil
-  collision.light = nil
-  collision.water_reflection = nil
+collision.name = "hovercraft-collision"
+collision.order = "hovercraft-collision"
+collision.collision_box = {{-1.5, -1.5}, {1.5, 1.5}}
+collision.collision_mask = { layers = {player = true} }  -- Will be replaced by custom collision layer in data-final-fixes
+collision.animation = {filename = "__core__/graphics/empty.png", size = 1, direction_count = 1}
+collision.turret_animation = nil
+collision.light_animation = nil
+collision.light = nil
+collision.water_reflection = nil
 data:extend({collision})
 
 local shadow_distance = 11
@@ -36,7 +36,7 @@ hcraft_entity.tank_driving = true
 hcraft_entity.weight = 2500
 hcraft_entity.minable = {mining_time = 0.5, result = "hcraft-entity"}
 hcraft_entity.has_belt_immunity = true
-hcraft_entity.collision_mask = { "player-layer" }  -- Will be replaced by custom collision layer in data-final-fixes
+hcraft_entity.collision_mask = { layers = {player = true} }  -- Will be replaced by custom collision layer in data-final-fixes
 hcraft_entity.resistances = {
   { type = "fire",      decrease = 7.5, percent = 30 },
   { type = "physical",  decrease = 7.5, percent = 30 },
@@ -127,7 +127,7 @@ if mcraft_activated then
     { type = "explosion", decrease = 10, percent = 65 },
     { type = "acid",      decrease = 0,  percent = 55 }
   }
-  mcraft_entity.burner = {
+  mcraft_entity.energy_source = {
     fuel_category = "chemical",
     effectivity = 1,
     fuel_inventory_size = 2,
@@ -209,7 +209,7 @@ if ecraft_activated then
     },
     match_speed_to_activity = false
   }
-  ecraft_entity.burner =
+  ecraft_entity.energy_source =
   {
     effectivity = nil,
     fuel_inventory_size = 0,
@@ -231,7 +231,7 @@ if lcraft_activated then
   lcraft_entity.equipment_grid = "lcraft-equipment"
   lcraft_entity.immune_to_tree_impacts = true
   --lcraft_entity.immune_to_rock_impacts = true
-  lcraft_entity.burner =
+  lcraft_entity.energy_source =
   {
     effectivity = nil,
     fuel_inventory_size = 0,

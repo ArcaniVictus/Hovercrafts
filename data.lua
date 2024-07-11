@@ -32,7 +32,7 @@ if mod_lasertank_active and not ecraft_activated and lcraft_activated then --set
   table.remove(data.raw.technology["lcraft-tech"].effects, 2)
   data.raw.car["lcraft-entity"].effectivity = 1
   data.raw.car["lcraft-entity"].consumption = "640kW"
-  data.raw.car["lcraft-entity"].burner = {
+  data.raw.car["lcraft-entity"].energy_source = {
     fuel_category = "chemical",
     effectivity = 1,
     fuel_inventory_size = 2,
