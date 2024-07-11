@@ -1,7 +1,6 @@
 local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
 hcraft_remnants.name = "hovercraft-remnants"
 hcraft_remnants.animation.layers[1].filename = HCGRAPHICS .. "entity/hovercraft/remnants/hovercraft-remnants.png"
-hcraft_remnants.animation.layers[1].hr_version.filename = HCGRAPHICS .. "entity/hovercraft/remnants/hr-hovercraft-remnants.png"
 data:extend({hcraft_remnants})
 
 -- collision box
@@ -54,58 +53,30 @@ hcraft_entity.animation = {
       filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-base.png",
       priority = "high",
       line_length = 8,
-      size = 128,
+      size = 256,
       max_advance = 0.2,
       direction_count = 64,
-      scale = 1,
-      hr_version = {
-        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-base.png",
-        priority = "high",
-        line_length = 8,
-        size = 256,
-        max_advance = 0.2,
-        direction_count = 64,
-        scale = 0.5,
-      }
+      scale = 0.5,
     },
     {
       filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-mask.png",
       priority = "low",
       line_length = 8,
-      size = 128,
+      size = 256,
       max_advance = 0.2,
       direction_count = 64,
-      scale = 1,
+      scale = 0.5,
       apply_runtime_tint = true,
-      hr_version = {
-        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-mask.png",
-        priority = "low",
-        line_length = 8,
-        size = 256,
-        max_advance = 0.2,
-        direction_count = 64,
-        scale = 0.5,
-        apply_runtime_tint = true,
-      }
     },
     {
       filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow.png",
       line_length = 8,
-      size = 128,
+      size = 256,
       max_advance = 0.2,
       direction_count = 64,
+      scale = 0.5,
       shift = util.by_pixel(shadow_distance, shadow_distance),
       draw_as_shadow = true,
-      hr_version = {
-        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-shadow.png",
-        line_length = 8,
-        size = 256,
-        max_advance = 0.2,
-        direction_count = 64,
-        scale = 0.5,
-        shift = util.by_pixel(shadow_distance, shadow_distance),
-        draw_as_shadow = true,
-      }
     },
   }
 }
@@ -114,20 +85,10 @@ hcraft_entity.light_animation = {
   priority = "low",
   blend_mode = "additive",
   draw_as_glow = true,
-  size = 128,
+  size = 256,
   line_length = 8,
   direction_count = 64,
-  hr_version =
-  {
-    filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-light.png",
-    priority = "low",
-    blend_mode = "additive",
-    draw_as_glow = true,
-    size = 256,
-    line_length = 8,
-    direction_count = 64,
-    scale = 0.5,
-  }
+  scale = 0.5,
 }
 hcraft_entity.water_reflection = {
   pictures = {
@@ -177,34 +138,19 @@ if mcraft_activated then
       {
         filename = HCGRAPHICS .. "entity/turret/hovercraft-missile-turret.png",
         line_length = 8,
-        size = 64,
+        size = 128,
         direction_count = 64,
         shift = util.by_pixel(0, -27),
-        hr_version = {
-          filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret.png",
-          line_length = 8,
-          size = 128,
-          direction_count = 64,
-          shift = util.by_pixel(0, -27),
-          scale = 0.5,
-        }
+        scale = 0.5,
       },
       {
         filename = HCGRAPHICS .. "entity/turret/hovercraft-missile-turret-shadow.png",
         line_length = 8,
-        size = 64,
+        size = 128,
         direction_count = 64,
         shift = util.by_pixel(30+shadow_distance, 8+shadow_distance),
         draw_as_shadow = true,
-        hr_version = {
-          filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret-shadow.png",
-          line_length = 8,
-          size = 128,
-          direction_count = 64,
-          shift = util.by_pixel(30+shadow_distance, 8+shadow_distance),
-          draw_as_shadow = true,
-          scale = 0.5,
-        }
+        scale = 0.5,
       },
     }
   }
