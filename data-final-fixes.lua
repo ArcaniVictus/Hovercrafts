@@ -19,10 +19,10 @@ end
 
 hcraft_entities = {
   ["hovercraft-collision"] = true,
-  ["hcraft-entity"] = true,
-  ["mcraft-entity"] = true,
-  ["ecraft-entity"] = true,
-  ["lcraft-entity"] = true,
+  ["hovercraft"] = true,
+  ["missile-hovercraft"] = true,
+  ["electric-hovercraft"] = true,
+  ["laser-hovercraft"] = true,
 }
 
 local prototypes = collision_mask_util.collect_prototypes_with_layer("player")
@@ -53,8 +53,8 @@ end
 
 
 local burner_hcrafts = {
-  data.raw["car"]["hcraft-entity"],
-  data.raw["car"]["mcraft-entity"],
+  data.raw["car"]["hovercraft"],
+  data.raw["car"]["missile-hovercraft"],
 }
 
 if mods["IndustrialRevolution"] then

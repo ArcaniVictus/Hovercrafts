@@ -1,17 +1,17 @@
 data:extend({
   {
     type = "item-with-entity-data",
-    name = "hcraft-entity",
+    name = "hovercraft",
     icon = HCGRAPHICS .. "icons/hovercraft_icon.png",
     icon_size = 64,
     subgroup = subgroup_hovercrafts,
-    order = "b[personal-transport]-c[hcraft-item]",
-    place_result = "hcraft-entity",
+    order = "b[personal-transport]-c[hovercraft]",
+    place_result = "hovercraft",
     stack_size = 1
   },
   {
     type = "recipe",
-    name = "hcraft-recipe",
+    name = "hovercraft",
     enabled = false,
     energy_required = 4,
     ingredients = {
@@ -21,97 +21,97 @@ data:extend({
       {"speed-module", 2},
       {"effectivity-module", 2}
     },
-    results = {{type="item", name="hcraft-entity", amount=1}}
+    results = {{type="item", name="hovercraft", amount=1}}
   },
 })
 
 --------------------------------------------------------------------------------------------------------------------
-if mcraft_activated then
+if missile_hovercraft_activated then
   data:extend({
     {
       type = "item-with-entity-data",
-      name = "mcraft-entity",
+      name = "missile-hovercraft",
       icon = HCGRAPHICS .. "icons/hovercraft_mcraft_icon.png",
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
-      order = "b[personal-transport]-d[mcraft-entity]",
-      place_result = "mcraft-entity",
+      order = "b[personal-transport]-d[missile-hovercraft]",
+      place_result = "missile-hovercraft",
       stack_size = 1
     },
     {
       type = "recipe",
-      name = "mcraft-recipe",
+      name = "missile-hovercraft",
       enabled = false,
       energy_required = 4,
       ingredients = {
-        {"hcraft-entity", 1},
+        {"hovercraft", 1},
         {"advanced-circuit", 40},
         {"gun-turret", 2},
         {"rocket-launcher", 16}
       },
-      results = {{type="item", name="mcraft-entity", amount=1}}
+      results = {{type="item", name="missile-hovercraft", amount=1}}
     },
   })
 
   if mods["vtk-armor-plating"] then
-    table.insert(data.raw.recipe["mcraft-recipe"].ingredients, {"vtk-armor-plating", 12})
+    table.insert(data.raw.recipe["missile-hovercraft"].ingredients, {"vtk-armor-plating", 12})
   end
 end
 
 --------------------------------------------------------------------------------------------------------------------
-if ecraft_activated then
+if electric_hovercraft_activated then
   data:extend({
     {
       type = "item-with-entity-data",
-      name = "ecraft-entity",
+      name = "electric-hovercraft",
       icon = HCGRAPHICS .. "icons/hovercraft_ecraft_icon.png",
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
-      order = "b[personal-transport]-e[ecraft-item]",
-      place_result = "ecraft-entity",
+      order = "b[personal-transport]-e[electric-hovercraft]",
+      place_result = "electric-hovercraft",
       stack_size = 1
     },
     {
       type = "recipe",
-      name = "ecraft-recipe",
+      name = "electric-hovercraft",
       enabled = false,
       energy_required = 4,
       ingredients = {
         {"low-density-structure", 25},
         {"electric-engine-unit", 40},
         {"processing-unit", 20},
-        {"hcraft-entity", 1},
+        {"hovercraft", 1},
       },
-      results = {{type="item", name="ecraft-entity", amount=1}}
+      results = {{type="item", name="electric-hovercraft", amount=1}}
     },
   })
 end
 
 --------------------------------------------------------------------------------------------------------------------
-if lcraft_activated then
+if laser_hovercraft_activated then
   data:extend({
     {
       type = "item-with-entity-data",
-      name = "lcraft-entity",
+      name = "laser-hovercraft",
       icon = HCGRAPHICS .. "icons/hovercraft_lcraft_icon.png",
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
       order = "d[personal-transport]-d",
-      place_result = "lcraft-entity",
+      place_result = "laser-hovercraft",
       stack_size = 1
     },
     {
       type = "recipe",
-      name = "lcraft-recipe",
+      name = "laser-hovercraft",
       enabled = false,
       energy_required = 4,
       ingredients = {
-        {"ecraft-entity", 1},
+        {"electric-hovercraft", 1},
         {"laser-turret", 2},
         {"heat-pipe", 25},
         {"heat-exchanger", 2},
       },
-      results = {{type="item", name="lcraft-entity", amount=1}}
+      results = {{type="item", name="laser-hovercraft", amount=1}}
     },
     {
       type = "item",

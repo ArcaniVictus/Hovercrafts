@@ -1,19 +1,19 @@
 -- control.lua
 local drifting_multipliers = {
-  ["hcraft-entity"] = 0.95, --2500  (weight)
-  ["mcraft-entity"] = 0.97, --10000 (weight)
-  ["ecraft-entity"] = 0.97, --7500  (weight)
-  ["lcraft-entity"] = 0.95, --1500  (weight)
+  ["hovercraft"] = 0.95, --2500  (weight)
+  ["missile-hovercraft"] = 0.97, --10000 (weight)
+  ["electric-hovercraft"] = 0.97, --7500  (weight)
+  ["laser-hovercraft"] = 0.95, --1500  (weight)
 }
 local isWaterTile = {
   ["water"] = true,
   ["deepwater"] = true
 }
 local isHovercraft = {
-  ["hcraft-entity"] = true,
-  ["ecraft-entity"] = true,
-  ["mcraft-entity"] = true,
-  ["lcraft-entity"] = true
+  ["hovercraft"] = true,
+  ["electric-hovercraft"] = true,
+  ["missile-hovercraft"] = true,
+  ["laser-hovercraft"] = true
 }
 
 function distance(pos1,pos2)
@@ -232,7 +232,7 @@ script.on_configuration_changed(function()
 end)
 
 script.on_event(defines.events.on_built_entity, function(event)
-  if event.created_entity.name == "lcraft-entity" then
+  if event.created_entity.name == "laser-hovercraft" then
     table.insert(global.vehicles,event.created_entity)
   end
   if isHovercraft[event.created_entity.name] then
@@ -357,7 +357,7 @@ script.on_nth_tick(3, function(event)
             stack.clear()
           end
           local gun_index = 2
-          if vehicle.name == "lcraft-entity" then
+          if vehicle.name == "laser-hovercraft" then
             gun_index = 1
           end
           local ammo = vehicle.get_inventory(defines.inventory.car_ammo)[gun_index]

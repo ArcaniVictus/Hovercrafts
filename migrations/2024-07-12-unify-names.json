@@ -1,0 +1,35 @@
+{
+  "technology":[
+    ["hcraft-tech", "hovercraft"],
+    ["ecraft-tech", "electric-hovercraft"],
+    ["mcraft-tech", "missile-hovercraft"],
+    ["lcraft-tech", "laser-hovercraft"]
+  ],
+  "entity":
+  [
+    ["hcraft-entity", "hovercraft"],
+    ["ecraft-entity", "electric-hovercraft"],
+    ["mcraft-entity", "missile-hovercraft"],
+    ["lcraft-entity", "laser-hovercraft"]
+
+  ],
+  "item-with-entity-data":
+  [
+    ["hcraft-entity", "hovercraft"],
+    ["ecraft-entity", "electric-hovercraft"],
+    ["mcraft-entity", "missile-hovercraft"],
+    ["lcraft-entity", "laser-hovercraft"]
+  ],
+  "recipe":
+  [
+    ["hcraft-recipe", "hovercraft"],
+    ["ecraft-recipe", "electric-hovercraft"],
+    ["mcraft-recipe", "missile-hovercraft"],
+    ["lcraft-recipe", "laser-hovercraft"]
+  ],
+  "mod-setting":
+  [
+    ["grid-hcraft", "hovercraft-grid-size"],
+    ["grid-mcraft", "missile-hovercraft-grid-size"]
+  ]
+}
