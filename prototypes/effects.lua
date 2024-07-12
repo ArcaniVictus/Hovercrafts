@@ -1,7 +1,7 @@
 -- Hover smoke
 local hover_smoke = table.deepcopy(data.raw["trivial-smoke"]["turbine-smoke"])
 hover_smoke.name = "hover-smoke"
-hover_smoke.render_layer = "zero"  -- TODO check if visible. Was "water-tile" in 1.1
+hover_smoke.render_layer = "decals"
 hover_smoke.affected_by_wind = false
 hover_smoke.duration = 35
 hover_smoke.start_scale = 1
@@ -53,7 +53,7 @@ if not data.raw["smoke-with-trigger"]["water-ripple1-smoke"] then
       type = "smoke-with-trigger",
       name = "water-ripple" .. i .. "-smoke",
       flags = {"not-on-map", "placeable-off-grid"},
-      render_layer = "under-tiles",
+      render_layer = "decals",
       show_when_smoke_off = true,
       deviation = {0, 0},
       animation = {
