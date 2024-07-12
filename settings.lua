@@ -65,11 +65,4 @@ data:extend({
     allowed_values = grid_dimensions,
     order = "g",
   },
-    --[[{
-    type = "bool-setting",
-    name = "removerocks",
-    setting_type = "startup",
-    default_value = false,
-    order = "h"
-    },]]--
 })
