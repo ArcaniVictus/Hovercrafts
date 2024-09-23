@@ -34,7 +34,7 @@ if mod_lasertank_active and not electric_hovercraft_activated and laser_hovercra
   data.raw.car["laser-hovercraft"].consumption = "640kW"
   data.raw.car["laser-hovercraft"].energy_source = {
     type = "burner",
-    fuel_category = "chemical",
+    fuel_categories = {"chemical"},
     effectivity = 1,
     fuel_inventory_size = 2,
     smoke = {

@@ -129,7 +129,7 @@ if missile_hovercraft_activated then
   }
   mcraft_entity.energy_source = {
     type = "burner",
-    fuel_category = "chemical",
+    fuel_categories = {"chemical"},
     effectivity = 1,
     fuel_inventory_size = 2,
   }

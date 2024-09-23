@@ -60,7 +60,6 @@ local burner_hcrafts = {
 if mods["IndustrialRevolution"] then
   for _, prototype in pairs(burner_hcrafts) do
     if prototype and prototype.energy_source then
-      prototype.energy_source.fuel_category = nil
       prototype.energy_source.fuel_categories = {"chemical", "battery"}
       prototype.energy_source.burnt_inventory_size = 1
     end
@@ -70,7 +69,6 @@ end
 if mods["Krastorio2"] then
   for _, prototype in pairs(burner_hcrafts) do
     if prototype and prototype.energy_source then
-      prototype.energy_source.fuel_category = nil
       prototype.energy_source.fuel_categories = {"vehicle-fuel"}
       prototype.energy_source.burnt_inventory_size = 1
     end
