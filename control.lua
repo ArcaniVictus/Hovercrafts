@@ -26,7 +26,8 @@ end
 local function make_ripple(player)
   local p = player.position
   local surface = player.surface
-  if isWaterTile[surface.get_tile(p).name] then
+  local tile = surface.get_tile(p)
+  if tile and isWaterTile[tile.name] then
     local r = 2.5
     local area = {{p.x - r, p.y - r}, {p.x + r, p.y + r}}
     if surface.count_tiles_filtered{area = area, name = "water", limit = 25} +
