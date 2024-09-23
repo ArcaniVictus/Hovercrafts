@@ -57,7 +57,7 @@ end
 -- when moving about in a hovercraft
 script.on_event(defines.events.on_player_changed_position, function(e)
   local player = game.get_player(e.player_index)
-  if player.character and not global.mods_installed.canal_builder then
+  if player.character and not storage.mods_installed.canal_builder then
     make_ripple(player)
     make_splash(player)
   end
@@ -79,14 +79,14 @@ local function tickHandler(e)
   end
   if eTick % 120 == 4 then
     for _,player in pairs(game.connected_players) do
-      if player.character and not global.mods_installed.canal_builder then
+      if player.character and not storage.mods_installed.canal_builder then
         make_ripple(player)
       end
     end
   end
 
-  if global.settings["hovercraft-drifting"] then
-    for unit_number, tbl in pairs(global.hovercrafts) do
+  if storage.settings["hovercraft-drifting"] then
+    for unit_number, tbl in pairs(storage.hovercrafts) do
       if tbl.entity and tbl.entity.valid then
         local pos = tbl.entity.position
         local speed = tbl.entity.speed
@@ -134,7 +134,7 @@ local function tickHandler(e)
         end
         tbl.position = tbl.entity.position
       else
-        global.hovercrafts[unit_number] = nil
+        storage.hovercrafts[unit_number] = nil
       end
     end
   end
@@ -144,8 +144,8 @@ script.on_event(defines.events.on_tick, tickHandler)
 
 script.on_event(defines.events.on_entity_died, function(event)
   if isHovercraft[event.entity.name] then
-    if global.hovercrafts[event.entity.unit_number] and global.hovercrafts[event.entity.unit_number].collision then
-      global.hovercrafts[event.entity.unit_number].collision.destroy()
+    if storage.hovercrafts[event.entity.unit_number] and storage.hovercrafts[event.entity.unit_number].collision then
+      storage.hovercrafts[event.entity.unit_number].collision.destroy()
     end
   end
 end)
@@ -161,16 +161,16 @@ function max_range(pos1,pos2,range)
   return pos1
 end
 
-local function update_global_state()
-  global.settings = {}
-  global.settings["hovercraft-drifting"] = settings.global["hovercraft-drifting"].value
-  global.mods_installed = {}
-  global.mods_installed.laser_tanks = game.active_mods["laser_tanks"] or game.active_mods["laser_tanks_updated"]
+local function update_storage_state()
+  storage.settings = {}
+  storage.settings["hovercraft-drifting"] = settings.global["hovercraft-drifting"].value
+  storage.mods_installed = {}
+  storage.mods_installed.laser_tanks = game.active_mods["laser_tanks"] or game.active_mods["laser_tanks_updated"]
 
   -- check for other mods that make water effects
-  global.mods_installed.canal_builder = remote.interfaces["CanalBuilder"] and remote.interfaces["CanalBuilder"]["exists"]
+  storage.mods_installed.canal_builder = remote.interfaces["CanalBuilder"] and remote.interfaces["CanalBuilder"]["exists"]
 end
-script.on_event(defines.events.on_runtime_mod_setting_changed, update_global_state)
+script.on_event(defines.events.on_runtime_mod_setting_changed, update_storage_state)
 
 script.on_init(function()
   if remote.interfaces["electric-vehicles-lib"] and game.equipment_prototypes["ehvt-equipment"] then
@@ -179,33 +179,33 @@ script.on_init(function()
   --[[if game.active_mods["electric-vehicles-lib-reborn"] or game.active_mods["laser_tanks"] and settings.startup["lasertanks-electric-engine"].value then
     remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
   end]]--
-  global.e_vehicles = { }
-  global.braking_trains = { }
-  global.braking_vehicles = { }
-  global.transformers = { }
-  global.brakes = { }
-  global.vehicles={}
-  global.hovercrafts = {}
-  global.version = 10
-  update_global_state()
+  storage.e_vehicles = { }
+  storage.braking_trains = { }
+  storage.braking_vehicles = { }
+  storage.transformers = { }
+  storage.brakes = { }
+  storage.vehicles={}
+  storage.hovercrafts = {}
+  storage.version = 10
+  update_storage_state()
 end)
 
 script.on_configuration_changed(function()
   if remote.interfaces["electric-vehicles-lib"] and game.equipment_prototypes["ehvt-equipment"] then
     remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
   end
-  if not global.version then
+  if not storage.version then
     --if game.active_mods["electric-vehicles-lib-reborn"] then
     --  remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
     --end
-    global.e_vehicles = {}
-    global.braking_trains = {}
-    global.braking_vehicles = {}
-    global.transformers = {}
-    global.brakes = {}
-    global.vehicles = {}
-    global.hovercrafts = {}
-    global.version = 9
+    storage.e_vehicles = {}
+    storage.braking_trains = {}
+    storage.braking_vehicles = {}
+    storage.transformers = {}
+    storage.brakes = {}
+    storage.vehicles = {}
+    storage.hovercrafts = {}
+    storage.version = 9
     for _, surface in pairs(game.surfaces) do
       local names = {}
       for name in pairs(isHovercraft) do
@@ -213,31 +213,31 @@ script.on_configuration_changed(function()
       end
       entities = surface.find_entities_filtered{name = names}
       for _, entity in pairs(entities) do
-        global.hovercrafts[entity.unit_number]={entity = entity,drift={x=0,y=0}, position = entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
+        storage.hovercrafts[entity.unit_number]={entity = entity,drift={x=0,y=0}, position = entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
       end
     end
   end
-  if global.version < 10 then
-    for unit_number, tbl in pairs(global.hovercrafts) do
+  if storage.version < 10 then
+    for unit_number, tbl in pairs(storage.hovercrafts) do
       if tbl.entity and tbl.entity.valid then
-        global.hovercrafts[unit_number].last_speed = tbl.entity.speed
-        global.hovercrafts[unit_number].last_pos = tbl.entity.position
+        storage.hovercrafts[unit_number].last_speed = tbl.entity.speed
+        storage.hovercrafts[unit_number].last_pos = tbl.entity.position
       else
-        global.hovercrafts[unit_number] = nil
+        storage.hovercrafts[unit_number] = nil
       end
     end
-    global.version = 10
+    storage.version = 10
   end
-  update_global_state()
+  update_storage_state()
 end)
 
 script.on_event(defines.events.on_built_entity, function(event)
   if event.created_entity.name == "laser-hovercraft" then
-    table.insert(global.vehicles,event.created_entity)
+    table.insert(storage.vehicles,event.created_entity)
   end
   if isHovercraft[event.created_entity.name] then
     --collision.set_driver(event.created_entity.surface.create_entity{name = "character", position = event.created_entity.position})
-    global.hovercrafts[event.created_entity.unit_number] = {entity = event.created_entity,drift={x=0,y=0}, last_speed = 0, collision = collision, last_pos = event.created_entity.position, position = event.created_entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
+    storage.hovercrafts[event.created_entity.unit_number] = {entity = event.created_entity,drift={x=0,y=0}, last_speed = 0, collision = collision, last_pos = event.created_entity.position, position = event.created_entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
   end
 end)
 
@@ -262,26 +262,26 @@ function table_length(tbl)
 end
 
 script.on_nth_tick(3, function(event)
-  if not global.mods_installed.laser_tanks then return end
+  if not storage.mods_installed.laser_tanks then return end
   local temp_count = table_length(game.connected_players )
   local i
 
-  local player_count = math.floor((temp_count+(global.tick_delayer or 0))/TICKS_PER_UPDATE)
+  local player_count = math.floor((temp_count+(storage.tick_delayer or 0))/TICKS_PER_UPDATE)
   if not (player_count > 0) then
-    global.tick_delayer = (global.tick_delayer or 0) + temp_count
+    storage.tick_delayer = (storage.tick_delayer or 0) + temp_count
   else
-    global.tick_delayer = 0
+    storage.tick_delayer = 0
 
-    if not global.iterate_players then
-      global.iterate_players = next(game.connected_players, global.iterate_players)
-    elseif not game.connected_players [global.iterate_players] then
-      global.iterate_players = nil
+    if not storage.iterate_players then
+      storage.iterate_players = next(game.connected_players, storage.iterate_players)
+    elseif not game.connected_players [storage.iterate_players] then
+      storage.iterate_players = nil
     end
     i = 0
     --maxruns = math.min(1,player_count) --max 20/s
-    while i< player_count and global.iterate_players do
-      if game.connected_players[global.iterate_players].character then
-        local playerid = global.iterate_players
+    while i< player_count and storage.iterate_players do
+      if game.connected_players[storage.iterate_players].character then
+        local playerid = storage.iterate_players
         local techlevel = 0
         if game.connected_players[playerid].force.technologies["laser-rifle-1"].researched then
           techlevel = 1
@@ -311,34 +311,34 @@ script.on_nth_tick(3, function(event)
           end
         end
       end
-      global.iterate_players = next(game.connected_players, global.iterate_players)  --iterating...
-      if not global.iterate_players then
-        global.iterate_players = next(game.connected_players, global.iterate_players)
+      storage.iterate_players = next(game.connected_players, storage.iterate_players)  --iterating...
+      if not storage.iterate_players then
+        storage.iterate_players = next(game.connected_players, storage.iterate_players)
       end
       i=i+1
     end
   end
 
-  temp_count = table_length(global.vehicles)
-  local vehicle_count = math.floor((temp_count+(global.tick_delayer_veh or 0))/TICKS_PER_UPDATE)
+  temp_count = table_length(storage.vehicles)
+  local vehicle_count = math.floor((temp_count+(storage.tick_delayer_veh or 0))/TICKS_PER_UPDATE)
   if not (vehicle_count > 0) then
-    global.tick_delayer_veh = (global.tick_delayer_veh or 0) + temp_count
+    storage.tick_delayer_veh = (storage.tick_delayer_veh or 0) + temp_count
   else
-    global.tick_delayer_veh = 0
+    storage.tick_delayer_veh = 0
 
-    if not global.iterate_vehicles then
-      global.iterate_vehicles = next(global.vehicles, global.iterate_vehicles)
-    elseif not global.vehicles [global.iterate_vehicles] then
-      global.iterate_vehicles = nil
+    if not storage.iterate_vehicles then
+      storage.iterate_vehicles = next(storage.vehicles, storage.iterate_vehicles)
+    elseif not storage.vehicles [storage.iterate_vehicles] then
+      storage.iterate_vehicles = nil
     end
     i = 0
     --maxruns = math.min(1,vehicle_count) --max 20/s
-    while i< vehicle_count and global.iterate_vehicles do
-      if not global.vehicles[global.iterate_vehicles].valid then
-        global.vehicles[global.iterate_vehicles] = nil
+    while i< vehicle_count and storage.iterate_vehicles do
+      if not storage.vehicles[storage.iterate_vehicles].valid then
+        storage.vehicles[storage.iterate_vehicles] = nil
         --game.players[1].print("invalid")
       else
-        local vehicle = global.vehicles[global.iterate_vehicles]
+        local vehicle = storage.vehicles[storage.iterate_vehicles]
         local techlevel = 0
         if vehicle.force.technologies["laser-rifle-1"].researched then
           techlevel = 1
@@ -420,9 +420,9 @@ script.on_nth_tick(3, function(event)
           end
         end
       end
-      global.iterate_vehicles = next(global.vehicles, global.iterate_vehicles)  --iterating...
-      if not global.iterate_vehicles then
-        global.iterate_vehicles = next(global.vehicles, global.iterate_vehicles)
+      storage.iterate_vehicles = next(storage.vehicles, storage.iterate_vehicles)  --iterating...
+      if not storage.iterate_vehicles then
+        storage.iterate_vehicles = next(storage.vehicles, storage.iterate_vehicles)
       end
       i=i+1
     end
