@@ -15,11 +15,11 @@ data:extend({
     enabled = false,
     energy_required = 4,
     ingredients = {
-      {"iron-gear-wheel", 20},
-      {"steel-plate", 10},
-      {"engine-unit", 10},
-      {"speed-module", 2},
-      {"effectivity-module", 2}
+      {type="item", name="iron-gear-wheel", amount=20},
+      {type="item", name="steel-plate", amount=10},
+      {type="item", name="engine-unit", amount=10},
+      {type="item", name="speed-module", amount=2},
+      {type="item", name="effectivity-module", amount=2}
     },
     results = {{type="item", name="hovercraft", amount=1}}
   },
@@ -44,10 +44,10 @@ if missile_hovercraft_activated then
       enabled = false,
       energy_required = 4,
       ingredients = {
-        {"hovercraft", 1},
-        {"advanced-circuit", 40},
-        {"gun-turret", 2},
-        {"rocket-launcher", 16}
+        {type="item", name="hovercraft", amount=1},
+        {type="item", name="advanced-circuit", amount=40},
+        {type="item", name="gun-turret", amount=2},
+        {type="item", name="rocket-launcher", amount=16}
       },
       results = {{type="item", name="missile-hovercraft", amount=1}}
     },
@@ -77,10 +77,10 @@ if electric_hovercraft_activated then
       enabled = false,
       energy_required = 4,
       ingredients = {
-        {"low-density-structure", 25},
-        {"electric-engine-unit", 40},
-        {"processing-unit", 20},
-        {"hovercraft", 1},
+        {type="item", name="low-density-structure", amount=25},
+        {type="item", name="electric-engine-unit", amount=40},
+        {type="item", name="processing-unit", amount=20},
+        {type="item", name="hovercraft", amount=1},
       },
       results = {{type="item", name="electric-hovercraft", amount=1}}
     },
@@ -106,10 +106,10 @@ if laser_hovercraft_activated then
       enabled = false,
       energy_required = 4,
       ingredients = {
-        {"electric-hovercraft", 1},
-        {"laser-turret", 2},
-        {"heat-pipe", 25},
-        {"heat-exchanger", 2},
+        {type="item", name="electric-hovercraft", amount=1},
+        {type="item", name="laser-turret", amount=2},
+        {type="item", name="heat-pipe", amount=25},
+        {type="item", name="heat-exchanger", amount=2},
       },
       results = {{type="item", name="laser-hovercraft", amount=1}}
     },
@@ -130,9 +130,9 @@ if laser_hovercraft_activated then
       enabled = false,
       energy_required = 10,
       ingredients = {
-        {"processing-unit", 25},
-        {"energy-shield-mk2-equipment", 5},
-        {"ehvt-equipment", 2}
+        {type="item", name="processing-unit", amount=25},
+        {type="item", name="energy-shield-mk2-equipment", amount=5},
+        {type="item", name="ehvt-equipment", amount=2}
       },
       results = {{type="item", name="lcraft-charger", amount=1}}
     },
@@ -164,9 +164,9 @@ if electriccraft_equipment_activated then
       category = "crafting-with-fluid",
       energy_required = 10,
       ingredients = {
-        {"battery-mk2-equipment", 2},
-        {"processing-unit", 5},
-        {type = "fluid", name = "lubricant", amount = 50},
+        {type="item", name="battery-mk2-equipment", amount=2},
+        {type="item", name="processing-unit", amount=5},
+        {type="fluid", name="lubricant", amount=50},
       },
       results = {{type="item", name="ehvt-equipment", amount=1}}
     },
