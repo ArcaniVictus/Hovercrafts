@@ -14,7 +14,7 @@ data:extend({
     effects = {
       unlock("hovercraft")
     },
-    prerequisites = {"automobilism", "effectivity-module", "speed-module", "chemical-science-pack"},
+    prerequisites = {"automobilism", "efficiency-module", "speed-module", "chemical-science-pack"},
     unit = {
       count = 100,
       ingredients = {

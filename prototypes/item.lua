@@ -19,7 +19,7 @@ data:extend({
       {type="item", name="steel-plate", amount=10},
       {type="item", name="engine-unit", amount=10},
       {type="item", name="speed-module", amount=2},
-      {type="item", name="effectivity-module", amount=2}
+      {type="item", name="efficiency-module", amount=2}
     },
     results = {{type="item", name="hovercraft", amount=1}}
   },
