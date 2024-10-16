@@ -1,49 +1,47 @@
 ----------------------------------------------------------------------------------------------------------------------------------
----------------------------------------------------EQUIPEMENT GRID----------------------------------------------------------------
+---------------------------------------------------EQUIPMENT GRID----------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------
 
-if settings.startup["hovercraft-grid"].value then
-  local hgridw, hgridh = string.match(settings.startup["hovercraft-grid-size"].value, "(%d+)x(%d+)")
-  log("grid-hovercraft = " .. tostring(settings.startup["hovercraft-grid-size"].value) .. " " .. tostring(hgridw) .. ", " .. tostring(hgridh))
+local hgridw, hgridh = string.match(settings.startup["hovercraft-grid-size"].value, "(%d+)x(%d+)")
+log("grid-hovercraft = " .. tostring(settings.startup["hovercraft-grid-size"].value) .. " " .. tostring(hgridw) .. ", " .. tostring(hgridh))
+
+data:extend({
+  {
+    type = "equipment-grid",
+    name = "hovercraft-equipment",
+    width = tonumber(hgridw) or 2,
+    height = tonumber(hgridh) or 2,
+    equipment_categories = {"armor"}
+  }
+})
+
+if mods["bobvehicleequipment"] then
+  data.raw["equipment-grid"]["hovercraft-equipment"].equipment_categories = {"car", "vehicle"}
+end
+if mods["vtk-armor-plating"] then
+  table.insert(data.raw["equipment-grid"]["hovercraft-equipment"].equipment_categories, "vtk-armor-plating")
+end
+
+----------------------------------------------------------------------------------------------------------------------------------
+if missile_hovercraft_activated then
+  local mgridw, mgridh = string.match(settings.startup["missile-hovercraft-grid-size"].value, "(%d+)x(%d+)")
+  log("grid-missile-hovercraft = " .. tostring(settings.startup["missile-hovercraft-grid-size"].value) .. " " .. tostring(mgridw) .. ", " .. tostring(mgridh))
 
   data:extend({
     {
       type = "equipment-grid",
-      name = "hovercraft-equipment",
-      width = hgridw or 2,
-      height = hgridh or 2,
+      name = "missile-hovercraft-equipment",
+      width = tonumber(mgridw) or 4,
+      height = tonumber(mgridh) or 2,
       equipment_categories = {"armor"}
     }
   })
 
   if mods["bobvehicleequipment"] then
-    data.raw["equipment-grid"]["hovercraft-equipment"].equipment_categories = {"car", "vehicle"}
+    data.raw["equipment-grid"]["missile-hovercraft-equipment"].equipment_categories = {"tank", "vehicle", "armoured-vehicle"}
   end
   if mods["vtk-armor-plating"] then
-    table.insert(data.raw["equipment-grid"]["hovercraft-equipment"].equipment_categories, "vtk-armor-plating")
-  end
-
-----------------------------------------------------------------------------------------------------------------------------------
-  if missile_hovercraft_activated then
-    local mgridw, mgridh = string.match(settings.startup["missile-hovercraft-grid-size"].value, "(%d+)x(%d+)")
-    log("grid-missile-hovercraft = " .. tostring(settings.startup["missile-hovercraft-grid-size"].value) .. " " .. tostring(mgridw) .. ", " .. tostring(mgridh))
-
-    data:extend({
-      {
-        type = "equipment-grid",
-        name = "missile-hovercraft-equipment",
-        width = mgridw or 4,
-        height = mgridh or 2,
-        equipment_categories = {"armor"}
-      }
-    })
-
-    if mods["bobvehicleequipment"] then
-      data.raw["equipment-grid"]["missile-hovercraft-equipment"].equipment_categories = {"tank", "vehicle", "armoured-vehicle"}
-    end
-    if mods["vtk-armor-plating"] then
-      table.insert(data.raw["equipment-grid"]["missile-hovercraft-equipment"].equipment_categories, "vtk-armor-plating")
-    end
+    table.insert(data.raw["equipment-grid"]["missile-hovercraft-equipment"].equipment_categories, "vtk-armor-plating")
   end
 end
 

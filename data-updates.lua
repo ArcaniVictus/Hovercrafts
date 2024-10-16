@@ -1,20 +1,6 @@
 -- data-updates.lua
 require("constants")
 
--- add equipment grid to hovercraft and missile-hovercraft if startup setting selected
-if settings.startup["hovercraft-grid"].value then
-  local crafts = {
-    ["hovercraft"] = "hovercraft-equipment",
-    ["missile-hovercraft"] = "missile-hovercraft-equipment",
-  }
-  for vehiculename, vehiculegrid in pairs(crafts) do
-    local entity = data.raw.car[vehiculename]
-    if entity then
-      entity.equipment_grid = vehiculegrid
-    end
-  end
-end
-
 --[[if mods["justgo"] then
   local function generate_migration_item(name) -- not sure if the "just go" dude will fix it...
     if data.raw["item-with-entity-data"][name] then

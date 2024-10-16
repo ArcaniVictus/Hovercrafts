@@ -1,17 +1,19 @@
 -- settings.lua
 
 local grid_dimensions = {
-  "2x2",
-  "4x2",
   "4x4",
   "6x2",
   "6x4",
   "6x6",
+  "6x8",
   "8x2",
   "8x4",
-  "8x6",
   "8x8",
   "10x2",
+  "10x4",
+  "10x6",
+  "10x8",
+  "10x10",
 }
 
 data:extend({
@@ -43,17 +45,10 @@ data:extend({
     order = "d",
   },
   {
-    type = "bool-setting",
-    name = "hovercraft-grid",
-    setting_type = "startup",
-    default_value = false,
-    order = "e",
-  },
-  {
     type = "string-setting",
     name = "hovercraft-grid-size",
     setting_type = "startup",
-    default_value = "2x2",
+    default_value = "6x8",
     allowed_values = grid_dimensions,
     order = "f",
   },
@@ -61,7 +56,7 @@ data:extend({
     type = "string-setting",
     name = "missile-hovercraft-grid-size",
     setting_type = "startup",
-    default_value = "4x2",
+    default_value = "8x8",
     allowed_values = grid_dimensions,
     order = "g",
   },
