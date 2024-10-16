@@ -166,7 +166,7 @@ local function update_storage_state()
   storage.settings = {}
   storage.settings["hovercraft-drifting"] = settings.global["hovercraft-drifting"].value
   storage.mods_installed = {}
-  storage.mods_installed.laser_tanks = game.active_mods["laser_tanks"] or game.active_mods["laser_tanks_updated"]
+  storage.mods_installed.laser_tanks = script.active_mods["laser_tanks"] or script.active_mods["laser_tanks_updated"]
 
   -- check for other mods that make water effects
   storage.mods_installed.canal_builder = remote.interfaces["CanalBuilder"] and remote.interfaces["CanalBuilder"]["exists"]
@@ -177,7 +177,7 @@ script.on_init(function()
   if remote.interfaces["electric-vehicles-lib"] and prototypes.equipment["ehvt-equipment"] then
     remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
   end
-  --[[if game.active_mods["electric-vehicles-lib-reborn"] or game.active_mods["laser_tanks"] and settings.startup["lasertanks-electric-engine"].value then
+  --[[if script.active_mods["electric-vehicles-lib-reborn"] or script.active_mods["laser_tanks"] and settings.startup["lasertanks-electric-engine"].value then
     remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
   end]]--
   storage.e_vehicles = { }
@@ -196,7 +196,7 @@ script.on_configuration_changed(function()
     remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
   end
   if not storage.version then
-    --if game.active_mods["electric-vehicles-lib-reborn"] then
+    --if script.active_mods["electric-vehicles-lib-reborn"] then
     --  remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
     --end
     storage.e_vehicles = {}
