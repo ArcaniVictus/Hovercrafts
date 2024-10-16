@@ -233,12 +233,12 @@ script.on_configuration_changed(function()
 end)
 
 script.on_event(defines.events.on_built_entity, function(event)
-  if event.created_entity.name == "laser-hovercraft" then
-    table.insert(storage.vehicles,event.created_entity)
+  if event.entity.name == "laser-hovercraft" then
+    table.insert(storage.vehicles,event.entity)
   end
-  if isHovercraft[event.created_entity.name] then
-    --collision.set_driver(event.created_entity.surface.create_entity{name = "character", position = event.created_entity.position})
-    storage.hovercrafts[event.created_entity.unit_number] = {entity = event.created_entity,drift={x=0,y=0}, last_speed = 0, collision = collision, last_pos = event.created_entity.position, position = event.created_entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
+  if isHovercraft[event.entity.name] then
+    --collision.set_driver(event.entity.surface.create_entity{name = "character", position = event.entity.position})
+    storage.hovercrafts[event.entity.unit_number] = {entity = event.entity,drift={x=0,y=0}, last_speed = 0, collision = collision, last_pos = event.entity.position, position = event.entity.position,idle_ticks = 0}-- direction = 0, speed = 0}
   end
 end)
 
