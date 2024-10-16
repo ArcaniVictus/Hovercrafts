@@ -174,7 +174,7 @@ end
 script.on_event(defines.events.on_runtime_mod_setting_changed, update_storage_state)
 
 script.on_init(function()
-  if remote.interfaces["electric-vehicles-lib"] and game.equipment_prototypes["ehvt-equipment"] then
+  if remote.interfaces["electric-vehicles-lib"] and prototypes.equipment["ehvt-equipment"] then
     remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
   end
   --[[if game.active_mods["electric-vehicles-lib-reborn"] or game.active_mods["laser_tanks"] and settings.startup["lasertanks-electric-engine"].value then
@@ -192,7 +192,7 @@ script.on_init(function()
 end)
 
 script.on_configuration_changed(function()
-  if remote.interfaces["electric-vehicles-lib"] and game.equipment_prototypes["ehvt-equipment"] then
+  if remote.interfaces["electric-vehicles-lib"] and prototypes.equipment["ehvt-equipment"] then
     remote.call("electric-vehicles-lib", "register-transformer", {name = "ehvt-equipment"})
   end
   if not storage.version then
