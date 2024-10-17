@@ -2,8 +2,8 @@
 
 local grid_dimensions = {
   "4x4",
+  "4x6",
   "6x2",
-  "6x4",
   "6x6",
   "6x8",
   "8x2",
@@ -48,7 +48,7 @@ data:extend({
     type = "string-setting",
     name = "hovercraft-grid-size",
     setting_type = "startup",
-    default_value = "6x8",
+    default_value = "4x6",
     allowed_values = grid_dimensions,
     order = "f",
   },
@@ -56,7 +56,7 @@ data:extend({
     type = "string-setting",
     name = "missile-hovercraft-grid-size",
     setting_type = "startup",
-    default_value = "8x8",
+    default_value = "6x6",
     allowed_values = grid_dimensions,
     order = "g",
   },
