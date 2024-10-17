@@ -1,117 +1,117 @@
 data:extend({
   {
     type = "item-with-entity-data",
-    name = "hcraft-entity",
+    name = "hovercraft",
     icon = HCGRAPHICS .. "icons/hovercraft_icon.png",
     icon_size = 64,
     subgroup = subgroup_hovercrafts,
-    order = "b[personal-transport]-c[hcraft-item]",
-    place_result = "hcraft-entity",
+    order = "b[personal-transport]-c[hovercraft]",
+    place_result = "hovercraft",
     stack_size = 1
   },
   {
     type = "recipe",
-    name = "hcraft-recipe",
+    name = "hovercraft",
     enabled = false,
     energy_required = 4,
     ingredients = {
-      {"iron-gear-wheel", 20},
-      {"steel-plate", 10},
-      {"engine-unit", 10},
-      {"speed-module", 2},
-      {"effectivity-module", 2}
+      {type="item", name="iron-gear-wheel", amount=20},
+      {type="item", name="steel-plate", amount=10},
+      {type="item", name="engine-unit", amount=10},
+      {type="item", name="speed-module", amount=2},
+      {type="item", name="efficiency-module", amount=2}
     },
-    result = "hcraft-entity"
+    results = {{type="item", name="hovercraft", amount=1}}
   },
 })
 
 --------------------------------------------------------------------------------------------------------------------
-if mcraft_activated then
+if missile_hovercraft_activated then
   data:extend({
     {
       type = "item-with-entity-data",
-      name = "mcraft-entity",
+      name = "missile-hovercraft",
       icon = HCGRAPHICS .. "icons/hovercraft_mcraft_icon.png",
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
-      order = "b[personal-transport]-d[mcraft-entity]",
-      place_result = "mcraft-entity",
+      order = "b[personal-transport]-d[missile-hovercraft]",
+      place_result = "missile-hovercraft",
       stack_size = 1
     },
     {
       type = "recipe",
-      name = "mcraft-recipe",
+      name = "missile-hovercraft",
       enabled = false,
       energy_required = 4,
       ingredients = {
-        {"hcraft-entity", 1},
-        {"advanced-circuit", 40},
-        {"gun-turret", 2},
-        {"rocket-launcher", 16}
+        {type="item", name="hovercraft", amount=1},
+        {type="item", name="advanced-circuit", amount=40},
+        {type="item", name="gun-turret", amount=2},
+        {type="item", name="rocket-launcher", amount=16}
       },
-      result = "mcraft-entity"
+      results = {{type="item", name="missile-hovercraft", amount=1}}
     },
   })
 
   if mods["vtk-armor-plating"] then
-    table.insert(data.raw.recipe["mcraft-recipe"].ingredients, {"vtk-armor-plating", 12})
+    table.insert(data.raw.recipe["missile-hovercraft"].ingredients, {"vtk-armor-plating", 12})
   end
 end
 
 --------------------------------------------------------------------------------------------------------------------
-if ecraft_activated then
+if electric_hovercraft_activated then
   data:extend({
     {
       type = "item-with-entity-data",
-      name = "ecraft-entity",
+      name = "electric-hovercraft",
       icon = HCGRAPHICS .. "icons/hovercraft_ecraft_icon.png",
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
-      order = "b[personal-transport]-e[ecraft-item]",
-      place_result = "ecraft-entity",
+      order = "b[personal-transport]-e[electric-hovercraft]",
+      place_result = "electric-hovercraft",
       stack_size = 1
     },
     {
       type = "recipe",
-      name = "ecraft-recipe",
+      name = "electric-hovercraft",
       enabled = false,
       energy_required = 4,
       ingredients = {
-        {"low-density-structure", 25},
-        {"electric-engine-unit", 40},
-        {"processing-unit", 20},
-        {"hcraft-entity", 1},
+        {type="item", name="low-density-structure", amount=25},
+        {type="item", name="electric-engine-unit", amount=40},
+        {type="item", name="processing-unit", amount=20},
+        {type="item", name="hovercraft", amount=1},
       },
-      result = "ecraft-entity"
+      results = {{type="item", name="electric-hovercraft", amount=1}}
     },
   })
 end
 
 --------------------------------------------------------------------------------------------------------------------
-if lcraft_activated then
+if laser_hovercraft_activated then
   data:extend({
     {
       type = "item-with-entity-data",
-      name = "lcraft-entity",
+      name = "laser-hovercraft",
       icon = HCGRAPHICS .. "icons/hovercraft_lcraft_icon.png",
       icon_size = 64,
       subgroup = subgroup_hovercrafts,
       order = "d[personal-transport]-d",
-      place_result = "lcraft-entity",
+      place_result = "laser-hovercraft",
       stack_size = 1
     },
     {
       type = "recipe",
-      name = "lcraft-recipe",
+      name = "laser-hovercraft",
       enabled = false,
       energy_required = 4,
       ingredients = {
-        {"ecraft-entity", 1},
-        {"laser-turret", 2},
-        {"heat-pipe", 25},
-        {"heat-exchanger", 2},
+        {type="item", name="electric-hovercraft", amount=1},
+        {type="item", name="laser-turret", amount=2},
+        {type="item", name="heat-pipe", amount=25},
+        {type="item", name="heat-exchanger", amount=2},
       },
-      result = "lcraft-entity"
+      results = {{type="item", name="laser-hovercraft", amount=1}}
     },
     {
       type = "item",
@@ -130,11 +130,11 @@ if lcraft_activated then
       enabled = false,
       energy_required = 10,
       ingredients = {
-        {"processing-unit", 25},
-        {"energy-shield-mk2-equipment", 5},
-        {"ehvt-equipment", 2}
+        {type="item", name="processing-unit", amount=25},
+        {type="item", name="energy-shield-mk2-equipment", amount=5},
+        {type="item", name="ehvt-equipment", amount=2}
       },
-      result = "lcraft-charger"
+      results = {{type="item", name="lcraft-charger", amount=1}}
     },
   })
 
@@ -164,11 +164,11 @@ if electriccraft_equipment_activated then
       category = "crafting-with-fluid",
       energy_required = 10,
       ingredients = {
-        {"battery-mk2-equipment", 2},
-        {"processing-unit", 5},
-        {type = "fluid", name = "lubricant", amount = 50},
+        {type="item", name="battery-mk2-equipment", amount=2},
+        {type="item", name="processing-unit", amount=5},
+        {type="fluid", name="lubricant", amount=50},
       },
-      result = "ehvt-equipment"
+      results = {{type="item", name="ehvt-equipment", amount=1}}
     },
   })
 end

@@ -2,11 +2,11 @@
   "name": "Hovercrafts",
   "author": "Arcani_Victus",
   "version": "1.2.2",
-  "factorio_version": "1.1",
+  "factorio_version": "2.0",
   "title": "Hovercrafts",
   "description": "Speed across land and water in your own personal hovercraft. 2 versions, plus 2 more with the mod 'Laser Tanks'",
   "dependencies": [
-    "base >= 1.1.0",
+    "base",
     "? laser_tanks_updated >= 0.19.0",
     "(?) laser_tanks > 0.18.15",
     "(?) space-exploration"

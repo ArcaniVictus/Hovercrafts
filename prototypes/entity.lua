@@ -1,26 +1,25 @@
 local hcraft_remnants = table.deepcopy(data.raw.corpse["car-remnants"])
 hcraft_remnants.name = "hovercraft-remnants"
 hcraft_remnants.animation.layers[1].filename = HCGRAPHICS .. "entity/hovercraft/remnants/hovercraft-remnants.png"
-hcraft_remnants.animation.layers[1].hr_version.filename = HCGRAPHICS .. "entity/hovercraft/remnants/hr-hovercraft-remnants.png"
 data:extend({hcraft_remnants})
 
 -- collision box
 local collision = table.deepcopy(data.raw.car.car)
-  collision.name = "hovercraft-collision"
-  collision.order = "hovercraft-collision"
-  collision.collision_box = {{-1.5, -1.5}, {1.5, 1.5}}
-  collision.collision_mask = { "player-layer" }  -- Will be replaced by custom collision layer in data-final-fixes
-  collision.animation = {filename = "__core__/graphics/empty.png", size = 1, direction_count = 1}
-  collision.turret_animation = nil
-  collision.light_animation = nil
-  collision.light = nil
-  collision.water_reflection = nil
+collision.name = "hovercraft-collision"
+collision.order = "hovercraft-collision"
+collision.collision_box = {{-1.5, -1.5}, {1.5, 1.5}}
+collision.collision_mask = { layers = {player = true} }  -- Will be replaced by custom collision layer in data-final-fixes
+collision.animation = {filename = "__core__/graphics/empty.png", size = 1, direction_count = 1}
+collision.turret_animation = nil
+collision.light_animation = nil
+collision.light = nil
+collision.water_reflection = nil
 data:extend({collision})
 
 local shadow_distance = 11
 --------------------------------------------------------------------------------------------------------------------
 local hcraft_entity = table.deepcopy(data.raw.car.car)
-hcraft_entity.name = "hcraft-entity"
+hcraft_entity.name = "hovercraft"
 hcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_icon.png"
 hcraft_entity.icon_size = 64
 hcraft_entity.corpse = "hovercraft-remnants"
@@ -35,9 +34,9 @@ hcraft_entity.terrain_friction_modifier = 0
 hcraft_entity.rotation_speed = 0.0060
 hcraft_entity.tank_driving = true
 hcraft_entity.weight = 2500
-hcraft_entity.minable = {mining_time = 0.5, result = "hcraft-entity"}
+hcraft_entity.minable = {mining_time = 0.5, result = "hovercraft"}
 hcraft_entity.has_belt_immunity = true
-hcraft_entity.collision_mask = { "player-layer" }  -- Will be replaced by custom collision layer in data-final-fixes
+hcraft_entity.collision_mask = { layers = {player = true} }  -- Will be replaced by custom collision layer in data-final-fixes
 hcraft_entity.resistances = {
   { type = "fire",      decrease = 7.5, percent = 30 },
   { type = "physical",  decrease = 7.5, percent = 30 },
@@ -54,58 +53,30 @@ hcraft_entity.animation = {
       filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-base.png",
       priority = "high",
       line_length = 8,
-      size = 128,
+      size = 256,
       max_advance = 0.2,
       direction_count = 64,
-      scale = 1,
-      hr_version = {
-        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-base.png",
-        priority = "high",
-        line_length = 8,
-        size = 256,
-        max_advance = 0.2,
-        direction_count = 64,
-        scale = 0.5,
-      }
+      scale = 0.5,
     },
     {
       filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-mask.png",
       priority = "low",
       line_length = 8,
-      size = 128,
+      size = 256,
       max_advance = 0.2,
       direction_count = 64,
-      scale = 1,
+      scale = 0.5,
       apply_runtime_tint = true,
-      hr_version = {
-        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-mask.png",
-        priority = "low",
-        line_length = 8,
-        size = 256,
-        max_advance = 0.2,
-        direction_count = 64,
-        scale = 0.5,
-        apply_runtime_tint = true,
-      }
     },
     {
       filename = HCGRAPHICS .. "entity/hovercraft/hovercraft-shadow.png",
       line_length = 8,
-      size = 128,
+      size = 256,
       max_advance = 0.2,
       direction_count = 64,
+      scale = 0.5,
       shift = util.by_pixel(shadow_distance, shadow_distance),
       draw_as_shadow = true,
-      hr_version = {
-        filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-shadow.png",
-        line_length = 8,
-        size = 256,
-        max_advance = 0.2,
-        direction_count = 64,
-        scale = 0.5,
-        shift = util.by_pixel(shadow_distance, shadow_distance),
-        draw_as_shadow = true,
-      }
     },
   }
 }
@@ -114,20 +85,10 @@ hcraft_entity.light_animation = {
   priority = "low",
   blend_mode = "additive",
   draw_as_glow = true,
-  size = 128,
+  size = 256,
   line_length = 8,
   direction_count = 64,
-  hr_version =
-  {
-    filename = HCGRAPHICS .. "entity/hovercraft/hr-hovercraft-light.png",
-    priority = "low",
-    blend_mode = "additive",
-    draw_as_glow = true,
-    size = 256,
-    line_length = 8,
-    direction_count = 64,
-    scale = 0.5,
-  }
+  scale = 0.5,
 }
 hcraft_entity.water_reflection = {
   pictures = {
@@ -145,10 +106,10 @@ hcraft_entity.turret_animation = nil
 data:extend({hcraft_entity})
 
 --------------------------------------------------------------------------------------------------------------------
-if mcraft_activated then
+if missile_hovercraft_activated then
   -- Mcraft entity
-  local mcraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
-  mcraft_entity.name = "mcraft-entity"
+  local mcraft_entity = table.deepcopy(data.raw.car["hovercraft"])
+  mcraft_entity.name = "missile-hovercraft"
   mcraft_entity.braking_power = "1500kW"
   mcraft_entity.consumption = "450kW"
   mcraft_entity.effectivity = 1.1
@@ -158,7 +119,7 @@ if mcraft_activated then
   mcraft_entity.immune_to_tree_impacts = true
   mcraft_entity.immune_to_rock_impacts = true
   mcraft_entity.weight = 10000
-  mcraft_entity.minable = {mining_time = 0.5, result = "mcraft-entity"}
+  mcraft_entity.minable = {mining_time = 0.5, result = "missile-hovercraft"}
   mcraft_entity.resistances = {
     { type = "fire",      decrease = 10, percent = 55 },
     { type = "physical",  decrease = 10, percent = 55 },
@@ -166,8 +127,9 @@ if mcraft_activated then
     { type = "explosion", decrease = 10, percent = 65 },
     { type = "acid",      decrease = 0,  percent = 55 }
   }
-  mcraft_entity.burner = {
-    fuel_category = "chemical",
+  mcraft_entity.energy_source = {
+    type = "burner",
+    fuel_categories = {"chemical"},
     effectivity = 1,
     fuel_inventory_size = 2,
   }
@@ -177,34 +139,19 @@ if mcraft_activated then
       {
         filename = HCGRAPHICS .. "entity/turret/hovercraft-missile-turret.png",
         line_length = 8,
-        size = 64,
+        size = 128,
         direction_count = 64,
         shift = util.by_pixel(0, -27),
-        hr_version = {
-          filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret.png",
-          line_length = 8,
-          size = 128,
-          direction_count = 64,
-          shift = util.by_pixel(0, -27),
-          scale = 0.5,
-        }
+        scale = 0.5,
       },
       {
         filename = HCGRAPHICS .. "entity/turret/hovercraft-missile-turret-shadow.png",
         line_length = 8,
-        size = 64,
+        size = 128,
         direction_count = 64,
         shift = util.by_pixel(30+shadow_distance, 8+shadow_distance),
         draw_as_shadow = true,
-        hr_version = {
-          filename = HCGRAPHICS .. "entity/turret/hr-hovercraft-missile-turret-shadow.png",
-          line_length = 8,
-          size = 128,
-          direction_count = 64,
-          shift = util.by_pixel(30+shadow_distance, 8+shadow_distance),
-          draw_as_shadow = true,
-          scale = 0.5,
-        }
+        scale = 0.5,
       },
     }
   }
@@ -236,9 +183,9 @@ if mcraft_activated then
 end
 
 --------------------------------------------------------------------------------------------------------------------
-if ecraft_activated then
-  local ecraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
-  ecraft_entity.name = "ecraft-entity"
+if electric_hovercraft_activated then
+  local ecraft_entity = table.deepcopy(data.raw.car["hovercraft"])
+  ecraft_entity.name = "electric-hovercraft"
   ecraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_ecraft_icon.png"
   ecraft_entity.icon_size = 64
   ecraft_entity.braking_power = "1000kW"
@@ -247,7 +194,7 @@ if ecraft_activated then
   ecraft_entity.max_health = 250
   ecraft_entity.rotation_speed = 0.0075
   ecraft_entity.weight = 1500
-  ecraft_entity.minable = {mining_time = 0.5, result = "ecraft-entity"}
+  ecraft_entity.minable = {mining_time = 0.5, result = "electric-hovercraft"}
   ecraft_entity.equipment_grid = "ecraft-equipment"
   ecraft_entity.sound_no_fuel = {
     {
@@ -263,8 +210,9 @@ if ecraft_activated then
     },
     match_speed_to_activity = false
   }
-  ecraft_entity.burner =
+  ecraft_entity.energy_source =
   {
+    type = "burner",
     effectivity = nil,
     fuel_inventory_size = 0,
   }
@@ -272,21 +220,22 @@ if ecraft_activated then
 end
 
 --------------------------------------------------------------------------------------------------------------------
-if lcraft_activated then
-  local lcraft_entity = table.deepcopy(data.raw.car["hcraft-entity"])
-  lcraft_entity.name = "lcraft-entity"
+if laser_hovercraft_activated then
+  local lcraft_entity = table.deepcopy(data.raw.car["hovercraft"])
+  lcraft_entity.name = "laser-hovercraft"
   lcraft_entity.icon = HCGRAPHICS .. "icons/hovercraft_lcraft_icon.png"
   lcraft_entity.icon_size = 64
   lcraft_entity.effectivity = 0.20
   lcraft_entity.max_health = 800
   lcraft_entity.rotation_speed = 0.0050
   lcraft_entity.weight = 7500
-  lcraft_entity.minable = {mining_time = 0.5, result = "lcraft-entity"}
+  lcraft_entity.minable = {mining_time = 0.5, result = "laser-hovercraft"}
   lcraft_entity.equipment_grid = "lcraft-equipment"
   lcraft_entity.immune_to_tree_impacts = true
   --lcraft_entity.immune_to_rock_impacts = true
-  lcraft_entity.burner =
+  lcraft_entity.energy_source =
   {
+    type = "burner",
     effectivity = nil,
     fuel_inventory_size = 0,
   }

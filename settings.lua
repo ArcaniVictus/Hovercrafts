@@ -23,21 +23,21 @@ data:extend({
   },
   {
     type = "bool-setting",
-    name = "enable-ecraft",
+    name = "enable-electric-hovercraft",
     setting_type = "startup",
     default_value = true,
     order = "b",
   },
   {
     type = "bool-setting",
-    name = "enable-mcraft",
+    name = "enable-missile-hovercraft",
     setting_type = "startup",
     default_value = true,
     order = "c",
   },
   {
     type = "bool-setting",
-    name = "enable-lcraft",
+    name = "enable-laser-hovercraft",
     setting_type = "startup",
     default_value = true,
     order = "d",
@@ -51,7 +51,7 @@ data:extend({
   },
   {
     type = "string-setting",
-    name = "grid-hcraft",
+    name = "hovercraft-grid-size",
     setting_type = "startup",
     default_value = "2x2",
     allowed_values = grid_dimensions,
@@ -59,17 +59,10 @@ data:extend({
   },
   {
     type = "string-setting",
-    name = "grid-mcraft",
+    name = "missile-hovercraft-grid-size",
     setting_type = "startup",
     default_value = "4x2",
     allowed_values = grid_dimensions,
     order = "g",
   },
-    --[[{
-    type = "bool-setting",
-    name = "removerocks",
-    setting_type = "startup",
-    default_value = false,
-    order = "h"
-    },]]--
 })

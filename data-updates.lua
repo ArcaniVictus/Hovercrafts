@@ -1,11 +1,11 @@
 -- data-updates.lua
 require("constants")
 
--- add equipment grid to hovercraft and mcraft-entity if startup setting selected
+-- add equipment grid to hovercraft and missile-hovercraft if startup setting selected
 if settings.startup["hovercraft-grid"].value then
   local crafts = {
-    ["hcraft-entity"] = "hcraft-equipment",
-    ["mcraft-entity"] = "mcraft-equipment",
+    ["hovercraft"] = "hovercraft-equipment",
+    ["missile-hovercraft"] = "missile-hovercraft-equipment",
   }
   for vehiculename, vehiculegrid in pairs(crafts) do
     local entity = data.raw.car[vehiculename]
@@ -25,8 +25,8 @@ end
     end
   end
 
-  generate_migration_item("hcraft-entity")
-  generate_migration_item("mcraft-entity")
-  generate_migration_item("ecraft-entity")
-  generate_migration_item("lcraft-entity")
+  generate_migration_item("hovercraft")
+  generate_migration_item("missile-hovercraft")
+  generate_migration_item("electric-hovercraft")
+  generate_migration_item("laser-hovercraft")
 end]]

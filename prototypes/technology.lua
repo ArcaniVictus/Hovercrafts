@@ -8,13 +8,13 @@ end
 data:extend({
   {
     type = "technology",
-    name = "hcraft-tech",
+    name = "hovercraft",
     icon = HCGRAPHICS .. "technology/hcraft_tech.png",
-    icon_size = 256,
+    icon_size = 256, icon_mipmaps = 1,
     effects = {
-      unlock("hcraft-recipe")
+      unlock("hovercraft")
     },
-    prerequisites = {"automobilism", "effectivity-module", "speed-module", "chemical-science-pack"},
+    prerequisites = {"automobilism", "efficiency-module", "speed-module", "chemical-science-pack"},
     unit = {
       count = 100,
       ingredients = {
@@ -28,17 +28,17 @@ data:extend({
   },
 })
 
-if mcraft_activated then
+if missile_hovercraft_activated then
   data:extend({
     {
       type = "technology",
-      name = "mcraft-tech",
+      name = "missile-hovercraft",
       icon = HCGRAPHICS .. "technology/mcraft_tech.png",
-      icon_size = 256,
+      icon_size = 256, icon_mipmaps = 1,
       effects = {
-        unlock("mcraft-recipe")
+        unlock("missile-hovercraft")
       },
-      prerequisites = {"hcraft-tech", "gun-turret", "rocketry"},
+      prerequisites = {"hovercraft", "gun-turret", "rocketry"},
       unit = {
         count = 200,
         ingredients =
@@ -55,18 +55,18 @@ if mcraft_activated then
   })
 end
 
-if ecraft_activated then
+if electric_hovercraft_activated then
   data:extend({
     {
       type = "technology",
-      name = "ecraft-tech",
+      name = "electric-hovercraft",
       icon = HCGRAPHICS .. "technology/ecraft_tech.png",
-      icon_size = 256,
+      icon_size = 256, icon_mipmaps = 1,
       effects = {
-        unlock("ecraft-recipe"),
+        unlock("electric-hovercraft"),
         unlock("ehvt-equipment"),
       },
-      prerequisites = {"hcraft-tech"},
+      prerequisites = {"hovercraft"},
       unit = {
         count = 400,
         ingredients =
@@ -83,18 +83,18 @@ if ecraft_activated then
   })
 end
 
-if lcraft_activated then
+if laser_hovercraft_activated then
   data:extend({
     {
       type = "technology",
-      name = "lcraft-tech",
+      name = "laser-hovercraft",
       icon = HCGRAPHICS .. "technology/lcraft_tech.png",
-      icon_size = 256,
+      icon_size = 256, icon_mipmaps = 1,
       effects = {
-        unlock("lcraft-recipe"),
+        unlock("laser-hovercraft"),
         unlock("lcraft-charger"),
       },
-      prerequisites = {"laser-turret", "laser-rifle-2", "nuclear-power", "ecraft-tech"},
+      prerequisites = {"laser-turret", "laser-rifle-2", "nuclear-power", "electric-hovercraft"},
       unit = {
         count = 400,
         ingredients =
